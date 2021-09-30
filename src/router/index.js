@@ -1,18 +1,12 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Login from './components/Login.vue';
-import ModerateHypovol from './components/ModerateHypovol.vue';
-import Results from './Results.vue';
-import PageOne from './components/PageOne.vue';
+import ModerateHypovol from '../components/ModerateHypovol.vue';
+import Results from '../views/Results.vue';
+import PageOne from '../components/PageOne.vue';
 
 Vue.use(VueRouter);
 
-const router = new VueRouter({
-  routes: [
-    {
-      path: '*',
-      component: Login
-    },
+const routes = [
     {
       path: '/moderate-hypovolemia',
       name: 'ModerateHypovol',
@@ -28,9 +22,11 @@ const router = new VueRouter({
       component: Results
     }
   ]
+
+const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes
 })
 
-new Vue({
-    render: h => h(App),
-    router
-  }).$mount('#app')
+export default router;
