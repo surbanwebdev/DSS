@@ -25,5 +25,8 @@ ul.footer-nav {
   bottom: 0;
   background-color: #fff;
   margin: initial;
+  font-size: 0.875rem;
+  font-family: Lato, Arial, sans-serif;
+  color: #454545;
 }
 </style>

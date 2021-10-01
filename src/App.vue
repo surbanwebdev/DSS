@@ -18,8 +18,8 @@
         </div>
         <div class="container">
           <img class="logo" alt="logo" src="./assets/logo.png" />
-          <h4 class="logo-subheading mb-4">Decision Support</h4>
-          <h3 class="greeting">Welcome Back!</h3>
+          <h4 class="logo-subheading bold-heading mb-4">Decision Support</h4>
+          <h3 class="greeting bold-heading">Welcome Back!</h3>
           <p>Sign in below with your username and password.</p>
           <form>
             <div class="form-group mb-4">
@@ -109,6 +109,11 @@ h4 {
   text-align: left;
 }
 
+.text-wrap .text-left p {
+  font-size: 0.875rem;
+  font-weight: 200;
+}
+
 .forgot {
   color: var(--daxor-blue);
   font-size: 0.875rem;
@@ -128,10 +133,7 @@ h1.light {
   font-family: 'Lato', sans-serif;
   font-size: 20px;
   font-weight: 300;
-}
-
-p {
-  font-size: 14px;
+  letter-spacing: 0.0875rem;
 }
 
 p.link {
@@ -175,10 +177,15 @@ button {
 }
 
 .container {
-  max-width: 100%;
+  max-width: 365px;
 }
 
 .bold-heading {
   font-weight: 700;
+}
+
+.btn-primary {
+  background-color: #23396b !important;
+  border: none;
 }
 </style>
