@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import ModerateHypovol from '../components/ModerateHypovol.vue';
 import Results from '../views/Results.vue';
-import PageOne from '../components/PageOne.vue';
+import Choices from '../components/Choices.vue';
 
 Vue.use(VueRouter);
 
@@ -13,9 +13,9 @@ const routes = [
       component: ModerateHypovol
     },
     {
-      path: '/page-one',
-      name: 'PageOne',
-      component: PageOne
+      path: '/choices',
+      name: 'Choices',
+      component: Choices
     },
     {
       path: '/results',

@@ -1,73 +1,91 @@
 <template>
   <div id="app">
     <div>
-      <div class="jumbotron mb-3">
-        <div class="bg-img">
-          <div class="gradient-overlay"></div>
-          <div class="container">
-            <div class="text-wrap text-left">
-              <h1 class="light">Reliable, Accurate Fluid Management Data</h1>
-              <p>
-                Daxor Decision Support is your resource for efficient, precise
-                blood volume determinations.
-              </p>
+      <div v-if="loggedIn == false" class="login">
+        <div class="jumbotron mb-3">
+          <div class="bg-img">
+            <div class="gradient-overlay"></div>
+            <div class="container">
+              <div class="text-wrap text-left">
+                <h1 class="light">Reliable, Accurate Fluid Management Data</h1>
+                <p>
+                  Daxor Decision Support is your resource for efficient, precise
+                  blood volume determinations.
+                </p>
+              </div>
             </div>
           </div>
         </div>
+        <div class="container">
+          <img class="logo" alt="logo" src="./assets/logo.png" />
+          <h4 class="logo-subheading mb-4">Decision Support</h4>
+          <h3 class="greeting">Welcome Back!</h3>
+          <p>Sign in below with your username and password.</p>
+          <form>
+            <div class="form-group mb-4">
+              <input
+                type="username"
+                class="form-control"
+                id="username"
+                placeholder="Username"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                placeholder="Password"
+              />
+              <p class="link text-left">Forgot Password?</p>
+            </div>
+            <router-link :to="{ name: 'Choices' }">
+              <button
+                @click="loggedIn = true"
+                type="submit"
+                class="btn btn-primary mb-3"
+              >
+                Log In
+              </button>
+            </router-link>
+            <p class="link">Create an account</p>
+          </form>
+        </div>
       </div>
-      <div class="container">
-        <img class="logo" alt="logo" src="./assets/logo.png" />
-        <h4 class="logo-subheading mb-4">Decision Support</h4>
-        <h3 class="greeting">Welcome Back!</h3>
-        <p>Sign in below with your username and password.</p>
-        <form>
-          <div class="form-group mb-4">
-            <input
-              type="username"
-              class="form-control"
-              id="username"
-              placeholder="Username"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              type="password"
-              class="form-control"
-              id="password"
-              placeholder="Password"
-            />
-            <p class="link text-left">Forgot Password?</p>
-          </div>
-          <router-link to="/page-one">
-            <button type="submit" class="btn btn-primary mb-3">
-              Log In
-            </button>
-          </router-link>
-          <router-view />
-          <p class="link">Create an account</p>
-        </form>
-      </div>
+      <router-view />
     </div>
   </div>
 </template>
 
+<script>
+export default {
+  data: function () {
+    return {
+      loggedIn: false,
+    }
+  },
+}
+</script>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,700;1,400&family=Lato:wght@100;300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,700;1,400&family=Lato:wght@100;300&display=swap');
+body {
+  background-color: #e5e5e5 !important;
+}
 
-  #app {
-    font-family: 'Cabin', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-  }
+#app {
+  font-family: 'Cabin', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 
-  .logo {
-    max-width: 74px;
-  }
+.logo {
+  max-width: 74px;
+}
 
-    .container {
+.container {
   max-width: 300px;
 }
 
@@ -154,5 +172,13 @@ p.link {
 button {
   background-color: #003c77;
   width: 100%;
+}
+
+.container {
+  max-width: 100%;
+}
+
+.bold-heading {
+  font-weight: 700;
 }
 </style>

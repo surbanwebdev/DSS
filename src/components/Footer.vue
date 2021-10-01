@@ -1,0 +1,29 @@
+<template>
+  <div>
+    <ul class="footer-nav">
+      <li>Contact Us</li>
+      <li>Terms of Use</li>
+      <li>Privacy Policy</li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Footer',
+}
+</script>
+
+<style scoped>
+ul.footer-nav {
+  list-style-type: none;
+  padding: 0.5rem 1rem;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 0;
+  background-color: #fff;
+  margin: initial;
+}
+</style>
