@@ -4,7 +4,7 @@
     <div class="container mt-2">
       <p class="treatment-group my-2">Treatment Group: Standard Care</p>
       <div class="card p-3">
-        <p class="bold-heading mb-1">Initial Evaluation</p>
+        <p class="bold-heading mb-1">24 Reevaluation</p>
         <p class="bold-heading indent mb-1">
           What symptoms of congestion are present?
         </p>

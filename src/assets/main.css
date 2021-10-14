@@ -1,12 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Cabin&family=Lato:wght@300;400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Lato:wght@300;400&display=swap');
 
 :root {
   font-size: 16px;
   --daxor-blue: #22376c;
   --daxor-red: #c33a1e;
   --dark: #000000;
-  --main-font: "Lato", sans-serif;
-  --copy-font: "Cabin", sans-serif;
+  --main-font: 'Lato', sans-serif;
+  --copy-font: 'Cabin', sans-serif;
   --copy-color: #696969;
 }
 
@@ -60,19 +60,19 @@ a {
 }
 
 /* GLOBAL INPUT STYLES */
-input[type="text"] {
+input[type='text'] {
   border: 3px solid var(--daxor-blue);
   padding: 0.5rem 1rem;
   font-family: var(--main-font);
   color: var(--daxor-blue);
 }
 
-input[type="text"]:focus-visible {
+input[type='text']:focus-visible {
   border-color: inherit;
   border-radius: 0;
 }
 
-input[type="button"] {
+input[type='button'] {
   min-width: 150px;
   text-transform: uppercase;
   border: none;
@@ -82,15 +82,19 @@ input[type="button"] {
   font-family: var(--main-font);
 }
 
-input[type="button"].btn-dark {
+input[type='button'].btn-dark {
   background-color: var(--daxor-blue);
 }
 
-input[type="button"].btn-dark.red {
+input[type='button'].btn-dark.red {
   background-color: var(--daxor-red);
 }
 
 /* LAYOUT */
 .full-height {
   height: 64vh;
+}
+
+.full-width {
+  width: 100%;
 }
