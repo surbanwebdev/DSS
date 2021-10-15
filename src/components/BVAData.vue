@@ -2,7 +2,7 @@
   <div>
     <Navigation />
     <div class="container mt-2">
-      <p class="treatment-group my-2">Treatment Group: Standard Care</p>
+      <p class="treatment-group my-2">Treatment Group: BVA Guided Care</p>
       <div class="card p-3">
         <div class="title-wrap d-flex align-items-center mb-2"></div>
         <p class="bold-heading mb-3">BVA-Assessment Data Entry</p>
@@ -18,7 +18,30 @@
             name: 'DailyTreatmentComplete',
           }"
         >
-          <button type="submit" class="btn btn-primary mt-3">
+          <form>
+            <div class="form-group mb-4">
+              <input
+                class="form-control"
+                id="tbv"
+                placeholder="TBV Deviation %"
+              />
+            </div>
+            <div class="form-group mb-4">
+              <input
+                class="form-control"
+                id="rbcv"
+                placeholder="RBCV Deviation %"
+              />
+            </div>
+            <div class="form-group mb-5">
+              <input
+                class="form-control"
+                id="hct"
+                placeholder="Normalized Hct (nHct)"
+              />
+            </div>
+          </form>
+          <button type="submit" class="btn btn-primary">
             Submit Evaluation
           </button>
         </router-link>
