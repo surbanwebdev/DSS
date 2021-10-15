@@ -12,10 +12,11 @@
           justify-content-between
         "
       >
-        <img class="directions" src="../assets/directions.png" alt="" />
-        <h5 class="bold-heading my-3">
-          Which treatment group would you like to employ?
-        </h5>
+        <img class="directions" src="../assets/complete.png" alt="" />
+        <h5 class="bold-heading my-3">Treatment Complete</h5>
+        <p>Begin a new course of treatment below if necessary.</p>
+        <hr class="mb-4" />
+        <p>Or begin another treatment plan now:</p>
         <router-link :to="{ name: '' }"></router-link>
         <div class="button-wrap d-flex my-3">
           <button
@@ -39,7 +40,7 @@
           </router-link>
         </div>
         <div class="treatment-btn" v-if="bvaCare == true">
-          <router-link :to="{ name: 'BVAData' }">
+          <router-link :to="{ name: '' }">
             <button type="submit" class="btn btn-primary mt-3">
               Go to BVA Treatment
             </button>
@@ -60,7 +61,7 @@ export default {
     Navigation,
     Footer,
   },
-  name: "Choices",
+  name: "TreatmentComplete",
   data: function () {
     return {
       standardCare: false,
@@ -105,7 +106,15 @@ img.directions {
   width: 100%;
 }
 
+button {
+  width: 100%;
+}
+
 .treatment-btn {
   width: 100%;
+}
+
+hr {
+  color: #979797;
 }
 </style>

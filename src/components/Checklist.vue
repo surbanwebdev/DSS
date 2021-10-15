@@ -16,9 +16,7 @@
               value=""
               id="dyspnea"
             />
-            <label class="form-check-label" for="dyspnea">
-              Dyspnea
-            </label>
+            <label class="form-check-label" for="dyspnea"> Dyspnea </label>
           </div>
           <div class="form-check mb-2">
             <input
@@ -27,9 +25,7 @@
               value=""
               id="orthopnea"
             />
-            <label class="form-check-label" for="orthopnea">
-              Orthopnea
-            </label>
+            <label class="form-check-label" for="orthopnea"> Orthopnea </label>
           </div>
           <div class="form-check mb-2">
             <input
@@ -38,9 +34,7 @@
               value=""
               id="edema"
             />
-            <label class="form-check-label" for="edema">
-              Edema
-            </label>
+            <label class="form-check-label" for="edema"> Edema </label>
           </div>
         </div>
         <p class="bold-heading indent mb-1">
@@ -54,9 +48,7 @@
               value=""
               id="rales"
             />
-            <label class="form-check-label" for="rales">
-              Rales
-            </label>
+            <label class="form-check-label" for="rales"> Rales </label>
           </div>
           <div class="form-check mb-2">
             <input
@@ -76,9 +68,7 @@
               value=""
               id="ascites"
             />
-            <label class="form-check-label" for="ascites">
-              Ascites
-            </label>
+            <label class="form-check-label" for="ascites"> Ascites </label>
           </div>
           <div class="form-check mb-2">
             <input class="form-check-input" type="checkbox" value="" id="pvc" />
@@ -99,12 +89,10 @@
               value=""
               id="orthopnea2"
             />
-            <label class="form-check-label" for="orthopnea2">
-              Orthopnea
-            </label>
+            <label class="form-check-label" for="orthopnea2"> Orthopnea </label>
           </div>
         </div>
-        <router-link :to="{ name: 'Radios' }">
+        <router-link :to="{ name: 'SymptomSeverity' }">
           <button type="submit" class="btn btn-primary mt-3">
             Submit Evaluation
           </button>
@@ -116,16 +104,16 @@
 </template>
 
 <script>
-import Navigation from './Navigation'
-import Footer from './Footer'
+import Navigation from "./Navigation";
+import Footer from "./Footer";
 
 export default {
   components: {
     Navigation,
     Footer,
   },
-  name: 'Checklist',
-}
+  name: "Checklist",
+};
 </script>
 
 <style scoped>
@@ -165,7 +153,7 @@ img.directions {
   padding-left: 0.75rem;
 }
 
-.form-check-input[type='checkbox'] {
+.form-check-input[type="checkbox"] {
   border-radius: 0;
 }
 </style>

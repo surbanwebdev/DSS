@@ -13,10 +13,16 @@
             v-on:click="congestionLevel = 'low'"
             class="form-check-label"
             for="Low"
-            style="width: 100%;"
+            style="width: 100%"
           >
             <div
-              class="radio-box d-flex align-items-center justify-content-between mt-3"
+              class="
+                radio-box
+                d-flex
+                align-items-center
+                justify-content-between
+                mt-3
+              "
             >
               <div class="content-left d-flex align-items-center">
                 <svg
@@ -63,10 +69,16 @@
             v-on:click="congestionLevel = 'high'"
             class="form-check-label"
             for="High"
-            style="width: 100%;"
+            style="width: 100%"
           >
             <div
-              class="radio-box d-flex align-items-center justify-content-between mt-3"
+              class="
+                radio-box
+                d-flex
+                align-items-center
+                justify-content-between
+                mt-3
+              "
             >
               <div class="content-left d-flex align-items-center">
                 <svg
@@ -140,21 +152,21 @@
 </template>
 
 <script>
-import Navigation from './Navigation'
-import Footer from './Footer'
+import Navigation from "./Navigation";
+import Footer from "./Footer";
 
 export default {
   components: {
     Navigation,
     Footer,
   },
-  name: 'Radios',
+  name: "SymptomSeverity",
   data: function () {
     return {
-      congestionLevel: '',
-    }
+      congestionLevel: "",
+    };
   },
-}
+};
 </script>
 
 <style scoped>

@@ -75,6 +75,7 @@
             <div
               class="
                 radio-box
+                no-border
                 d-flex
                 align-items-center
                 justify-content-between
@@ -96,52 +97,12 @@
               </div>
             </div>
           </label>
-
-          <label
-            style="width: 100%"
-            v-on:click="(optionA = false), (optionB = true)"
-          >
-            <div
-              class="
-                radio-box
-                no-border
-                d-flex
-                align-items-center
-                justify-content-between
-                py-3
-                px-2
-              "
-            >
-              <div class="content-left d-flex align-items-center">
-                Consider ending IV treatment and change to oral diuretics
-              </div>
-              <div class="content-right">
-                <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="flexRadioDefault"
-                  />
-                </div>
-              </div>
-            </div>
-          </label>
         </div>
-        <!-- BUTTONS WILL NOT BE VISIBLE UNTIL USER SELECTS AN OPTION -->
-        <div class="treatment-btn" v-if="optionA == true">
-          <router-link :to="{ name: 'Post24Checklist' }">
-            <button type="submit" class="btn btn-primary mt-3">
-              Go to 24hr
-            </button>
-          </router-link>
-        </div>
-        <div class="treatment-btn" v-if="optionB == true">
-          <router-link :to="{ name: 'IVTreatmentEval' }">
-            <button type="submit" class="btn btn-primary mt-3">
-              Go to IV Treatment
-            </button>
-          </router-link>
-        </div>
+        <router-link :to="{ name: 'DryWeightConfirm' }">
+          <button type="submit" class="btn btn-primary mt-3">
+            Select Strategy
+          </button>
+        </router-link>
       </div>
     </div>
     <Footer />
@@ -157,7 +118,7 @@ export default {
     Navigation,
     Footer,
   },
-  name: "SelectStrategy",
+  name: "SelectStrategyTrunc",
   // methods: {
   //   addClassToLast: function () {
   //     var lastItem = this.strategies.pop()

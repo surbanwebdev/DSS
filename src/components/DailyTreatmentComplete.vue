@@ -21,7 +21,7 @@
         </router-link>
         <hr class="mb-4" />
         <p>Or begin another treatment plan now:</p>
-        <router-link :to="{ name: 'ModerateHypovol' }"></router-link>
+        <router-link :to="{ name: '' }"></router-link>
         <div class="button-wrap d-flex my-3">
           <button
             v-on:click=";(standardCare = true), (bvaCare = false)"
@@ -44,7 +44,7 @@
           </router-link>
         </div>
         <div class="treatment-btn" v-if="bvaCare == true">
-          <router-link :to="{ name: 'ModerateHypovol' }">
+          <router-link :to="{ name: '' }">
             <button type="submit" class="btn btn-primary mt-3">
               Go to BVA Treatment
             </button>

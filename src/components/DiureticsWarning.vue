@@ -1,0 +1,99 @@
+<template>
+  <div>
+    <Navigation />
+    <div class="container mt-2">
+      <p class="treatment-group my-2">Treatment Group: Standard Care</p>
+      <div class="card p-3">
+        <div class="title-wrap d-flex align-items-center mb-3">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.99998 20V14C3.99998 11.8783 4.84284 9.84344 6.34313 8.34315C7.84342 6.84285 9.87825 6 12 6C14.1217 6 16.1565 6.84285 17.6568 8.34315C19.1571 9.84344 20 11.8783 20 14V20H21V22H2.99998V20H3.99998ZM5.99998 20H18V14C18 12.4087 17.3678 10.8826 16.2426 9.75736C15.1174 8.63214 13.5913 8 12 8C10.4087 8 8.88256 8.63214 7.75734 9.75736C6.63212 10.8826 5.99998 12.4087 5.99998 14V20ZM11 2H13V5H11V2ZM19.778 4.808L21.192 6.222L19.072 8.343L17.657 6.929L19.778 4.808ZM2.80798 6.222L4.22198 4.808L6.34298 6.928L4.92998 8.344L2.80798 6.222ZM6.99998 14C6.99998 12.6739 7.52677 11.4021 8.46445 10.4645C9.40213 9.52678 10.6739 9 12 9V11C11.2043 11 10.4413 11.3161 9.87866 11.8787C9.31605 12.4413 8.99998 13.2044 8.99998 14H6.99998Z"
+              fill="#ED6802"
+            />
+          </svg>
+
+          <h5 class="blue-heading m-0">Diuretics Advisory</h5>
+        </div>
+        <p class="bold-heading mb-3">
+          Hold Diuretics until stability (sCR, UO, & HD) for at least 12 hours.
+        </p>
+        <p>
+          If elevated sCr or HD instability persists, then consider bolus of IV
+          fluid
+        </p>
+        <router-link
+          :to="{
+            name: 'IVTreatment2',
+          }"
+        >
+          <button type="submit" class="btn btn-primary mt-3">
+            Acknowledge Advisory
+          </button>
+        </router-link>
+      </div>
+    </div>
+    <Footer />
+  </div>
+</template>
+
+<script>
+import Navigation from "../components/Navigation.vue";
+import Footer from "../components/Footer.vue";
+
+export default {
+  components: {
+    Navigation,
+    Footer,
+  },
+  name: "DiureticsWarning",
+  data: function () {
+    return {
+      congestionLevel: this.$route.params.congestionLevel,
+    };
+  },
+};
+</script>
+
+<style scoped>
+.card {
+  border: none;
+  border-top: 1rem solid #ed6802;
+  background: #fff;
+  text-align: left;
+}
+
+.card > p,
+.treatment-group {
+  margin-bottom: 0;
+}
+
+.treatment-group {
+  text-align: right;
+  font-size: 0.875rem;
+}
+
+.button-wrap {
+  width: 100%;
+}
+
+.radio-box {
+  width: 100%;
+  padding: 1.5rem 1rem;
+  border: 1px solid #979797;
+  border-radius: 0.25rem;
+}
+
+.blue-heading {
+  color: #ed6802;
+}
+
+svg {
+  margin-right: 0.75rem;
+}
+</style>

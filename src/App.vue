@@ -61,20 +61,21 @@
 export default {
   data: function () {
     return {
-      loggedIn: false,
-    }
+      // TEMPORARILY SET TO TRUE SO LOGIN SCREEN DOESN'T APPEAR EVERY REFRESH
+      loggedIn: true,
+    };
   },
-}
+};
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,700;1,400&family=Lato:wght@100;300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,700;1,400&family=Lato:wght@100;300&display=swap");
 body {
   background-color: #e5e5e5 !important;
 }
 
 #app {
-  font-family: 'Cabin', sans-serif;
+  font-family: "Cabin", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -83,10 +84,6 @@ body {
 
 .logo {
   max-width: 74px;
-}
-
-.container {
-  max-width: 300px;
 }
 
 h3,
@@ -130,7 +127,7 @@ h4 {
 }
 
 h1.light {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-size: 20px;
   font-weight: 300;
   letter-spacing: 0.0875rem;
@@ -147,7 +144,7 @@ p.link {
 
 .bg-img {
   padding: 2.5rem 0;
-  background-image: url('./assets/lab.jpg');
+  background-image: url("./assets/lab.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -174,10 +171,6 @@ p.link {
 button {
   background-color: #003c77;
   width: 100%;
-}
-
-.container {
-  max-width: 365px;
 }
 
 .bold-heading {

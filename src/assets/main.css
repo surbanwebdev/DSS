@@ -98,3 +98,35 @@ input[type='button'].btn-dark.red {
 .full-width {
   width: 100%;
 }
+
+.blue-heading {
+  font-family: 'Cabin', sans-serif;
+  font-weight: 600;
+  color: #456bb1;
+  font-size: 1.125rem;
+}
+
+.content-left {
+  padding-right: 1rem;
+}
+
+.container {
+  max-width: 600px !important;
+}
+
+.link {
+  color: #0e71eb;
+}
+
+hr {
+  width: 100%;
+  height: 2px !important;
+}
+
+.btn {
+  padding: 0.875rem 0.75rem !important;
+}
+
+.button.choice:active {
+  background-color: var(red);
+}

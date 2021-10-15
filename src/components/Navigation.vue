@@ -2,7 +2,10 @@
   <div>
     <div class="nav d-flex justify-content-between">
       <div class="nav-left d-flex">
-        <img class="logo" src="../assets/logo-white.png" alt="" />
+        <router-link :to="{ name: 'Choices' }">
+          <img class="logo" src="../assets/logo-white.png" alt="" />
+        </router-link>
+
         <h6>Decision Support</h6>
       </div>
 
@@ -15,8 +18,8 @@
 
 <script>
 export default {
-  name: 'Navigation',
-}
+  name: "Navigation",
+};
 </script>
 
 <style scoped>
