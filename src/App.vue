@@ -62,7 +62,7 @@ export default {
   data: function () {
     return {
       // TEMPORARILY SET TO TRUE SO LOGIN SCREEN DOESN'T APPEAR EVERY REFRESH
-      loggedIn: true,
+      loggedIn: false,
     };
   },
 };

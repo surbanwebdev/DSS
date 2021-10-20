@@ -17,6 +17,9 @@ import IVTreatment2 from '../components/IVTreatment2.vue'
 import CompletionPlan from '../components/CompletionPlan.vue'
 import TreatmentComplete from '../components/TreatmentComplete.vue'
 import BVAData from '../components/BVAData.vue'
+import BVADataConf from '../components/BVADataConf.vue'
+import BVADataConf2 from '../components/BVADataConf2.vue'
+
 
 Vue.use(VueRouter)
 
@@ -108,6 +111,16 @@ const routes = [
     path: '/bva-data',
     name: 'BVAData',
     component: BVAData,
+  },
+  {
+    path: '/bva-data-conf',
+    name: 'BVADataConf',
+    component: BVADataConf,
+  },
+  {
+    path: '/bva-data-conf-2/:confirm1/:confirm2',
+    name: 'BVADataConf2',
+    component: BVADataConf2,
   },
 ]
 
