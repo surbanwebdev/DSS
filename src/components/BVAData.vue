@@ -13,41 +13,96 @@
         <p class="mb-4">
           Make sure to include minus signs (-) for negative deviations.
         </p>
-        <form>
+        <form @submit="checkForm" method="post" novalidate="true">
+          <p v-if="errors.length">
+            <ul class="error-list">
+              <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+            </ul>
+          </p>
+
           <div class="form-group">
             <input
+              id="tbv"
+              v-model.number="tbv"
+              type="number"
+              min="10"
+              max="40"
+              maxlength="2"
+              class="form-control"
+              placeholder="TBV Deviation %"
+              required
+            />
+            <label class="form-label" for="tbv">TBV Deviation %</label>
+          </div>
+
+          <div class="form-group">
+            <input
+              id="rbcv"
+              v-model.number="rbcv"
+              type="number"
+              class="form-control"
+              placeholder="RBCV Deviation %"
+              required
+            />
+            <label class="form-label" for="rbcv">RBCV Deviation %</label>
+          </div>
+
+          <div class="form-group mb-1">
+            <input
+              v-model.number="nHct"
+              id="nHct"
+              type="number"
+              class="form-control"
+              placeholder="Normalized Hct (nHct)"
+              required
+            />
+            <label class="form-label" for="hct">Normalized Hct (nHct)</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+        </form>
+        <!-- <form @submit="validateForm" action="https://vuejs.org/" method="post">
+          <div class="form-group">
+            <input
+              type="number"
+              min="10"
+              max="40"
               class="form-control"
               id="tbv"
               placeholder="TBV Deviation %"
+              required
             />
             <label class="form-label" for="tbv">TBV Deviation %</label>
           </div>
           <div class="form-group">
             <input
+              type="number"
               class="form-control"
               id="rbcv"
               placeholder="RBCV Deviation %"
+              required
             />
             <label class="form-label" for="rbcv">RBCV Deviation %</label>
           </div>
           <div class="form-group mb-1">
             <input
+              type="number"
               class="form-control"
               id="hct"
               placeholder="Normalized Hct (nHct)"
+              required
             />
             <label class="form-label" for="hct">Normalized Hct (nHct)</label>
           </div>
-        </form>
-        <router-link
+        </form> -->
+
+        <!-- <router-link
           :to="{
             name: 'BVADataConf',
           }"
-        >
-          <button type="submit" class="btn btn-primary">
-            Submit Evaluation
-          </button>
-        </router-link>
+        > -->
+        <!-- <input type="submit" class="btn btn-primary" /> -->
+        <!-- </router-link> -->
       </div>
     </div>
     <Footer />
@@ -63,12 +118,36 @@ export default {
     Navigation,
     Footer,
   },
-  name: "SuggestedTreatment",
-  methods: {},
+  name: "BVAData",
   data: function () {
     return {
       congestionLevel: this.$route.params.congestionLevel,
+      tbv: null,
+      rbcv: null,
+      nHct: null,
+      errors: [],
     };
+  },
+  methods: {
+    checkForm: function (e) {
+      if (this.tbv && this.rbcv) {
+        return true;
+      }
+
+      this.errors = [];
+
+      if (!this.tbv) {
+        this.errors.push("TBV required");
+      }
+      if (!this.rbcv) {
+        this.errors.push("RBCV required.");
+      }
+      if (!this.rbcv) {
+        this.errors.push("nHct required.");
+      }
+
+      e.preventDefault();
+    },
   },
 };
 </script>
@@ -119,7 +198,7 @@ input {
 .form-label {
   font-size: 1rem;
   margin-left: 0.5rem;
-  color: #aaa;
+  color: #979797;
   opacity: 1;
   transform: translateY(-1.9rem);
   transform-origin: -1.5em -1.75em;
@@ -142,5 +221,12 @@ input {
 
 .form-control:focus-within {
   transform: scale(1.025, 1.025);
+}
+
+/* VALIDATION STYLES */
+.error-list {
+  list-style-type: none;
+  color: red;
+  padding: 0;
 }
 </style>
