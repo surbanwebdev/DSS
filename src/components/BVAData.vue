@@ -13,10 +13,10 @@
         <p class="mb-4">
           Make sure to include minus signs (-) for negative deviations.
         </p>
-        <form @submit="checkForm" method="post" novalidate="true">
+        <form>
           <p v-if="errors.length">
-            <ul class="error-list">
-              <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+            <ul class="error-list d-flex flex-column align-items-center">
+              <li class="text-center" v-for="(error, index) in errors" :key="index">{{ error }}</li>
             </ul>
           </p>
 
@@ -56,53 +56,17 @@
               placeholder="Normalized Hct (nHct)"
               required
             />
-            <label class="form-label" for="hct">Normalized Hct (nHct)</label>
+            <label class="form-label" for="nHct">Normalized Hct (nHct)</label>
           </div>
-
-          <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+          <div v-if="tbv && rbcv && nHct">
+            <router-link :to="{ name: 'BVADataConf', params: { tbv: this.tbv, rbcv: this.rbcv, nHct: this.nHct} }">
+              <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+            </router-link>
+          </div>
+          <div v-else>
+            <button type="submit" class="btn btn-primary disabled" value="Submit">Submit Evaluation</button>
+          </div>
         </form>
-        <!-- <form @submit="validateForm" action="https://vuejs.org/" method="post">
-          <div class="form-group">
-            <input
-              type="number"
-              min="10"
-              max="40"
-              class="form-control"
-              id="tbv"
-              placeholder="TBV Deviation %"
-              required
-            />
-            <label class="form-label" for="tbv">TBV Deviation %</label>
-          </div>
-          <div class="form-group">
-            <input
-              type="number"
-              class="form-control"
-              id="rbcv"
-              placeholder="RBCV Deviation %"
-              required
-            />
-            <label class="form-label" for="rbcv">RBCV Deviation %</label>
-          </div>
-          <div class="form-group mb-1">
-            <input
-              type="number"
-              class="form-control"
-              id="hct"
-              placeholder="Normalized Hct (nHct)"
-              required
-            />
-            <label class="form-label" for="hct">Normalized Hct (nHct)</label>
-          </div>
-        </form> -->
-
-        <!-- <router-link
-          :to="{
-            name: 'BVADataConf',
-          }"
-        > -->
-        <!-- <input type="submit" class="btn btn-primary" /> -->
-        <!-- </router-link> -->
       </div>
     </div>
     <Footer />
@@ -128,27 +92,7 @@ export default {
       errors: [],
     };
   },
-  methods: {
-    checkForm: function (e) {
-      if (this.tbv && this.rbcv) {
-        return true;
-      }
-
-      this.errors = [];
-
-      if (!this.tbv) {
-        this.errors.push("TBV required");
-      }
-      if (!this.rbcv) {
-        this.errors.push("RBCV required.");
-      }
-      if (!this.rbcv) {
-        this.errors.push("nHct required.");
-      }
-
-      e.preventDefault();
-    },
-  },
+  methods: {},
 };
 </script>
 

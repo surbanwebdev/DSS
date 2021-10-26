@@ -6,21 +6,18 @@
       <form>
         <div class="card p-3">
           <p class="bold-heading mb-2">BVA-Assessment Data Confirmation</p>
-          <p>Select which categories apply:</p>
           <div id="radio-box-wrap-1" class="radio-box-wrap py-3 px-2">
-            <!-- I WOULD LIKE TO GET THESE IN A DYNAMIC LOOP BUT I RUN INTO ISSUE WHEN SELECTING AN OPTION -->
-            <label
-              class="underline"
-              style="width: 100%"
-              v-on:click="confirm1 = 'severeOverload'"
-            >
+            <!-- SEVERE OVERLOAD -->
+            <label class="underline" style="width: 100%">
               <div
+                v-if="tbv > 30"
                 class="
                   radio-box
                   d-flex
                   align-items-center
                   justify-content-between
                   p-2
+                  alert-danger
                 "
               >
                 <div
@@ -30,25 +27,41 @@
                 </div>
                 <div class="content-right d-flex align-items-center">
                   <p class="my-0 mx-3 spec">TBV > +30%</p>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="flexRadioDefault"
-                    />
-                  </div>
                 </div>
               </div>
-            </label>
-
-            <label style="width: 100%" v-on:click="confirm1 = 'mildOverload'">
               <div
+                v-else
                 class="
                   radio-box
                   d-flex
                   align-items-center
                   justify-content-between
                   p-2
+                  disable-opacity
+                "
+              >
+                <div
+                  class="content-left d-flex align-items-center bold-heading"
+                >
+                  Severe overload
+                </div>
+                <div class="content-right d-flex align-items-center">
+                  <p class="my-0 mx-3 spec">TBV > +30%</p>
+                </div>
+              </div>
+            </label>
+
+            <!-- MILD OVERLOAD -->
+            <label style="width: 100%">
+              <div
+                v-if="tbv > 10 && tbv <= 30"
+                class="
+                  radio-box
+                  d-flex
+                  align-items-center
+                  justify-content-between
+                  p-2
+                  alert-warning
                 "
               >
                 <div
@@ -58,25 +71,41 @@
                 </div>
                 <div class="content-right d-flex align-items-center">
                   <p class="my-0 mx-3 spec">10% &#60; TBV &#60;= +30%</p>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="flexRadioDefault"
-                    />
-                  </div>
                 </div>
               </div>
-            </label>
-
-            <label style="width: 100%" v-on:click="confirm1 = 'bvaEuvolemic'">
               <div
+                v-else
                 class="
                   radio-box
                   d-flex
                   align-items-center
                   justify-content-between
                   p-2
+                  disable-opacity
+                "
+              >
+                <div
+                  class="content-left d-flex align-items-center bold-heading"
+                >
+                  Mild Overload
+                </div>
+                <div class="content-right d-flex align-items-center">
+                  <p class="my-0 mx-3 spec">10% &#60; TBV &#60;= +30%</p>
+                </div>
+              </div>
+            </label>
+
+            <!-- BVA EUVOLEMIC -->
+            <label style="width: 100%">
+              <div
+                v-if="tbv >= -10 && tbv <= 10"
+                class="
+                  radio-box
+                  d-flex
+                  align-items-center
+                  justify-content-between
+                  p-2
+                  alert-success
                 "
               >
                 <div
@@ -86,19 +115,34 @@
                 </div>
                 <div class="content-right d-flex align-items-center">
                   <p class="my-0 mx-3 spec">-10% &#60;= TBV &#60;= +10%</p>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="flexRadioDefault"
-                    />
-                  </div>
+                </div>
+              </div>
+              <div
+                v-else
+                class="
+                  radio-box
+                  d-flex
+                  align-items-center
+                  justify-content-between
+                  p-2
+                  disable-opacity
+                "
+              >
+                <div
+                  class="content-left d-flex align-items-center bold-heading"
+                >
+                  BVA euvolemic
+                </div>
+                <div class="content-right d-flex align-items-center">
+                  <p class="my-0 mx-3 spec">-10% &#60;= TBV &#60;= +10%</p>
                 </div>
               </div>
             </label>
 
-            <label style="width: 100%" v-on:click="confirm1 = 'bvaEuvolemic'">
+            <!-- HYPOVOLEMIC -->
+            <label style="width: 100%">
               <div
+                v-if="tbv < -10"
                 class="
                   radio-box
                   no-border
@@ -106,6 +150,7 @@
                   align-items-center
                   justify-content-between
                   p-2
+                  alert-danger
                 "
               >
                 <div
@@ -115,13 +160,28 @@
                 </div>
                 <div class="content-right d-flex align-items-center">
                   <p class="my-0 mx-3 spec">TBV &#60; -10%</p>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="flexRadioDefault"
-                    />
-                  </div>
+                </div>
+              </div>
+
+              <div
+                v-else
+                class="
+                  radio-box
+                  no-border
+                  d-flex
+                  align-items-center
+                  justify-content-between
+                  p-2
+                  disable-opacity
+                "
+              >
+                <div
+                  class="content-left d-flex align-items-center bold-heading"
+                >
+                  Hypovolemic
+                </div>
+                <div class="content-right d-flex align-items-center">
+                  <p class="my-0 mx-3 spec">TBV &#60; -10%</p>
                 </div>
               </div>
             </label>
@@ -130,21 +190,18 @@
       </form>
       <form>
         <div class="card p-3 mt-1">
-          <p>Select which categories apply:</p>
           <div id="radio-box-wrap-2" class="radio-box-wrap py-3 px-2">
-            <!-- I WOULD LIKE TO GET THESE IN A DYNAMIC LOOP BUT I RUN INTO ISSUE WHEN SELECTING AN OPTION -->
-            <label
-              class="underline"
-              style="width: 100%"
-              v-on:click="confirm2 = 'bvaEuvolemic'"
-            >
+            <!-- TRUE ANEMIA -->
+            <label class="underline" style="width: 100%">
               <div
+                v-if="rbcv < -10"
                 class="
                   radio-box
                   d-flex
                   align-items-center
                   justify-content-between
                   p-2
+                  alert-danger
                 "
               >
                 <div
@@ -154,25 +211,42 @@
                 </div>
                 <div class="content-right d-flex align-items-center">
                   <p class="my-0 mx-3 spec">RBCV &#60; -10%</p>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="flexRadioDefault"
-                    />
-                  </div>
                 </div>
               </div>
-            </label>
 
-            <label style="width: 100%">
               <div
+                v-else
                 class="
                   radio-box
                   d-flex
                   align-items-center
                   justify-content-between
                   p-2
+                  disable-opacity
+                "
+              >
+                <div
+                  class="content-left d-flex align-items-center bold-heading"
+                >
+                  True anemic
+                </div>
+                <div class="content-right d-flex align-items-center">
+                  <p class="my-0 mx-3 spec">RBCV &#60; -10%</p>
+                </div>
+              </div>
+            </label>
+
+            <!-- NORMAL RED CELL VOLUME -->
+            <label style="width: 100%">
+              <div
+                v-if="rbcv >= -10 && rbcv < 10"
+                class="
+                  radio-box
+                  d-flex
+                  align-items-center
+                  justify-content-between
+                  p-2
+                  alert-success
                 "
               >
                 <div
@@ -182,19 +256,34 @@
                 </div>
                 <div class="content-right d-flex align-items-center">
                   <p class="my-0 mx-3 spec">-10% &#60;= RBCV &#60;= +10%</p>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="flexRadioDefault"
-                    />
-                  </div>
+                </div>
+              </div>
+
+              <div
+                v-else
+                class="
+                  radio-box
+                  d-flex
+                  align-items-center
+                  justify-content-between
+                  p-2
+                  disable-opacity
+                "
+              >
+                <div
+                  class="content-left d-flex align-items-center bold-heading"
+                >
+                  Normal Red Cell Volume
+                </div>
+                <div class="content-right d-flex align-items-center">
+                  <p class="my-0 mx-3 spec">-10% &#60;= RBCV &#60;= +10%</p>
                 </div>
               </div>
             </label>
 
             <label style="width: 100%">
               <div
+                v-if="rbcv > 10"
                 class="
                   radio-box
                   d-flex
@@ -202,6 +291,7 @@
                   no-border
                   justify-content-between
                   p-2
+                  alert-danger
                 "
               >
                 <div
@@ -211,13 +301,28 @@
                 </div>
                 <div class="content-right d-flex align-items-center">
                   <p class="my-0 mx-3 spec">RBCV > +10%</p>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="flexRadioDefault"
-                    />
-                  </div>
+                </div>
+              </div>
+
+              <div
+                v-else
+                class="
+                  radio-box
+                  d-flex
+                  align-items-center
+                  no-border
+                  justify-content-between
+                  p-2
+                  disable-opacity
+                "
+              >
+                <div
+                  class="content-left d-flex align-items-center bold-heading"
+                >
+                  True polycythemic
+                </div>
+                <div class="content-right d-flex align-items-center">
+                  <p class="my-0 mx-3 spec">RBCV > +10%</p>
                 </div>
               </div>
             </label>
@@ -227,14 +332,20 @@
     </div>
     <div class="treatment-btn container">
       <router-link
+        v-if="tbv > 10 && rbcv > 10"
         :to="{
-          name: 'BVADataConf2',
-          params: { confirm1: this.confirm1, confirm2: this.confirm2 },
+          name: '',
         }"
       >
-        <button type="submit" class="btn btn-primary mt-3">
-          Submit Evaluation
-        </button>
+        <button type="submit" class="btn btn-primary mt-3">Confirm</button>
+      </router-link>
+      <router-link
+        v-else
+        :to="{
+          name: '',
+        }"
+      >
+        <button type="submit" class="btn btn-primary mt-3">Confirm</button>
       </router-link>
     </div>
     <Footer />
@@ -261,8 +372,9 @@ export default {
   //   },
   data: function () {
     return {
-      confirm1: "",
-      confirm2: "",
+      tbv: this.$route.params.tbv,
+      rbcv: this.$route.params.rbcv,
+      nHtc: this.$route.params.nHtc,
     };
   },
 };
@@ -304,5 +416,9 @@ svg {
 .spec {
   font-size: 0.875rem;
   text-align: right;
+}
+
+.disable-opacity {
+  opacity: 0.25;
 }
 </style>
