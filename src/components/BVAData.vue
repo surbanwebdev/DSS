@@ -25,9 +25,6 @@
               id="tbv"
               v-model.number="tbv"
               type="number"
-              min="10"
-              max="40"
-              maxlength="2"
               class="form-control"
               placeholder="TBV Deviation %"
               required

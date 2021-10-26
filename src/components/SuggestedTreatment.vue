@@ -35,6 +35,20 @@
           </p>
           <p>Reevaluate in 24 hours.</p>
         </div>
+        <div v-if="!tbvHigh">
+          <p class="bold-heading">Mild Overload</p>
+          <p>
+            Based on TBV deviation of {{ tbv }}%, recommend 1x outpatient oral
+            dose by continuous infusion.
+          </p>
+        </div>
+        <div v-if="tbvHigh">
+          <p class="bold-heading">Severe Overload</p>
+          <p>
+            Based on TBV deviation of {{ tbv }}%, recommend 2.5x outpatient oral
+            dose by continuous infusion.
+          </p>
+        </div>
         <router-link
           :to="{
             name: 'DailyTreatmentComplete',
@@ -63,6 +77,8 @@ export default {
   data: function () {
     return {
       congestionLevel: this.$route.params.congestionLevel,
+      tbv: this.$route.params.tbv,
+      tbvHigh: this.$route.params.tbvHigh,
     };
   },
 };

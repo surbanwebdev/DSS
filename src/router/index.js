@@ -19,6 +19,7 @@ import TreatmentComplete from '../components/TreatmentComplete.vue'
 import BVAData from '../components/BVAData.vue'
 import BVADataConf from '../components/BVADataConf.vue'
 import BVADataConf2 from '../components/BVADataConf2.vue'
+import InitialHypervolemia from '../components/InitialHypervolemia.vue'
 
 
 Vue.use(VueRouter)
@@ -63,7 +64,7 @@ const routes = [
     component: Results,
   },
   {
-    path: '/suggested-treatment/:congestionLevel',
+    path: '/suggested-treatment/:congestionLevel/:tbvLevel',
     name: 'SuggestedTreatment',
     component: SuggestedTreatment,
   },
@@ -121,6 +122,11 @@ const routes = [
     path: '/bva-data-conf-2/:confirm1/:confirm2',
     name: 'BVADataConf2',
     component: BVADataConf2,
+  },
+  {
+    path: '/initial-hypervolemia',
+    name: 'InitialHypervolemia',
+    component: InitialHypervolemia,
   },
 ]
 
