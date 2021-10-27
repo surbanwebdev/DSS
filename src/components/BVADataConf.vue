@@ -331,6 +331,7 @@
       </form>
     </div>
     <div class="treatment-btn container">
+      <!-- RBCV MAY NEED TO BE CHANGED TO ANOTHER VALUE IN THE FUTURE -->
       <router-link
         v-if="tbv > 10 && rbcv > 10"
         :to="{
@@ -343,7 +344,7 @@
       <router-link
         v-else
         :to="{
-          name: 'InitialHypervolemia',
+          name: 'Hypertensive',
           params: { tbv: this.tbv },
         }"
       >

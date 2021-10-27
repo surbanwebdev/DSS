@@ -20,6 +20,7 @@ import BVAData from '../components/BVAData.vue'
 import BVADataConf from '../components/BVADataConf.vue'
 import BVADataConf2 from '../components/BVADataConf2.vue'
 import InitialHypervolemia from '../components/InitialHypervolemia.vue'
+import Hypertensive from '../components/Hypertensive.vue'
 
 
 Vue.use(VueRouter)
@@ -127,6 +128,11 @@ const routes = [
     path: '/initial-hypervolemia',
     name: 'InitialHypervolemia',
     component: InitialHypervolemia,
+  },
+  {
+    path: '/hypertensive',
+    name: 'Hypertensive',
+    component: Hypertensive,
   },
 ]
 

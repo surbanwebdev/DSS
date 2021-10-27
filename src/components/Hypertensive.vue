@@ -1,0 +1,151 @@
+ <template>
+  <div>
+    <Navigation />
+    <div class="container mt-2">
+      <p class="treatment-group my-2">Treatment Group: BVA-Guided Care</p>
+      <div class="card p-3">
+        <p class="bold-heading mb-1">Is the patient hypertensive?</p>
+        <div class="radio-box-wrap">
+          <!-- PARENT LABEL WILL ACTIVATE INNER RADIO BUTTON -->
+          <label
+            v-on:click="congestionLevel = 'low'"
+            class="form-check-label"
+            for="Low"
+            style="width: 100%"
+          >
+            <div
+              class="
+                radio-box
+                d-flex
+                align-items-center
+                justify-content-between
+                mt-3
+              "
+            >
+              <div class="content-left d-flex align-items-center">
+                Yes, hypertension is present
+              </div>
+              <div class="content-right">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="flexRadioDefault"
+                    id="Low"
+                  />
+                </div>
+              </div>
+            </div>
+          </label>
+          <!-- PARENT LABEL WILL ACTIVATE INNER RADIO BUTTON -->
+          <label
+            v-on:click="congestionLevel = 'high'"
+            class="form-check-label"
+            for="High"
+            style="width: 100%"
+          >
+            <div
+              class="
+                radio-box
+                d-flex
+                align-items-center
+                justify-content-between
+                mt-3
+              "
+            >
+              <div class="content-left d-flex align-items-center">
+                No, the patient is not hypertensive
+              </div>
+              <div class="content-right">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="flexRadioDefault"
+                    id="High"
+                  />
+                </div>
+              </div>
+            </div>
+          </label>
+        </div>
+        <div v-if="congestionLevel == 'low'" class="assessment-btn">
+          <router-link
+            :to="{
+              name: 'SuggestedTreatment',
+              params: { congestionLevel: this.congestionLevel },
+            }"
+          >
+            <button type="submit" class="btn btn-primary mt-3">
+              Submit Assessment
+            </button>
+          </router-link>
+        </div>
+        <div v-if="congestionLevel == 'high'" class="assessment-btn">
+          <router-link
+            :to="{
+              name: 'SuggestedTreatment',
+              params: { congestionLevel: this.congestionLevel },
+            }"
+          >
+            <button type="submit" class="btn btn-primary mt-3">
+              Submit Assessment
+            </button>
+          </router-link>
+        </div>
+      </div>
+    </div>
+    <Footer />
+  </div>
+</template>
+
+<script>
+import Navigation from "./Navigation";
+import Footer from "./Footer";
+
+export default {
+  components: {
+    Navigation,
+    Footer,
+  },
+  name: "Hypertensive",
+  data: function () {
+    return {
+      congestionLevel: "",
+    };
+  },
+};
+</script>
+
+<style scoped>
+.card {
+  border: none;
+  background: #fff;
+  text-align: left;
+}
+
+.card > p,
+.treatment-group {
+  margin-bottom: 0;
+}
+
+.treatment-group {
+  text-align: right;
+  font-size: 0.875rem;
+}
+
+.button-wrap {
+  width: 100%;
+}
+
+.radio-box {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-bottom: 1px solid #979797;
+}
+
+svg {
+  margin-right: 0.75rem;
+}
+</style>

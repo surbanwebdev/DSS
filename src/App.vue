@@ -181,8 +181,4 @@ button {
   background-color: #23396b !important;
   border: none;
 }
-
-@media (max-width: 800px) {
-  background-color: red !important;
-}
 </style>
