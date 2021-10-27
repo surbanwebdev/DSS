@@ -62,7 +62,7 @@ export default {
   data: function () {
     return {
       // TEMPORARILY SET TO TRUE SO LOGIN SCREEN DOESN'T APPEAR EVERY REFRESH
-      loggedIn: true,
+      loggedIn: false,
     };
   },
 };
@@ -130,7 +130,7 @@ h1.light {
   font-family: "Lato", sans-serif;
   font-size: 20px;
   font-weight: 300;
-  letter-spacing: 0.0875rem;
+  letter-spacing: 0.0375rem;
 }
 
 p.link {
@@ -180,5 +180,9 @@ button {
 .btn-primary {
   background-color: #23396b !important;
   border: none;
+}
+
+@media (max-width: 800px) {
+  background-color: red !important;
 }
 </style>
