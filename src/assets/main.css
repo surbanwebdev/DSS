@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cabin&family=Lato:wght@300;400&display=swap');
 
 :root {
-  font-size: 16px;
+  font-size: 1rem;
   --daxor-blue: #22376c;
   --daxor-red: #c33a1e;
   --dark: #000000;
@@ -134,6 +134,6 @@ hr {
 /* INCREASES GLOBAL FONT SIZE ON TABLETS */
 @media screen and (min-width: 900px) {
   :root {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 }
