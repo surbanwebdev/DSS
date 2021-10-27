@@ -8,6 +8,7 @@ import 'bootstrap/dist/js/bootstrap.js';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import VueCompositionAPI from '@vue/composition-api'
 import Vuelidate from 'vuelidate';
+import VueMq from 'vue-mq'
  
 import {
   faShoppingCart,
@@ -25,6 +26,15 @@ Vue.config.productionTip = false;
 Vue.use(VueCompositionAPI)
 
 Vue.use(Vuelidate)
+
+Vue.use(VueMq, {
+  breakpoints: {
+    mobile: 450,
+    tablet: 900,
+    laptop: 1250,
+    desktop: Infinity,
+  }
+})
 
 new Vue({
   router,

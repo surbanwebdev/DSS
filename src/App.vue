@@ -2,8 +2,8 @@
   <div id="app">
     <div>
       <div v-if="loggedIn == false" class="login">
-        <div class="jumbotron mb-3">
-          <div class="bg-img">
+        <div class="jumbotron mb-4">
+          <div class="bg-img py-5">
             <div class="gradient-overlay"></div>
             <div class="container">
               <div class="text-wrap text-left">
@@ -83,7 +83,7 @@ body {
 }
 
 .logo {
-  max-width: 74px;
+  max-width: 4.625rem;
 }
 
 h3,
@@ -93,13 +93,13 @@ h4 {
 
 .logo-subheading {
   color: #454545;
-  font-size: 16px;
+  font-size: 1rem;
   text-transform: uppercase;
 }
 
 .greeting {
   color: #003c77;
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .text-left {
@@ -117,10 +117,6 @@ h4 {
   text-decoration: underline;
 }
 
-.subtitle {
-  max-width: 600px;
-}
-
 .jumbotron h1,
 .jumbotron p {
   color: #fff;
@@ -128,14 +124,14 @@ h4 {
 
 h1.light {
   font-family: "Lato", sans-serif;
-  font-size: 20px;
+  font-size: 1.5rem;
   font-weight: 300;
   letter-spacing: 0.0375rem;
 }
 
 p.link {
   color: #0d6efd;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .jumbotron {
@@ -143,7 +139,7 @@ p.link {
 }
 
 .bg-img {
-  padding: 2.5rem 0;
+  /* padding: 2.5rem 0; */
   background-image: url("./assets/lab.jpg");
   background-repeat: no-repeat;
   background-position: center;

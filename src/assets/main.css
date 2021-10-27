@@ -130,3 +130,10 @@ hr {
 .button.choice:active {
   background-color: var(red);
 }
+
+/* INCREASES GLOBAL FONT SIZE ON TABLETS */
+@media screen and (min-width: 900px) {
+  :root {
+    font-size: 24px;
+  }
+}
