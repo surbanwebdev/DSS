@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navigation />
-    <div class="container mt-2">
+    <div class="container mt-5">
       <p class="treatment-group my-2">Treatment Group: BVA-Guided Care</p>
       <div class="card p-3">
         <p class="bold-heading mb-1">Initial Evaluation</p>

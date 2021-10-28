@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navigation />
-    <div class="container mt-2">
+    <div class="container mt-5">
       <p class="treatment-group my-2">Treatment Group: Standard Care</p>
       <div class="card p-3">
         <h1>Suggested Treatment</h1>
@@ -12,22 +12,22 @@
 </template>
 
 <script>
-import Navigation from '../components/Navigation.vue'
-import Footer from '../components/Footer.vue'
+import Navigation from "../components/Navigation.vue";
+import Footer from "../components/Footer.vue";
 
 export default {
   components: {
     Navigation,
     Footer,
   },
-  name: 'SuggestedTreatment',
+  name: "SuggestedTreatment",
   data: function () {
     return {
       low: false,
       high: false,
-    }
+    };
   },
-}
+};
 </script>
 
 <style scoped>

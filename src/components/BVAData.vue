@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navigation />
-    <div class="container mt-2">
+    <div class="container mt-5">
       <p class="treatment-group my-2">Treatment Group: BVA Guided Care</p>
       <div class="card p-3">
         <div class="title-wrap d-flex align-items-center mb-2"></div>

@@ -1,14 +1,19 @@
 <template>
   <div>
     <Navigation />
-    <div class="container mt-3">
+    <div class="container mt-5">
       <div
-        class="card p-3 d-flex flex-column align-items-center justify-content-between"
+        class="
+          card
+          p-3
+          d-flex
+          flex-column
+          align-items-center
+          justify-content-between
+        "
       >
         <img class="directions" src="../assets/complete.png" alt="" />
-        <h5 class="bold-heading my-3">
-          Daily Treatment Complete
-        </h5>
+        <h5 class="bold-heading my-3">Daily Treatment Complete</h5>
         <p>
           Revisit in
           <span class="bold-heading">24 hours</span>
@@ -24,13 +29,13 @@
         <router-link :to="{ name: '' }"></router-link>
         <div class="button-wrap d-flex my-3">
           <button
-            v-on:click=";(standardCare = true), (bvaCare = false)"
+            v-on:click="(standardCare = true), (bvaCare = false);"
             class="choice"
           >
             Standard Care
           </button>
           <button
-            v-on:click=";(bvaCare = true), (standardCare = false)"
+            v-on:click="(bvaCare = true), (standardCare = false);"
             class="choice"
           >
             BVA-Guided Care
@@ -57,22 +62,22 @@
 </template>
 
 <script>
-import Navigation from './Navigation'
-import Footer from './Footer'
+import Navigation from "./Navigation";
+import Footer from "./Footer";
 
 export default {
   components: {
     Navigation,
     Footer,
   },
-  name: 'DailyTreatmentComplete',
+  name: "DailyTreatmentComplete",
   data: function () {
     return {
       standardCare: false,
       bvaCare: false,
-    }
+    };
   },
-}
+};
 </script>
 
 <style scoped>

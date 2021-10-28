@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navigation />
-    <div class="container mt-3">
+    <div class="container mt-5">
       <div
         class="
           card

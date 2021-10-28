@@ -10,6 +10,10 @@
   --copy-color: #696969;
 }
 
+#app {
+  height: 100vh;
+}
+
 /* GLOBAL FONT STYLES */
 h1.light {
   font-weight: 300;
@@ -134,6 +138,6 @@ hr {
 /* INCREASES GLOBAL FONT SIZE ON TABLETS */
 @media screen and (min-width: 900px) {
   :root {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 }
