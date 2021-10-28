@@ -2,12 +2,9 @@
   <div>
     <Navigation />
     <div class="container mt-5">
-      <p v-if="tbv" class="treatment-group my-2">
-        Treatment Group: BVA-Guided Care
-      </p>
-      <p v-else class="treatment-group my-2">Treatment Group: Standard Care</p>
+      <p class="treatment-group my-2">Treatment Group: BVA-Guided Care</p>
       <div class="card p-3">
-        <div class="title-wrap d-flex align-items-center mb-2">
+        <div class="title-wrap d-flex align-items-center mb-4">
           <svg
             width="32"
             height="32"
@@ -20,41 +17,20 @@
               fill="#456BB1"
             />
           </svg>
-          <h5 class="blue-heading m-0">Suggested Treatment</h5>
+          <h5 class="blue-heading m-0">Edema Treatment</h5>
         </div>
-        <div v-if="congestionLevel == 'low'">
-          <p class="bold-heading">Low to moderate congestion</p>
-          <p>
-            Prescribe 1x outpatient oral dose by continuous infusion or q12 hr
-            IV bolus.
-          </p>
-          <p>Reevaluate in 24 hours.</p>
-        </div>
-        <div v-if="congestionLevel == 'high'">
-          <p class="bold-heading">High congestion</p>
-          <p>
-            Prescribe 2.5x outpatient oral dose by continuous infusion or q12 hr
-            IV bolus.
-          </p>
-          <p>Reevaluate in 24 hours.</p>
-        </div>
-        <div v-if="!tbvHigh">
-          <p class="bold-heading">Mild Overload</p>
-          <p>
-            Based on TBV deviation of {{ tbv }}%, recommend 1x outpatient oral
-            dose by continuous infusion.
-          </p>
-        </div>
-        <div v-if="tbvHigh">
-          <p class="bold-heading">Severe Overload</p>
-          <p>
-            Based on TBV deviation of {{ tbv }}%, recommend 2.5x outpatient oral
-            dose by continuous infusion.
-          </p>
-        </div>
+        <p class="mb-3">Edema is present.</p>
+        <p class="bold-heading mb-3">
+          Evaluate for possible alternative cause of edema without hypervolemia:
+        </p>
+        <ul>
+          <li>Liver disease</li>
+          <li>Lymphedema</li>
+          <li>Hypoalbuminemia</li>
+        </ul>
         <router-link
           :to="{
-            name: 'DailyTreatmentComplete',
+            name: 'Renal',
           }"
         >
           <button type="submit" class="btn btn-primary mt-3">
@@ -76,13 +52,9 @@ export default {
     Navigation,
     Footer,
   },
-  name: "SuggestedTreatment",
+  name: "EdemaPlan",
   data: function () {
-    return {
-      congestionLevel: this.$route.params.congestionLevel,
-      tbv: this.$route.params.tbv,
-      tbvHigh: this.$route.params.tbvHigh,
-    };
+    return {};
   },
 };
 </script>

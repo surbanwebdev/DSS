@@ -4,11 +4,13 @@
     <div class="container mt-5">
       <p class="treatment-group my-2">Treatment Group: BVA-Guided Care</p>
       <div class="card p-3">
-        <p class="bold-heading mb-1">Is the patient hypertensive?</p>
+        <p class="bold-heading mb-1">
+          Is the patient hypotensive, with suspected shock (cold and dry)?
+        </p>
         <div class="radio-box-wrap">
           <!-- PARENT LABEL WILL ACTIVATE INNER RADIO BUTTON -->
           <label
-            v-on:click="hypertensionPresent = true"
+            v-on:click="hypotensionPresent = true"
             class="form-check-label"
             for="Low"
             style="width: 100%"
@@ -22,9 +24,7 @@
                 mt-3
               "
             >
-              <div class="content-left d-flex align-items-center">
-                Yes, hypertension is present
-              </div>
+              <div class="content-left d-flex align-items-center">Yes</div>
               <div class="content-right">
                 <div class="form-check">
                   <input
@@ -39,7 +39,7 @@
           </label>
           <!-- PARENT LABEL WILL ACTIVATE INNER RADIO BUTTON -->
           <label
-            v-on:click="hypertensionPresent = false"
+            v-on:click="hypotensionPresent = false"
             class="form-check-label"
             for="High"
             style="width: 100%"
@@ -53,9 +53,7 @@
                 mt-3
               "
             >
-              <div class="content-left d-flex align-items-center">
-                No, the patient is not hypertensive
-              </div>
+              <div class="content-left d-flex align-items-center">No</div>
               <div class="content-right">
                 <div class="form-check">
                   <input
@@ -69,11 +67,11 @@
             </div>
           </label>
         </div>
-        <div v-if="hypertensionPresent == true" class="assessment-btn">
+        <div v-if="hypotensionPresent == true" class="assessment-btn">
           <router-link
             :to="{
-              name: 'HypertensivePlan',
-              params: { hypertensionPresent: this.hypertensionPresent },
+              name: 'HypotensivePlan',
+              params: { hypotensionPresent: this.hypotensionPresent },
             }"
           >
             <button type="submit" class="btn btn-primary mt-3">
@@ -81,10 +79,10 @@
             </button>
           </router-link>
         </div>
-        <div v-if="hypertensionPresent == false" class="assessment-btn">
+        <div v-if="hypotensionPresent == false" class="assessment-btn">
           <router-link
             :to="{
-              name: 'Hypotensive',
+              name: 'Edema',
             }"
           >
             <button type="submit" class="btn btn-primary mt-3">
@@ -107,10 +105,10 @@ export default {
     Navigation,
     Footer,
   },
-  name: "Hypertensive",
+  name: "Hypotensive",
   data: function () {
     return {
-      hypertensionPresent: undefined,
+      hypotensionPresent: undefined,
     };
   },
 };

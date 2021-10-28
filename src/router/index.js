@@ -21,6 +21,13 @@ import BVADataConf from '../components/BVADataConf.vue'
 import BVADataConf2 from '../components/BVADataConf2.vue'
 import InitialHypervolemia from '../components/InitialHypervolemia.vue'
 import Hypertensive from '../components/Hypertensive.vue'
+import HypertensivePlan from '../components/HypertensivePlan.vue'
+import Hypotensive from '../components/Hypotensive.vue'
+import HypotensivePlan from '../components/HypotensivePlan.vue'
+import Edema from '../components/Edema.vue'
+import EdemaPlan from '../components/EdemaPlan.vue'
+import Renal from '../components/Renal.vue'
+import RenalPlan from '../components/RenalPlan.vue'
 
 
 Vue.use(VueRouter)
@@ -133,6 +140,41 @@ const routes = [
     path: '/hypertensive',
     name: 'Hypertensive',
     component: Hypertensive,
+  },
+  {
+    path: '/hypertensive-plan',
+    name: 'HypertensivePlan',
+    component: HypertensivePlan,
+  },
+  {
+    path: '/hypotensive',
+    name: 'Hypotensive',
+    component: Hypotensive,
+  },
+  {
+    path: '/hypotensive-plan',
+    name: 'HypotensivePlan',
+    component: HypotensivePlan,
+  },
+  {
+    path: '/edema',
+    name: 'Edema',
+    component: Edema,
+  },
+  {
+    path: '/edema-plan',
+    name: 'EdemaPlan',
+    component: EdemaPlan,
+  },
+  {
+    path: '/renal',
+    name: 'Renal',
+    component: Renal,
+  },
+  {
+    path: '/renal-plan',
+    name: 'RenalPlan',
+    component: RenalPlan,
   },
 ]
 
