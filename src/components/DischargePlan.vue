@@ -17,12 +17,11 @@
               fill="#456BB1"
             />
           </svg>
-          <h5 class="blue-heading m-0">Renal Treatment</h5>
+          <h5 class="blue-heading m-0">Consider expedited plan to discharge</h5>
         </div>
-        <p class="mb-3">Signs of worsening renal function are present.</p>
-        <p class="bold-heading mb-3">Consider lowering diuretic dose, or stopping IV diuretics</p>
+        <p class="bold-heading mb-3">Consider lowering diuretic dose, or stopping IV diuretics.</p>
         <router-link :to="{
-            name: 'Renal',
+            name: 'Edema',
           }">
           <button type="submit" class="btn btn-primary mt-3">Acknowledge Suggestion</button>
         </router-link>
@@ -41,7 +40,7 @@ export default {
     Navigation,
     Footer
   },
-  name: "RenalPlan",
+  name: "DischargePlan",
   data: function() {
     return {};
   }
