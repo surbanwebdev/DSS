@@ -34,29 +34,29 @@
 
           <div class="form-group">
             <input
-              id="rbcv"
-              v-model.number="rbcv"
+              id="rcbv"
+              v-model.number="rcbv"
               type="number"
               class="form-control"
-              placeholder="RBCV Deviation %"
+              placeholder="rcbv Deviation %"
               required
             />
-            <label class="form-label" for="rbcv">RBCV Deviation %</label>
+            <label class="form-label" for="rcbv">rcbv Deviation %</label>
           </div>
 
           <div class="form-group mb-1">
             <input
-              v-model.number="nHct"
-              id="nHct"
+              id="nhtc"
+              v-model.number="nhtc"
               type="number"
               class="form-control"
-              placeholder="Normalized Hct (nHct)"
+              placeholder="Normalized Hct (nHtc)"
               required
             />
-            <label class="form-label" for="nHct">Normalized Hct (nHct)</label>
+            <label class="form-label" for="nhtc">Normalized Hct (nHtc)</label>
           </div>
-          <div v-if="tbv && rbcv && nHct">
-            <router-link :to="{ name: 'BVADataConf', params: { tbv: this.tbv, rbcv: this.rbcv, nHct: this.nHct} }">
+          <div v-if="tbv && rcbv && nhtc">
+            <router-link :to="{ name: 'BVADataConf', params: { tbv: this.tbv, rcbv: this.rcbv, nhtc: this.nhtc} }">
               <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
             </router-link>
           </div>
@@ -84,8 +84,8 @@ export default {
     return {
       congestionLevel: this.$route.params.congestionLevel,
       tbv: null,
-      rbcv: null,
-      nHct: null,
+      rcbv: null,
+      nhtc: null,
       errors: [],
     };
   },

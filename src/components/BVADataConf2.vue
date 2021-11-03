@@ -8,7 +8,7 @@
           <p class="bold-heading mb-2">BVA-Assessment Data Confirmation</p>
           <p>Select which categories apply:</p>
           <h1>{{ tbvStatus }}</h1>
-          <h1>{{ rbcvStatus }}</h1>
+          <h1>{{ rcbvStatus }}</h1>
         </div>
       </form>
     </div>
@@ -65,24 +65,24 @@ export default {
   //       return tbvStatus;
   //     },
 
-  //     rbcvStatus: function () {
-  //       var rbcvStatus = "";
+  //     rcbvStatus: function () {
+  //       var rcbvStatus = "";
 
   //       switch (this.confirm2) {
   //         case "trueAnemic":
-  //           rbcvStatus = "RBCV <-10% ";
+  //           rcbvStatus = "rcbv <-10% ";
   //           break;
   //         case "mildOverload":
-  //           rbcvStatus = "-10% <= RBCV <= +10%;
+  //           rcbvStatus = "-10% <= rcbv <= +10%;
   //           break;
   //         case "bvaEuvolemic":
-  //           rbcvStatus = "RBCV >+10%";
+  //           rcbvStatus = "rcbv >+10%";
   //           break;
   //         default:
   //           return "";
   //       }
 
-  //       return rbcvStatus;
+  //       return rcbvStatus;
   //     },
   //   },
   data: function () {

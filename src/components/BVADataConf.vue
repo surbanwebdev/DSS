@@ -6,6 +6,12 @@
       <form>
         <div class="card p-3">
           <p class="bold-heading mb-2">BVA-Assessment Data Confirmation</p>
+          <p class="bold-heading mb-2">Your values:</p>
+          <ul class="d-flex justify-content-between px-2 mb-0">
+            <li>TBV: {{ tbv }}</li>
+            <li>RCBV: {{ rcbv }}</li>
+            <li>nHtc: {{ nhtc }}</li>
+          </ul>
           <div id="radio-box-wrap-1" class="radio-box-wrap py-3 px-2">
             <!-- SEVERE OVERLOAD -->
             <label class="underline" style="width: 100%">
@@ -194,7 +200,7 @@
             <!-- TRUE ANEMIA -->
             <label class="underline" style="width: 100%">
               <div
-                v-if="rbcv < -10"
+                v-if="rcbv < -10"
                 class="
                   radio-box
                   d-flex
@@ -210,7 +216,7 @@
                   True anemic
                 </div>
                 <div class="content-right d-flex align-items-center">
-                  <p class="my-0 mx-3 spec">RBCV &#60; -10%</p>
+                  <p class="my-0 mx-3 spec">rcbv &#60; -10%</p>
                 </div>
               </div>
 
@@ -231,7 +237,7 @@
                   True anemic
                 </div>
                 <div class="content-right d-flex align-items-center">
-                  <p class="my-0 mx-3 spec">RBCV &#60; -10%</p>
+                  <p class="my-0 mx-3 spec">rcbv &#60; -10%</p>
                 </div>
               </div>
             </label>
@@ -239,7 +245,7 @@
             <!-- NORMAL RED CELL VOLUME -->
             <label style="width: 100%">
               <div
-                v-if="rbcv >= -10 && rbcv < 10"
+                v-if="rcbv >= -10 && rcbv < 10"
                 class="
                   radio-box
                   d-flex
@@ -255,7 +261,7 @@
                   Normal Red Cell Volume
                 </div>
                 <div class="content-right d-flex align-items-center">
-                  <p class="my-0 mx-3 spec">-10% &#60;= RBCV &#60;= +10%</p>
+                  <p class="my-0 mx-3 spec">-10% &#60;= rcbv &#60;= +10%</p>
                 </div>
               </div>
 
@@ -276,14 +282,14 @@
                   Normal Red Cell Volume
                 </div>
                 <div class="content-right d-flex align-items-center">
-                  <p class="my-0 mx-3 spec">-10% &#60;= RBCV &#60;= +10%</p>
+                  <p class="my-0 mx-3 spec">-10% &#60;= rcbv &#60;= +10%</p>
                 </div>
               </div>
             </label>
 
             <label style="width: 100%">
               <div
-                v-if="rbcv > 10"
+                v-if="rcbv > 10"
                 class="
                   radio-box
                   d-flex
@@ -300,7 +306,7 @@
                   True polycythemic
                 </div>
                 <div class="content-right d-flex align-items-center">
-                  <p class="my-0 mx-3 spec">RBCV > +10%</p>
+                  <p class="my-0 mx-3 spec">rcbv > +10%</p>
                 </div>
               </div>
 
@@ -322,7 +328,7 @@
                   True polycythemic
                 </div>
                 <div class="content-right d-flex align-items-center">
-                  <p class="my-0 mx-3 spec">RBCV > +10%</p>
+                  <p class="my-0 mx-3 spec">rcbv > +10%</p>
                 </div>
               </div>
             </label>
@@ -331,9 +337,9 @@
       </form>
     </div>
     <div class="treatment-btn container">
-      <!-- RBCV MAY NEED TO BE CHANGED TO ANOTHER VALUE IN THE FUTURE -->
+      <!-- rcbv MAY NEED TO BE CHANGED TO ANOTHER VALUE IN THE FUTURE -->
       <router-link
-        v-if="tbv > 10 && rbcv > 10"
+        v-if="tbv > 10 && rcbv > 10"
         :to="{
           name: 'InitialHypervolemia',
           params: { tbv: this.tbv },
@@ -376,8 +382,8 @@ export default {
   data: function () {
     return {
       tbv: this.$route.params.tbv,
-      rbcv: this.$route.params.rbcv,
-      nHtc: this.$route.params.nHtc,
+      rcbv: this.$route.params.rcbv,
+      nhtc: this.$route.params.nhtc,
     };
   },
 };
@@ -423,5 +429,9 @@ svg {
 
 .disable-opacity {
   opacity: 0.25;
+}
+
+ul {
+  list-style: none;
 }
 </style>
