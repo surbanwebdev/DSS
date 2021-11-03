@@ -1,22 +1,36 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import Vue from 'vue'
+import Vuex from 'vuex'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    vuexTest: "Before mutation"
+    tbv: '',
+    nhtc: '',
+    thtc: '',
   },
 
   getters: {
-    getTest(state) {
-      return state.vuexTest;
-    }
+    getTbv(state) {
+      return state.tbv
+    },
+    getNhtc(state) {
+      return state.nhtc
+    },
+    getThtc(state) {
+      return state.thtc
+    },
   },
 
   mutations: {
-    changeTest(state, data) {
-      state.vuexTest = data;
-    }
-  }
-});
+    setTbv(state, data) {
+      state.tbv = data
+    },
+    getNhtc(state, data) {
+      state.nhtc = data
+    },
+    getThtc(state, data) {
+      state.thtc = data
+    },
+  },
+})
