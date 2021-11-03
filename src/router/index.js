@@ -29,6 +29,7 @@ import EdemaPlan from "../components/EdemaPlan.vue";
 import Renal from "../components/Renal.vue";
 import RenalPlan from "../components/RenalPlan.vue";
 import DischargePlan from "../components/DischargePlan.vue";
+import TargetHtc from "../components/TargetHtc.vue";
 
 Vue.use(VueRouter);
 
@@ -180,6 +181,11 @@ const routes = [
     path: "/discharge-plan",
     name: "DischargePlan",
     component: DischargePlan
+  },
+  {
+    path: "/target-htc",
+    name: "TargetHtc",
+    component: TargetHtc
   }
 ];
 

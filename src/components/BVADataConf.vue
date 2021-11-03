@@ -339,6 +339,14 @@
     <div class="treatment-btn container">
       <!-- rcbv MAY NEED TO BE CHANGED TO ANOTHER VALUE IN THE FUTURE -->
       <router-link
+        :to="{
+          name: 'TargetHtc',
+          params: { nhtc: this.nhtc },
+        }"
+      >
+        <button type="submit" class="btn btn-primary mt-3">Confirm</button>
+      </router-link>
+      <!-- <router-link
         v-if="tbv > 10 && rcbv > 10"
         :to="{
           name: 'InitialHypervolemia',
@@ -355,7 +363,7 @@
         }"
       >
         <button type="submit" class="btn btn-primary mt-3">Confirm</button>
-      </router-link>
+      </router-link> -->
     </div>
     <Footer />
   </div>
@@ -371,14 +379,6 @@ export default {
     Footer,
   },
   name: "BVADataConf",
-  //   methods: {
-  //     addClassToLast: function () {
-  //       console.log(this.severeOverload);
-  //     },
-  //   },
-  //   beforeMount() {
-  //     this.addClassToLast();
-  //   },
   data: function () {
     return {
       tbv: this.$route.params.tbv,
