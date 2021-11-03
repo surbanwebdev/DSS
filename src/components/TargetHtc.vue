@@ -5,6 +5,7 @@
       <p class="treatment-group my-2">Treatment Group: BVA Guided Care</p>
 
       <div class="card p-3">
+        <p class="bold-heading mb-2">Current Hematocrit: {{ nhtc }}</p>
         <p class="bold-heading mb-2">Target Hematocrit: {{ thtc }}</p>
       </div>
     </div>
@@ -50,7 +51,9 @@ export default {
     },
   },
   created() {
-    this.calculateTargetHtc();
+    // this.calculateTargetHtc();
+    this.$store.commit("changeTest", "After mutation");
+    console.log(this.$store.state.vuexTest);
   },
   data: function () {
     return {

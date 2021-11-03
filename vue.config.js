@@ -1,7 +1,7 @@
 module.exports = {
   devServer: {
     public: "daxor.com",
-    host: "decision-support",
+    host: "localhost",
     disableHostCheck: true
   }
 };
