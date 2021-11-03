@@ -46,7 +46,7 @@ export default {
   methods: {
     calculateTargetHtc: function () {
       var calculated = this.nhtc * 1.1;
-      this.thtc = calculated;
+      this.thtc = calculated.toFixed(2);
     },
   },
   created() {
