@@ -9,8 +9,8 @@
           <p class="bold-heading mb-2">Your values:</p>
           <ul class="d-flex justify-content-between px-2 mb-0">
             <li>TBV: {{ tbv }}</li>
-            <li>RCBV: {{ rcbv }}</li>
-            <li>nHtc: {{ nhtc }}</li>
+            <li>RBCV: {{ rbcv }}</li>
+            <li>NHCT: {{ nhct }}</li>
           </ul>
           <div id="radio-box-wrap-1" class="radio-box-wrap py-3 px-2">
             <!-- SEVERE OVERLOAD -->
@@ -200,7 +200,7 @@
             <!-- TRUE ANEMIA -->
             <label class="underline" style="width: 100%">
               <div
-                v-if="rcbv < -10"
+                v-if="rbcv < -10"
                 class="
                   radio-box
                   d-flex
@@ -216,7 +216,7 @@
                   True anemic
                 </div>
                 <div class="content-right d-flex align-items-center">
-                  <p class="my-0 mx-3 spec">rcbv &#60; -10%</p>
+                  <p class="my-0 mx-3 spec">rbcv &#60; -10%</p>
                 </div>
               </div>
 
@@ -237,7 +237,7 @@
                   True anemic
                 </div>
                 <div class="content-right d-flex align-items-center">
-                  <p class="my-0 mx-3 spec">rcbv &#60; -10%</p>
+                  <p class="my-0 mx-3 spec">rbcv &#60; -10%</p>
                 </div>
               </div>
             </label>
@@ -245,7 +245,7 @@
             <!-- NORMAL RED CELL VOLUME -->
             <label style="width: 100%">
               <div
-                v-if="rcbv >= -10 && rcbv < 10"
+                v-if="rbcv >= -10 && rbcv < 10"
                 class="
                   radio-box
                   d-flex
@@ -261,7 +261,7 @@
                   Normal Red Cell Volume
                 </div>
                 <div class="content-right d-flex align-items-center">
-                  <p class="my-0 mx-3 spec">-10% &#60;= rcbv &#60;= +10%</p>
+                  <p class="my-0 mx-3 spec">-10% &#60;= rbcv &#60;= +10%</p>
                 </div>
               </div>
 
@@ -282,14 +282,14 @@
                   Normal Red Cell Volume
                 </div>
                 <div class="content-right d-flex align-items-center">
-                  <p class="my-0 mx-3 spec">-10% &#60;= rcbv &#60;= +10%</p>
+                  <p class="my-0 mx-3 spec">-10% &#60;= rbcv &#60;= +10%</p>
                 </div>
               </div>
             </label>
 
             <label style="width: 100%">
               <div
-                v-if="rcbv > 10"
+                v-if="rbcv > 10"
                 class="
                   radio-box
                   d-flex
@@ -306,7 +306,7 @@
                   True polycythemic
                 </div>
                 <div class="content-right d-flex align-items-center">
-                  <p class="my-0 mx-3 spec">rcbv > +10%</p>
+                  <p class="my-0 mx-3 spec">rbcv > +10%</p>
                 </div>
               </div>
 
@@ -328,7 +328,7 @@
                   True polycythemic
                 </div>
                 <div class="content-right d-flex align-items-center">
-                  <p class="my-0 mx-3 spec">rcbv > +10%</p>
+                  <p class="my-0 mx-3 spec">rbcv > +10%</p>
                 </div>
               </div>
             </label>
@@ -337,17 +337,17 @@
       </form>
     </div>
     <div class="treatment-btn container">
-      <!-- rcbv MAY NEED TO BE CHANGED TO ANOTHER VALUE IN THE FUTURE -->
+      <!-- rbcv MAY NEED TO BE CHANGED TO ANOTHER VALUE IN THE FUTURE -->
       <router-link
         :to="{
-          name: 'TargetHtc',
-          params: { nhtc: this.nhtc },
+          name: 'TargetHct',
+          params: { nhct: this.nhct },
         }"
       >
         <button type="submit" class="btn btn-primary mt-3">Confirm</button>
       </router-link>
       <!-- <router-link
-        v-if="tbv > 10 && rcbv > 10"
+        v-if="tbv > 10 && rbcv > 10"
         :to="{
           name: 'InitialHypervolemia',
           params: { tbv: this.tbv },
@@ -381,10 +381,21 @@ export default {
   name: "BVADataConf",
   data: function () {
     return {
-      tbv: this.$route.params.tbv,
-      rcbv: this.$route.params.rcbv,
-      nhtc: this.$route.params.nhtc,
+      tbv: this.$store.state.tbv,
+      rbcv: this.$store.state.rbcv,
+      nhct: this.$store.state.nhct,
+      thct: this.$store.state.thct,
     };
+  },
+  methods: {
+    test() {
+      console.log(`tbv: ${this.tbv}`);
+      console.log(`rbcv: ${this.rbcv}`);
+      console.log(`nhct: ${this.nhct}`);
+    },
+  },
+  created() {
+    this.test();
   },
 };
 </script>

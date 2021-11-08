@@ -14,12 +14,6 @@
           Make sure to include minus signs (-) for negative deviations.
         </p>
         <form>
-          <p v-if="errors.length">
-            <ul class="error-list d-flex flex-column align-items-center">
-              <li class="text-center" v-for="(error, index) in errors" :key="index">{{ error }}</li>
-            </ul>
-          </p>
-
           <div class="form-group">
             <input
               id="tbv"
@@ -31,37 +25,54 @@
             />
             <label class="form-label" for="tbv">TBV Deviation %</label>
           </div>
-
           <div class="form-group">
             <input
-              id="rcbv"
-              v-model.number="rcbv"
+              id="rbcv"
+              v-model.number="rbcv"
               type="number"
               class="form-control"
-              placeholder="rcbv Deviation %"
+              placeholder="RBCV Deviation %"
               required
             />
-            <label class="form-label" for="rcbv">rcbv Deviation %</label>
+            <label class="form-label" for="rbcv">RBCV Deviation %</label>
           </div>
-
           <div class="form-group mb-1">
             <input
-              id="nhtc"
-              v-model.number="nhtc"
+              id="nhct"
+              v-model.number="nhct"
               type="number"
               class="form-control"
-              placeholder="Normalized Hct (nHtc)"
+              placeholder="Normalized Hct (nhct)"
               required
             />
-            <label class="form-label" for="nhtc">Normalized Hct (nHtc)</label>
+            <label class="form-label" for="nhct">Normalized Hct (nhct)</label>
           </div>
-          <div v-if="tbv && rcbv && nhtc">
-            <router-link :to="{ name: 'BVADataConf', params: { tbv: this.tbv, rcbv: this.rcbv, nhtc: this.nhtc} }">
-              <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+          <div
+            v-if="
+              tbv.toString().length > 0 &&
+              rbcv.toString().length > 0 &&
+              nhct.toString().length > 0
+            "
+          >
+            <router-link
+              :to="{
+                name: 'BVADataConf',
+                params: { tbv: this.tbv, rbcv: this.rbcv, nhct: this.nhct },
+              }"
+            >
+              <button type="submit" class="btn btn-primary" value="Submit">
+                Submit
+              </button>
             </router-link>
           </div>
           <div v-else>
-            <button type="submit" class="btn btn-primary disabled" value="Submit">Submit Evaluation</button>
+            <button
+              type="submit"
+              class="btn btn-primary disabled"
+              value="Submit"
+            >
+              Submit Evaluation
+            </button>
           </div>
         </form>
       </div>
@@ -69,7 +80,6 @@
     <Footer />
   </div>
 </template>
-
 <script>
 import Navigation from "../components/Navigation.vue";
 import Footer from "../components/Footer.vue";
@@ -82,14 +92,23 @@ export default {
   name: "BVAData",
   data: function () {
     return {
-      congestionLevel: this.$route.params.congestionLevel,
-      tbv: null,
-      rcbv: null,
-      nhtc: null,
-      errors: [],
+      tbv: this.$store.state.tbv,
+      rbcv: this.$store.state.rbcv,
+      nhct: this.$store.state.nhct,
+      thct: this.$store.state.thct,
     };
   },
-  methods: {},
+  methods: {
+    updateTbv: function (value) {
+      this.$store.commit("setTbv", value);
+    },
+    updateRbcv: function (value) {
+      this.$store.commit("setRbcv", value);
+    },
+    updateNhct: function (value) {
+      this.$store.commit("setNhct", value);
+    },
+  },
 };
 </script>
 

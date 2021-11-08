@@ -6,19 +6,23 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     tbv: '',
-    nhtc: '',
-    thtc: '',
+    rbcv: '',
+    nhct: '',
+    thct: '',
   },
 
   getters: {
-    getTbv(state) {
+    getTbv: (state) => {
       return state.tbv
     },
-    getNhtc(state) {
-      return state.nhtc
+    getNhct: (state) => {
+      return state.nhct
     },
-    getThtc(state) {
-      return state.thtc
+    getThct: (state) => {
+      return state.thct
+    },
+    getRbcv: (state) => {
+      return state.rbcv
     },
   },
 
@@ -26,11 +30,14 @@ export default new Vuex.Store({
     setTbv(state, data) {
       state.tbv = data
     },
-    getNhtc(state, data) {
-      state.nhtc = data
+    setNhct(state, data) {
+      state.nhct = data
     },
-    getThtc(state, data) {
-      state.thtc = data
+    setThct(state, data) {
+      state.thct = data
+    },
+    setRbcv(state, data) {
+      state.rbcv = data
     },
   },
 })

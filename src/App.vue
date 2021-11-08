@@ -5,7 +5,7 @@
         <div class="jumbotron mb-4">
           <div class="bg-img py-5">
             <div class="gradient-overlay"></div>
-            <div class="container-sm">
+            <div class="container">
               <div class="text-wrap text-left">
                 <h1 class="light">Reliable, Accurate Fluid Management Data</h1>
                 <p>
@@ -16,7 +16,7 @@
             </div>
           </div>
         </div>
-        <div class="container-sm">
+        <div class="container">
           <img class="logo" alt="logo" src="./assets/logo.png" />
           <h4 class="logo-subheading bold-heading mb-4">Decision Support</h4>
           <h3 class="greeting bold-heading">Welcome Back!</h3>
@@ -39,7 +39,7 @@
               />
               <p class="link text-left">Forgot Password?</p>
             </div>
-            <router-link :to="{ name: 'Choices' }">
+            <router-link :to="{ name: 'Patients' }">
               <button
                 @click="loggedIn = true"
                 type="submit"

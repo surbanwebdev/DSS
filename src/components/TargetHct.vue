@@ -5,14 +5,14 @@
       <p class="treatment-group my-2">Treatment Group: BVA Guided Care</p>
 
       <div class="card p-3">
-        <p class="bold-heading mb-2">Current Hematocrit: {{ nhtc }}</p>
-        <p class="bold-heading mb-2">Target Hematocrit: {{ thtc }}</p>
+        <p class="bold-heading mb-2">Normalized Hematocrit: {{ nhct }}</p>
+        <p class="bold-heading mb-2">Target Hematocrit: {{ thct }}</p>
       </div>
     </div>
     <div class="treatment-btn container">
-      <!-- rcbv MAY NEED TO BE CHANGED TO ANOTHER VALUE IN THE FUTURE -->
+      <!-- rbcv MAY NEED TO BE CHANGED TO ANOTHER VALUE IN THE FUTURE -->
       <router-link
-        v-if="tbv > 10 && rcbv > 10"
+        v-if="tbv > 10 && rbcv > 10"
         :to="{
           name: 'InitialHypervolemia',
           params: { tbv: this.tbv },
@@ -43,24 +43,22 @@ export default {
     Navigation,
     Footer,
   },
-  name: "BVADataConf",
+  name: "TargetHct",
   methods: {
-    calculateTargetHtc: function () {
-      var calculated = this.nhtc * 1.1;
-      this.thtc = calculated.toFixed(2);
+    calculateTargethct: function () {
+      var calculated = this.nhct * 1.1;
+      this.thct = calculated.toFixed(2);
     },
   },
   created() {
-    // this.calculateTargetHtc();
-    this.$store.commit("changeTest", "After mutation");
-    console.log(this.$store.state.vuexTest);
+    this.calculateTargethct();
   },
   data: function () {
     return {
-      tbv: this.$route.params.tbv,
-      rcbv: this.$route.params.rcbv,
-      nhtc: this.$route.params.nhtc,
-      thtc: null,
+      tbv: this.$store.state.tbv,
+      rbcv: this.$store.state.rbcv,
+      nhct: this.$store.state.nhct,
+      thct: this.$store.state.thct,
     };
   },
 };
