@@ -10,8 +10,9 @@
           <li class="list-group-item">Morbi leo risus</li>
           <li class="list-group-item">Porta ac consectetur ac</li>
           <li class="list-group-item">Vestibulum at eros</li> -->
-          <li class="mb-5" v-for="patient in patients" :key="patient.name">
-            <label>Name:</label> {{ patient.name }} <br />
+          <li class="mb-2" v-for="patient in patients" :key="patient.pid">
+            <h5>{{ patient.name }}</h5>
+            Patient ID: {{ patient.pid }} <br />
             Date of Birth: {{ patient.dob }} <br />
             Sex: {{ patient.sex }} <br />
             <router-link
@@ -24,6 +25,7 @@
                 Select Patient
               </button>
             </router-link>
+            <hr />
           </li>
         </ul>
       </div>
@@ -56,22 +58,25 @@ export default {
     return {
       patients: [
         {
-          name: "Murphy, Joseph A.",
-          dob: "02/27/1956",
+          name: "Carthage, Eugene M.",
+          pid: "12234542353",
+          dob: "12/30/1942",
           sex: "Male",
-          bvaStatus: "BVAData",
+          bvaStatus: "Checklist",
         },
         {
           name: "Hinkle, Anna S.",
+          pid: "12234542352",
           dob: "08/14/1965",
           sex: "Female",
           bvaStatus: "BVAData",
         },
         {
-          name: "Carthage, Eugene M.",
-          dob: "12/30/1942",
+          name: "Murphy, Joseph A.",
+          pid: "12234542351",
+          dob: "02/27/1956",
           sex: "Male",
-          bvaStatus: "Checklist",
+          bvaStatus: "BVAData",
         },
       ],
     };
@@ -86,42 +91,12 @@ export default {
   text-align: left;
 }
 
-.card > p,
-.treatment-group {
-  margin-bottom: 0;
-}
-
-.treatment-group {
-  text-align: right;
-  font-size: 0.875rem;
-}
-
-.button-wrap {
-  width: 100%;
-}
-
-svg {
-  margin-right: 0.75rem;
-}
-
-.radio-box {
-  border-bottom: 1px solid #979797;
-}
-
-.radio-box.no-border {
-  border-bottom: none;
-}
-
-.spec {
-  font-size: 0.875rem;
-  text-align: right;
-}
-
-.disable-opacity {
-  opacity: 0.25;
-}
-
 ul {
   list-style: none;
+}
+
+.list-group {
+  overflow-y: scroll;
+  max-height: 450px;
 }
 </style>

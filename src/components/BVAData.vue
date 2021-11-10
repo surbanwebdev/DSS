@@ -17,10 +17,12 @@
           <div class="form-group">
             <input
               id="tbv"
+              @focus="$event.target.select()"
               v-model.number="tbv"
               type="number"
               class="form-control"
               placeholder="TBV Deviation %"
+              autofocus="true"
               required
             />
             <label class="form-label" for="tbv">TBV Deviation %</label>
@@ -28,6 +30,7 @@
           <div class="form-group">
             <input
               id="rbcv"
+              @focus="$event.target.select()"
               v-model.number="rbcv"
               type="number"
               class="form-control"
@@ -39,6 +42,7 @@
           <div class="form-group mb-1">
             <input
               id="nhct"
+              @focus="$event.target.select()"
               v-model.number="nhct"
               type="number"
               class="form-control"
@@ -57,7 +61,6 @@
             <router-link
               :to="{
                 name: 'BVADataConf',
-                params: { tbv: this.tbv, rbcv: this.rbcv, nhct: this.nhct },
               }"
             >
               <button type="submit" class="btn btn-primary" value="Submit">
@@ -71,7 +74,7 @@
               class="btn btn-primary disabled"
               value="Submit"
             >
-              Submit Evaluation
+              Submit
             </button>
           </div>
         </form>
@@ -83,6 +86,7 @@
 <script>
 import Navigation from "../components/Navigation.vue";
 import Footer from "../components/Footer.vue";
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -92,23 +96,49 @@ export default {
   name: "BVAData",
   data: function () {
     return {
-      tbv: this.$store.state.tbv,
-      rbcv: this.$store.state.rbcv,
-      nhct: this.$store.state.nhct,
-      thct: this.$store.state.thct,
+      // tbv: this.$store.state.tbv,
+      // rbcv: this.$store.state.rbcv,
+      // nhct: this.$store.state.nhct,
+      // thct: this.$store.state.thct,
     };
   },
-  methods: {
-    updateTbv: function (value) {
-      this.$store.commit("setTbv", value);
+  computed: {
+    tbv: {
+      get: function () {
+        return this.$store.state.tbv;
+      },
+      set: function (newTbv) {
+        this.$store.dispatch("setTbv", newTbv);
+      },
     },
-    updateRbcv: function (value) {
-      this.$store.commit("setRbcv", value);
+    rbcv: {
+      get: function () {
+        return this.$store.state.rbcv;
+      },
+      set: function (newRbcv) {
+        this.$store.dispatch("setRbcv", newRbcv);
+      },
     },
-    updateNhct: function (value) {
-      this.$store.commit("setNhct", value);
+    nhct: {
+      get: function () {
+        return this.$store.state.nhct;
+      },
+      set: function (newNhct) {
+        this.$store.dispatch("setNhct", newNhct);
+      },
     },
   },
+  // methods: {
+  //   updateTbv: function (tbv) {
+  //     this.$store.commit("setTbv", tbv);
+  //   },
+  //   updateRbcv: function (value) {
+  //     this.$store.commit("setRbcv", value);
+  //   },
+  //   updateNhct: function (value) {
+  //     this.$store.commit("setNhct", value);
+  //   },
+  // },
 };
 </script>
 

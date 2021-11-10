@@ -23,7 +23,7 @@
       <router-link
         v-else
         :to="{
-          name: 'Hypertensive',
+          name: 'BVASymptoms',
           params: { tbv: this.tbv },
         }"
       >

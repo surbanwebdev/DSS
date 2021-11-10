@@ -2,7 +2,7 @@
   <div>
     <div class="nav d-flex justify-content-between">
       <div class="nav-left d-flex">
-        <router-link :to="{ name: 'Choices' }">
+        <router-link :to="{ name: 'Home' }">
           <img class="logo" src="../assets/logo-white.png" alt="" />
         </router-link>
 

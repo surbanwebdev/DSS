@@ -31,6 +31,7 @@ import RenalPlan from '../components/RenalPlan.vue'
 import DischargePlan from '../components/DischargePlan.vue'
 import TargetHct from '../components/TargetHct.vue'
 import Patients from '../components/Patients.vue'
+import BVASymptoms from '../components/BVASymptoms.vue'
 
 Vue.use(VueRouter)
 
@@ -192,6 +193,11 @@ const routes = [
     path: '/patients',
     name: 'Patients',
     component: Patients,
+  },
+  {
+    path: '/bva-symptoms',
+    name: 'BVASymptoms',
+    component: BVASymptoms,
   },
 ]
 
