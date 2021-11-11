@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Results from '../views/Results.vue'
+import Results from '../components/Results.vue'
 import SuggestedTreatment from '../components/SuggestedTreatment.vue'
 import Choices from '../components/Choices.vue'
 import Checklist from '../components/Checklist.vue'
@@ -69,10 +69,6 @@ const routes = [
     path: '/symptom-severity',
     name: 'SymptomSeverity',
     component: SymptomSeverity,
-  },
-  {
-    path: '/results',
-    component: Results,
   },
   {
     path: '/suggested-treatment/:congestionLevel/:tbvLevel',
@@ -198,6 +194,11 @@ const routes = [
     path: '/bva-symptoms',
     name: 'BVASymptoms',
     component: BVASymptoms,
+  },
+  {
+    path: '/results',
+    name: 'Results',
+    component: Results,
   },
 ]
 

@@ -4,13 +4,22 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  // INITIAL STATE OF VARIABLES USED THROUGHOUT THE APP
   state: {
-    tbv: 0,
-    rbcv: 0,
-    nhct: 0,
-    thct: 0,
+    anemic: false,
+    euvolemic: false,
+    hypovolemic: false,
+    mildOverload: false,
+    nhct: null,
+    normalRedCellVolume: false,
+    polycythemic: false,
+    rbcv: null,
+    severeOverload: false,
+    sex: '',
+    tbv: null,
+    thct: null,
   },
-
+  // SET ACTIONS TO UPDATE VARIABLES
   actions: {
     setTbv({ state }, newTbv) {
       state.tbv = newTbv
@@ -22,34 +31,4 @@ export default new Vuex.Store({
       state.nhct = newNhct
     },
   },
-
-  // getters: {
-  //   getTbv: (state) => {
-  //     return state.tbv
-  //   },
-  //   getNhct: (state) => {
-  //     return state.nhct
-  //   },
-  //   getThct: (state) => {
-  //     return state.thct
-  //   },
-  //   getRbcv: (state) => {
-  //     return state.rbcv
-  //   },
-  // },
-
-  // mutations: {
-  //   setTbv(state, data) {
-  //     state.tbv = data
-  //   },
-  //   setNhct(state, data) {
-  //     state.nhct = data
-  //   },
-  //   setThct(state, data) {
-  //     state.thct = data
-  //   },
-  //   setRbcv(state, data) {
-  //     state.rbcv = data
-  //   },
-  // },
 })

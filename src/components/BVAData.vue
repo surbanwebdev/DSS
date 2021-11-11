@@ -51,13 +51,7 @@
             />
             <label class="form-label" for="nhct">Normalized Hct (nhct)</label>
           </div>
-          <div
-            v-if="
-              tbv.toString().length > 0 &&
-              rbcv.toString().length > 0 &&
-              nhct.toString().length > 0
-            "
-          >
+          <div v-if="validateThis">
             <router-link
               :to="{
                 name: 'BVADataConf',
@@ -86,7 +80,6 @@
 <script>
 import Navigation from "../components/Navigation.vue";
 import Footer from "../components/Footer.vue";
-import { mapState } from "vuex";
 
 export default {
   components: {
@@ -94,14 +87,7 @@ export default {
     Footer,
   },
   name: "BVAData",
-  data: function () {
-    return {
-      // tbv: this.$store.state.tbv,
-      // rbcv: this.$store.state.rbcv,
-      // nhct: this.$store.state.nhct,
-      // thct: this.$store.state.thct,
-    };
-  },
+  // THESE COMPUTED FUNCTIONS WILL ACCESS AND MODIFY THE DATA IN THE STORE
   computed: {
     tbv: {
       get: function () {
@@ -126,6 +112,15 @@ export default {
       set: function (newNhct) {
         this.$store.dispatch("setNhct", newNhct);
       },
+    },
+    validateThis: function () {
+      var tvbGood = this.tbv || this.tbv === 0;
+      var rbcvGood = this.rbcv || this.rbcv === 0;
+      var nhctGood = this.nhct || this.nhct === 0;
+
+      if (tvbGood && rbcvGood && nhctGood) {
+        return true;
+      }
     },
   },
   // methods: {

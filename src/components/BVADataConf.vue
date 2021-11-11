@@ -7,10 +7,16 @@
         <div class="card p-3">
           <p class="bold-heading mb-2">BVA-Assessment Data Confirmation</p>
           <p class="bold-heading mb-2">Your values:</p>
-          <ul class="d-flex justify-content-between px-2 mb-0">
-            <li>TBV: {{ tbv }}</li>
-            <li>RBCV: {{ rbcv }}</li>
-            <li>NHCT: {{ nhct }}</li>
+          <ul class="d-flex justify-content-between py-2 px-5 mb-0">
+            <li>
+              <h5>TBV: {{ tbv }}</h5>
+            </li>
+            <li>
+              <h5>RBCV: {{ rbcv }}</h5>
+            </li>
+            <li>
+              <h5>NHCT: {{ nhct }}</h5>
+            </li>
           </ul>
           <div id="radio-box-wrap-1" class="radio-box-wrap py-3 px-2">
             <!-- SEVERE OVERLOAD -->
@@ -386,16 +392,6 @@ export default {
       nhct: this.$store.state.nhct,
       thct: this.$store.state.thct,
     };
-  },
-  methods: {
-    test() {
-      console.log(`tbv: ${this.tbv}`);
-      console.log(`rbcv: ${this.rbcv}`);
-      console.log(`nhct: ${this.nhct}`);
-    },
-  },
-  created() {
-    this.test();
   },
 };
 </script>
