@@ -1,17 +1,15 @@
 <template>
-  <div>
-    <ul class="footer-nav">
-      <li>Contact Us</li>
-      <li>Terms of Use</li>
-      <li>Privacy Policy</li>
-    </ul>
-  </div>
+  <ul class="footer-nav mt-5">
+    <li>Contact Us</li>
+    <li>Terms of Use</li>
+    <li>Privacy Policy</li>
+  </ul>
 </template>
 
 <script>
 export default {
-  name: 'Footer',
-}
+  name: "Footer",
+};
 </script>
 
 <style scoped>
@@ -21,8 +19,8 @@ ul.footer-nav {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  position: absolute;
-  bottom: 0;
+  /* position: absolute;
+  bottom: 0; */
   background-color: #fff;
   margin: initial;
   font-size: 0.875rem;

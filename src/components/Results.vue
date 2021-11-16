@@ -27,7 +27,7 @@ export default {
     Footer,
   },
   name: "Results",
-  data: {
+  data: function () {
     // tbv: this.$store.state.tbv,
     // rbcv: this.$store.state.rbcv,
     // nhct: this.$store.state.nhct,

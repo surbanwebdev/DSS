@@ -32,6 +32,7 @@ import DischargePlan from '../components/DischargePlan.vue'
 import TargetHct from '../components/TargetHct.vue'
 import Patients from '../components/Patients.vue'
 import BVASymptoms from '../components/BVASymptoms.vue'
+import NewPatient from '../components/NewPatient.vue'
 
 Vue.use(VueRouter)
 
@@ -199,6 +200,11 @@ const routes = [
     path: '/results',
     name: 'Results',
     component: Results,
+  },
+  {
+    path: '/new-patient',
+    name: 'NewPatient',
+    component: NewPatient,
   },
 ]
 

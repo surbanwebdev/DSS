@@ -113,15 +113,6 @@ export default {
         this.$store.dispatch("setNhct", newNhct);
       },
     },
-    validateThis: function () {
-      var tvbGood = this.tbv || this.tbv === 0;
-      var rbcvGood = this.rbcv || this.rbcv === 0;
-      var nhctGood = this.nhct || this.nhct === 0;
-
-      if (tvbGood && rbcvGood && nhctGood) {
-        return true;
-      }
-    },
   },
   // methods: {
   //   updateTbv: function (tbv) {

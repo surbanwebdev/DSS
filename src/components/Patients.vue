@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
     <div class="container mt-5">
       <div class="card p-3">
@@ -28,6 +28,19 @@
             <hr />
           </li>
         </ul>
+      </div>
+      <p class="my-4">OR</p>
+      <div class="card p-3">
+        <router-link
+          class="mb-3"
+          :to="{
+            name: 'NewPatient',
+          }"
+        >
+          <button type="submit" class="btn btn-primary mt-3">
+            Add a New Patient
+          </button>
+        </router-link>
       </div>
     </div>
     <div class="treatment-btn container"></div>

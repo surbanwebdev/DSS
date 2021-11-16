@@ -10,9 +10,9 @@
   --copy-color: #696969;
 }
 
-#app {
+/* #app {
   height: 100vh;
-}
+} */
 
 /* GLOBAL FONT STYLES */
 h1.light {
@@ -133,6 +133,10 @@ hr {
 
 .button.choice:active {
   background-color: var(red);
+}
+
+.full-height {
+  min-height: 100vh;
 }
 
 /* INCREASES GLOBAL FONT SIZE ON TABLETS */
