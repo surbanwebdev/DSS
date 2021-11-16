@@ -4,56 +4,8 @@
     <div class="container mt-5">
       <div class="card p-3">
         <div class="title-wrap d-flex align-items-center mb-2"></div>
-        <p class="bold-heading mb-3">Create a New Patient</p>
+        <p class="bold-heading mb-3">Add a New Patient</p>
         <form>
-          <div class="form-group">
-            <input
-              id="firstName"
-              @focus="$event.target.select()"
-              v-model="firstName"
-              class="form-control"
-              placeholder="First Name"
-              autofocus="true"
-              required
-            />
-            <label class="form-label" for="firstName">First Name</label>
-          </div>
-          <div class="form-group">
-            <input
-              id="firstName"
-              @focus="$event.target.select()"
-              v-model="firstName"
-              class="form-control"
-              placeholder="First Name"
-              autofocus="true"
-              required
-            />
-            <label class="form-label" for="firstName">First Name</label>
-          </div>
-          <div class="form-group">
-            <input
-              id="firstName"
-              @focus="$event.target.select()"
-              v-model="firstName"
-              class="form-control"
-              placeholder="First Name"
-              autofocus="true"
-              required
-            />
-            <label class="form-label" for="firstName">First Name</label>
-          </div>
-          <div class="form-group">
-            <input
-              id="firstName"
-              @focus="$event.target.select()"
-              v-model="firstName"
-              class="form-control"
-              placeholder="First Name"
-              autofocus="true"
-              required
-            />
-            <label class="form-label" for="firstName">First Name</label>
-          </div>
           <div class="form-group">
             <input
               id="firstName"

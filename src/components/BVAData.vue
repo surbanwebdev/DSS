@@ -1,5 +1,5 @@
 <template>
-  <div class="full-height d-flex flex-column justify-content-between">
+  <div>
     <Navigation />
     <div class="container mt-5">
       <p class="treatment-group my-2">Treatment Group: BVA Guided Care</p>
@@ -51,7 +51,7 @@
             />
             <label class="form-label" for="nhct">Normalized Hct (nhct)</label>
           </div>
-          <div v-if="validateThis">
+          <div v-if="validateBvaValues">
             <router-link
               :to="{
                 name: 'BVADataConf',
@@ -112,6 +112,14 @@ export default {
       set: function (newNhct) {
         this.$store.dispatch("setNhct", newNhct);
       },
+    },
+    validateBvaValues: function () {
+      var tvbGood = this.tbv || this.tbv === 0;
+      var rbcvGood = this.rbcv || this.rbcv === 0;
+      var nhctGood = this.nhct || this.nhct === 0;
+      if (tvbGood && rbcvGood && nhctGood) {
+        return true;
+      }
     },
   },
   // methods: {
