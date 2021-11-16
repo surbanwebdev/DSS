@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
     <div class="container mt-5">
       <p class="treatment-group my-2">Treatment Group: BVA-Guided Care</p>
@@ -19,11 +19,17 @@
           </svg>
           <h5 class="blue-heading m-0">Consider expedited plan to discharge</h5>
         </div>
-        <p class="bold-heading mb-3">Consider lowering diuretic dose, or stopping IV diuretics.</p>
-        <router-link :to="{
+        <p class="bold-heading mb-3">
+          Consider lowering diuretic dose, or stopping IV diuretics.
+        </p>
+        <router-link
+          :to="{
             name: 'Edema',
-          }">
-          <button type="submit" class="btn btn-primary mt-3">Acknowledge Suggestion</button>
+          }"
+        >
+          <button type="submit" class="btn btn-primary mt-3">
+            Acknowledge Suggestion
+          </button>
         </router-link>
       </div>
     </div>
@@ -38,12 +44,12 @@ import Footer from "../components/Footer.vue";
 export default {
   components: {
     Navigation,
-    Footer
+    Footer,
   },
   name: "DischargePlan",
-  data: function() {
+  data: function () {
     return {};
-  }
+  },
 };
 </script>
 

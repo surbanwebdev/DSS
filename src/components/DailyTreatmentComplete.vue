@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
     <div class="container mt-5">
       <div
@@ -29,13 +29,13 @@
         <router-link :to="{ name: '' }"></router-link>
         <div class="button-wrap d-flex my-3">
           <button
-            v-on:click="(standardCare = true), (bvaCare = false);"
+            v-on:click="(standardCare = true), (bvaCare = false)"
             class="choice"
           >
             Standard Care
           </button>
           <button
-            v-on:click="(bvaCare = true), (standardCare = false);"
+            v-on:click="(bvaCare = true), (standardCare = false)"
             class="choice"
           >
             BVA-Guided Care

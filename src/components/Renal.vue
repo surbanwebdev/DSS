@@ -1,10 +1,12 @@
  <template>
-  <div>
+  <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
     <div class="container mt-5">
       <p class="treatment-group my-2">Treatment Group: BVA-Guided Care</p>
       <div class="card p-3">
-        <p class="bold-heading mb-1">Are there signs of worsening renal function?</p>
+        <p class="bold-heading mb-1">
+          Are there signs of worsening renal function?
+        </p>
         <div class="radio-box-wrap">
           <!-- PARENT LABEL WILL ACTIVATE INNER RADIO BUTTON -->
           <label
@@ -13,11 +15,24 @@
             for="Low"
             style="width: 100%"
           >
-            <div class="radio-box d-flex align-items-center justify-content-between mt-3">
+            <div
+              class="
+                radio-box
+                d-flex
+                align-items-center
+                justify-content-between
+                mt-3
+              "
+            >
               <div class="content-left d-flex align-items-center">Yes</div>
               <div class="content-right">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="Low" />
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="flexRadioDefault"
+                    id="Low"
+                  />
                 </div>
               </div>
             </div>
@@ -29,11 +44,24 @@
             for="High"
             style="width: 100%"
           >
-            <div class="radio-box d-flex align-items-center justify-content-between mt-3">
+            <div
+              class="
+                radio-box
+                d-flex
+                align-items-center
+                justify-content-between
+                mt-3
+              "
+            >
               <div class="content-left d-flex align-items-center">No</div>
               <div class="content-right">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="High" />
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="flexRadioDefault"
+                    id="High"
+                  />
                 </div>
               </div>
             </div>
@@ -46,14 +74,20 @@
               params: { renalPresent: this.renalPresent },
             }"
           >
-            <button type="submit" class="btn btn-primary mt-3">Submit Assessment</button>
+            <button type="submit" class="btn btn-primary mt-3">
+              Submit Assessment
+            </button>
           </router-link>
         </div>
         <div v-if="renalPresent == false" class="assessment-btn">
-          <router-link :to="{
+          <router-link
+            :to="{
               name: 'DischargePlan',
-            }">
-            <button type="submit" class="btn btn-primary mt-3">Submit Assessment</button>
+            }"
+          >
+            <button type="submit" class="btn btn-primary mt-3">
+              Submit Assessment
+            </button>
           </router-link>
         </div>
       </div>
@@ -69,14 +103,14 @@ import Footer from "./Footer";
 export default {
   components: {
     Navigation,
-    Footer
+    Footer,
   },
   name: "Renal",
-  data: function() {
+  data: function () {
     return {
-      renalPresent: undefined
+      renalPresent: undefined,
     };
-  }
+  },
 };
 </script>
 
