@@ -5,16 +5,20 @@
       <div class="card p-3">
         <p class="bold-heading mb-4">Select a Patient:</p>
         <ul class="list-group">
-          <!-- <li class="list-group-item bold-heading">Murphy, Joseph A.</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Morbi leo risus</li>
-          <li class="list-group-item">Porta ac consectetur ac</li>
-          <li class="list-group-item">Vestibulum at eros</li> -->
           <li class="mb-2" v-for="patient in patients" :key="patient.pid">
             <h5>{{ patient.lastName }}, {{ patient.firstName }}</h5>
-            Patient ID: {{ patient.pid }} <br />
-            Age: {{ patient.age }} <br />
-            Sex: {{ patient.sex }} <br />
+            <div class="content-wrap d-flex justify-content-around">
+              <div class="content-left">
+                Patient ID: {{ patient.pid }} <br />
+                Age: {{ patient.age }} <br />
+                Sex: {{ patient.sex }} <br />
+              </div>
+              <div class="content-right">
+                TBV Dev: {{ patient.tbv }} <br />
+                RBCV Dev: {{ patient.rbcv }} <br />
+                PV Dev: {{ patient.pv }}
+              </div>
+            </div>
             <router-link
               class="mb-3"
               :to="{
@@ -168,5 +172,13 @@ ul {
 .list-group {
   overflow-y: scroll;
   max-height: 450px;
+}
+
+.content-wrap {
+  width: 100%;
+}
+
+.content-left,
+.content-right {
 }
 </style>
