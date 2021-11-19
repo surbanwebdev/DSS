@@ -117,9 +117,7 @@ export default {
       var tvbGood = this.tbv || this.tbv === 0;
       var rbcvGood = this.rbcv || this.rbcv === 0;
       var nhctGood = this.nhct || this.nhct === 0;
-      if (tvbGood && rbcvGood && nhctGood) {
-        return true;
-      }
+      return tvbGood && rbcvGood && nhctGood;
     },
   },
   // methods: {
