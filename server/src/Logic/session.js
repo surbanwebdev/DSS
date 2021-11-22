@@ -1,62 +1,172 @@
+/* eslint-disable no-async-promise-executor */
 const sqlite3 = require('sqlite3');
-const { v4 } = require('uuid');
+const sqlite = require('sqlite');
+const { v4, validate } = require('uuid');
 const _ = require('lodash');
 
-const dbPath = '../DecisionSupport.db';
+const dbPath = './DecisionSupport.db';
+const dbParams = {
+    filename: dbPath,
+    driver: sqlite3.Database
+}
 
-function login(req) {
-    return new Promise(async (resolve,reject)=>{
-        try{
-            const db = new sqlite3.Database(dbPath, (err) => {
-                if (err) {
-                    throw('Failed to open connection to database');
-                }
-            });
+const timeout = 600000;//millisecs
+
+function login(req, res) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const db = await new sqlite.open(dbParams);
+
             const body = req.body;
             let userName = body.userName;
             let password = body.password;
-            let currentUser = undefined;
 
-            let query ="SELECT * FROM User WHERE UserName = ? AND UserPassword = ?";
-            
-            db.get(query,[userName, password],async (err,row)=>{
-                if (err) throw err;
-                currentUser = row;
-                if (!currentUser){
-                    throw('Invalid Credentials');
+            let query = "SELECT * FROM User WHERE UserName = ? AND UserPassword = ?";
+
+            let currentUser = await db.get(query, [userName, password]);
+
+            if (!currentUser) {
+                res.statusMessage('Invalid Credentials');
+                res.status(401).end();
+                resolve();
+                return;
+            }
+            let sessionGuid = await createSession(db, currentUser);
+
+            res.status(200).send({
+                data: {
+                    sessionGuid
                 }
-                await createSession(db, currentUser);
-            });
+            }).end();
 
-            //talk to SQLite to see if username/password exists in DB
-            //Generate GUID for session ID
-            //insert into UserSession table
-            //return UserSessionGUID
-        }catch(e){
+            resolve();
+        } catch (e) {
             reject(e);
         }
     });
 }
 
-function createSession(db, user){
-    return new Promise((resolve,reject)=>{
-        try{
+function logout(req, res) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let sessionGuid = getRequestSessionGuid(req);
+            await processLogout(sessionGuid);
+            res.statusMessage = "Successfully logged out"
+            res.status(200).end();
+            resolve();
+        } catch (err) {
+            reject(err);
+        }
+    });
+}
+
+function processLogout(sessionGuid) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let now = new Date(Date.now()).toISOString();
+            const db = await new sqlite.open(dbParams);
+            let query = `UPDATE UserSession SET LoggedOut = ? WHERE UserSessionGUID = ?`;
+            await db.run(query, [now, sessionGuid]);
+            resolve();
+        } catch (err) {
+            reject(err);
+        }
+    });
+}
+
+function createSession(db, user) {
+    return new Promise(async (resolve, reject) => {
+        try {
             let now = new Date(Date.now()).toISOString();
             let newUserSessionGuid = v4();
-            let query = `INSERT INTO UserSession(UserId, UserName, UserPassword, UserSessionGuid, LoggedIn)
-                            VALUES(?,?,?,?,?)`;
-            let payload = [user.ID, user.UserName, user.UserPassword, newUserSessionGuid, now];
+            let query = `INSERT INTO UserSession(UserId, UserName, UserPassword, UserSessionGuid, LoggedIn, LastActive)
+                            VALUES(?,?,?,?,?,?)`;
+            let payload = [user.ID, user.UserName, user.UserPassword, newUserSessionGuid, now, now];
 
-            db.run(query,payload,(err)=>{
-                if (err) throw err;
-                console.log(this)
-            });           
-        }catch(e){
+            await db.run(query, payload);
+            resolve(newUserSessionGuid);
+            return;
+        } catch (err) {
+            reject(err);
+        }
+    });
+}
+
+function getRequestSessionGuid(request) {
+    let sessionGuid = _.get(request, 'headers.sessionguid');
+    return sessionGuid;
+}
+
+function manageSession(req, res) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let sessionGuid = getRequestSessionGuid(req);
+            const db = await new sqlite.open(dbParams);
+
+            let query = `SELECT LastActive FROM UserSession
+                WHERE UserSessionGUID = ? and LoggedOut IS NULL`;
+
+            let row = await db.get(query, [sessionGuid]);
+            if (!row) {
+                res.statusMessage('Invalid Session');
+                res.status(401).end();
+                resolve();
+                return;
+            }
+
+            let lastActive = new Date(_.get(row, 'lastActive'));
+            let now = new Date(Date.now());
+            let delta = now.getTime() - lastActive.getTime();
+            if (delta > timeout) {
+                await processLogout(sessionGuid);
+                res.statusMessage('Session has expired');
+                res.status(401).end();
+                resolve();
+                return;
+            }
+
+            //if we're here, just need to reset lastActive resolve
+            query = `UPDATE UserSession SET LastActive = ? WHERE UserSessionGUID = ?`;
+            await db.run(query, [now.toISOString(), sessionGuid]);
+            resolve();
+            return;
+        } catch (err) {
+            reject(err);
+        }
+    });
+}
+
+function isAdmin(sessionGuid) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const db = await new sqlite.open(dbParams);
+
+            let query = `SELECT u.IsAdmin FROM UserSession us
+                        JOIN User u on u.ID = us.UserID
+                        WHERE us.UserSessionGuid = ?`;
+
+            let row = db.get(query, [sessionGuid]);
+            if (!row) {
+                resolve(false);
+                return;
+            }
+            if (_.toUpper(_.get(row, 'IsAdmin')) === 'YES') {
+                resolve(true);
+                return;
+            } else {
+                resolve(false);
+                return;
+            }
+        } catch (e) {
             reject(e);
         }
     });
 }
 
 module.exports = {
-    login
+    login,
+    logout,
+    getRequestSessionGuid,
+    isAdmin,
+    manageSession
 }

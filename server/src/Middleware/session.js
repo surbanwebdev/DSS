@@ -1,11 +1,35 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+const _ = require('lodash');
+const { getRequestSessionGuid, isAdmin, manageSession } = require('../Logic/session');
+
 
 module.exports = {
-    requireLoggedIn: ((req,res,next)=>{
+    requireLogIn: (async (req,res,next)=>{
+        let sessionGuid = getRequestSessionGuid(req);
+        if (!sessionGuid){
+            res.statusMessage = "Not logged in"
+            res.status(401).end();
+            return;
+        }
 
+        manageSession(req, res).then(()=>{
+            next();
+        }).catch((err)=>{
+            res.statusMessage = err;
+            res.status(500).end();
+            return;
+        });
     }),
-    requireAdmin: ((req,res,next)=>{
+    requireAdmin: (async (req,res,next)=>{
+        this.requireLogIn(req,res,(async ()=>{
+            let sessionGuid = getRequestSessionGuid(req);
+            let isUserAdmin = await isAdmin(sessionGuid);
+            if (!isUserAdmin()){
+                res.statusMessage = "Insufficient permission"
+                res.status(403).end();
+                return;
+            }
+            next();
+        }))
 
     })
 }

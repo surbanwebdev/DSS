@@ -1,18 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const morgan = require('morgan');
 const process = require('process');
-const loginRoutes = require('./Routes/login');
+const sessionRoutes = require('./Routes/session');
+const {requireLogIn,requireAdmin, manageTimeOut} = require('./Middleware/session');
 
 const app = express();
-app.use(morgan('combine'));
+
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use('/login',loginRoutes);
+app.use('/session',sessionRoutes);
 
-app.get('/status',(req,res)=>{
+app.post('/status',requireAdmin,(req,res)=>{
     res.send({
         message: "Hello World"
     });

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/nodemon/bin/nodemon.js src/app.js --exec 'npm run lint && node'",
+    "start": "./node_modules/nodemon/bin/nodemon.js src/app.js",
     "lint": "./node_modules/.bin/eslint src/**/*.js"
   },
   "keywords": [],
@@ -17,8 +17,9 @@
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
+    "sqlite": "^4.0.23",
     "sqlite3": "^5.0.2",
-    "uuidv4": "^6.2.12"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "eslint": "^8.2.0",
