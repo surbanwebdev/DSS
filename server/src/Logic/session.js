@@ -1,7 +1,7 @@
 /* eslint-disable no-async-promise-executor */
 const sqlite3 = require('sqlite3');
 const sqlite = require('sqlite');
-const { v4, validate } = require('uuid');
+const { v4 } = require('uuid');
 const _ = require('lodash');
 
 const dbPath = './DecisionSupport.db';
@@ -15,7 +15,7 @@ const timeout = 600000;//millisecs
 function login(req, res) {
     return new Promise(async (resolve, reject) => {
         try {
-            const db = await new sqlite.open(dbParams);
+            const db = await sqlite.open(dbParams);
 
             const body = req.body;
             let userName = body.userName;
@@ -26,7 +26,7 @@ function login(req, res) {
             let currentUser = await db.get(query, [userName, password]);
 
             if (!currentUser) {
-                res.statusMessage('Invalid Credentials');
+                res.statusMessage ='Invalid Credentials';
                 res.status(401).end();
                 resolve();
                 return;
@@ -64,7 +64,7 @@ function processLogout(sessionGuid) {
     return new Promise(async (resolve, reject) => {
         try {
             let now = new Date(Date.now()).toISOString();
-            const db = await new sqlite.open(dbParams);
+            const db = await sqlite.open(dbParams);
             let query = `UPDATE UserSession SET LoggedOut = ? WHERE UserSessionGUID = ?`;
             await db.run(query, [now, sessionGuid]);
             resolve();
@@ -101,14 +101,14 @@ function manageSession(req, res) {
     return new Promise(async (resolve, reject) => {
         try {
             let sessionGuid = getRequestSessionGuid(req);
-            const db = await new sqlite.open(dbParams);
+            const db = await sqlite.open(dbParams);
 
             let query = `SELECT LastActive FROM UserSession
                 WHERE UserSessionGUID = ? and LoggedOut IS NULL`;
 
             let row = await db.get(query, [sessionGuid]);
             if (!row) {
-                res.statusMessage('Invalid Session');
+                res.statusMessage = 'Invalid Session';
                 res.status(401).end();
                 resolve();
                 return;
@@ -119,7 +119,7 @@ function manageSession(req, res) {
             let delta = now.getTime() - lastActive.getTime();
             if (delta > timeout) {
                 await processLogout(sessionGuid);
-                res.statusMessage('Session has expired');
+                res.statusMessage = 'Session has expired';
                 res.status(401).end();
                 resolve();
                 return;
@@ -139,18 +139,18 @@ function manageSession(req, res) {
 function isAdmin(sessionGuid) {
     return new Promise(async (resolve, reject) => {
         try {
-            const db = await new sqlite.open(dbParams);
+            const db = await sqlite.open(dbParams);
 
             let query = `SELECT u.IsAdmin FROM UserSession us
                         JOIN User u on u.ID = us.UserID
                         WHERE us.UserSessionGuid = ?`;
 
-            let row = db.get(query, [sessionGuid]);
+            let row = await db.get(query, [sessionGuid]);
             if (!row) {
                 resolve(false);
                 return;
             }
-            if (_.toUpper(_.get(row, 'IsAdmin')) === 'YES') {
+            if (_.toUpper(_.get(row,'IsAdmin')) === 'YES') {
                 resolve(true);
                 return;
             } else {

@@ -3,33 +3,31 @@ const { getRequestSessionGuid, isAdmin, manageSession } = require('../Logic/sess
 
 
 module.exports = {
-    requireLogIn: (async (req,res,next)=>{
+    requireValidSession: ((req, res, next) => {
         let sessionGuid = getRequestSessionGuid(req);
-        if (!sessionGuid){
+        if (!sessionGuid) {
             res.statusMessage = "Not logged in"
             res.status(401).end();
             return;
         }
 
-        manageSession(req, res).then(()=>{
+        manageSession(req, res).then(() => {
             next();
-        }).catch((err)=>{
+        }).catch((err) => {
             res.statusMessage = err;
             res.status(500).end();
             return;
         });
     }),
-    requireAdmin: (async (req,res,next)=>{
-        this.requireLogIn(req,res,(async ()=>{
-            let sessionGuid = getRequestSessionGuid(req);
-            let isUserAdmin = await isAdmin(sessionGuid);
-            if (!isUserAdmin()){
+    requireAdmin: ((req, res, next) => {
+        let sessionGuid = getRequestSessionGuid(req);
+        isAdmin(sessionGuid).then((isUserAdmin)=>{
+            if (!isUserAdmin) {
                 res.statusMessage = "Insufficient permission"
                 res.status(403).end();
                 return;
             }
             next();
-        }))
-
+        });
     })
 }

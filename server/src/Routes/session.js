@@ -1,5 +1,5 @@
 const express = require('express');
-const {requireLogIn, requireAdmin, manageTimeOut} = require('../Middleware/session');
+const {requireValidSession} = require('../Middleware/session');
 const {login, logout} = require('../Logic/session');
 
 const router = express.Router();
@@ -12,7 +12,7 @@ router.post('/login',(async (req,res)=>{
     });
 }));
 
-router.post('/logout',requireLogIn,((req,res)=>{
+router.post('/logout',requireValidSession,((req,res)=>{
     logout(req).catch((err)=>{
         res.statusMessage = "Internal Server Error";
         res.status(500).end();

@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const process = require('process');
 const sessionRoutes = require('./Routes/session');
-const {requireLogIn,requireAdmin, manageTimeOut} = require('./Middleware/session');
+const {requireValidSession,requireAdmin} = require('./Middleware/session');
 
 const app = express();
 
@@ -12,7 +12,7 @@ app.use(cors());
 
 app.use('/session',sessionRoutes);
 
-app.post('/status',requireAdmin,(req,res)=>{
+app.post('/status',requireValidSession,requireAdmin,(req,res)=>{
     res.send({
         message: "Hello World"
     });
