@@ -10,7 +10,7 @@ const dbParams = {
     driver: sqlite3.Database
 }
 
-const timeout = 600000;//millisecs
+const timeout = 600000;//millisecs (10 mins)
 
 function login(req, res) {
     return new Promise(async (resolve, reject) => {
@@ -113,9 +113,8 @@ function manageSession(req, res) {
                 resolve();
                 return;
             }
-
-            let lastActive = new Date(_.get(row, 'lastActive'));
-            let now = new Date(Date.now());
+            let lastActive = new Date(_.get(row, 'LastActive'));
+            let now = new Date();
             let delta = now.getTime() - lastActive.getTime();
             if (delta > timeout) {
                 await processLogout(sessionGuid);
