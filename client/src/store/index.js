@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   // INITIAL STATE OF VARIABLES USED THROUGHOUT THE APP
@@ -26,6 +26,8 @@ export default new Vuex.Store({
     tbv: null,
     thct: null,
     weight: null,
+    sessionGuid: null,
+    apiURL: "http://localhost:8081"
   },
   // SET ACTIONS TO UPDATE VARIABLES
   actions: {
@@ -38,5 +40,8 @@ export default new Vuex.Store({
     setNhct({ state }, newNhct) {
       state.nhct = newNhct
     },
+    setSessionGuid({state}, newSessionGuid){
+      state.sessionGuid = newSessionGuid
+    }
   },
 })
