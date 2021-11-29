@@ -63,6 +63,7 @@
 
 <script>
 import axios from "axios";
+import _ from 'lodash';
 
 export default {
   data: function () {
@@ -90,11 +91,18 @@ export default {
     },
   },
   methods: {
-    apiCall: function (method, endpoint, data) {
+    apiCall: function (cfg) {
       const context = this;
+      let method = _.get(cfg,'method');
+      let endpoint = _.get(cfg,'endpoint');
+      const data = _.get(cfg,'data');
+      
       const headers = {
         sessionGuid: context.sessionGuid,
       };
+      if (_.startsWith(endpoint,'/')){
+        endpoint = _.trim(endpoint,'/');
+      }
       let url = context.apiURL + "/" + endpoint;
       return new Promise((resolve, reject) => {
         axios({
@@ -152,7 +160,7 @@ export default {
       this.$toasted.warn(message, { theme: "bubble" });
     },
     onFail: function (message) {
-      console.error(message);
+      console.error("ON FAIL",message);
       this.$toasted.error(message, { theme: "bubble" });
     },
   },
