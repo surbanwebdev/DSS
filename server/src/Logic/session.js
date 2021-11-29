@@ -18,26 +18,23 @@ function login(req, res) {
             const db = await sqlite.open(dbParams);
 
             const body = req.body;
-            let userName = body.userName;
+            let userName = body.username;
             let password = body.password;
 
             let query = "SELECT * FROM User WHERE UserName = ? AND UserPassword = ?";
 
             let currentUser = await db.get(query, [userName, password]);
-
+            
             if (!currentUser) {
                 res.statusMessage ='Invalid Credentials';
                 res.status(401).end();
                 resolve();
                 return;
             }
+
             let sessionGuid = await createSession(db, currentUser);
 
-            res.status(200).send({
-                data: {
-                    sessionGuid
-                }
-            }).end();
+            res.status(200).send({sessionGuid}).end();
 
             resolve();
         } catch (e) {

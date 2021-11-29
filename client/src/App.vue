@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div>
-      <div v-if="loggedIn == false" class="login">
+      <div v-if="!loggedIn" class="login">
         <div class="jumbotron mb-4">
           <div class="bg-img py-5">
             <div class="gradient-overlay"></div>
@@ -28,6 +28,7 @@
                 class="form-control"
                 id="username"
                 placeholder="Username"
+                v-model="username"
               />
             </div>
             <div class="form-group">
@@ -36,34 +37,124 @@
                 class="form-control"
                 id="password"
                 placeholder="Password"
+                v-model="password"
               />
               <p class="link text-left">Forgot Password?</p>
             </div>
-            <router-link :to="{ name: 'Patients' }">
-              <button
-                @click="loggedIn = true"
-                type="submit"
-                class="btn btn-primary mb-3"
-              >
-                Log In
-              </button>
-            </router-link>
+            <input
+              type="button"
+              class="btn btn-primary mb-3"
+              value="Log In"
+              v-on:click="login"
+            />
             <p class="link">Create an account</p>
           </form>
         </div>
       </div>
-      <router-view />
+      <div v-if="loggedIn">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
 
+
+
+
 <script>
+import axios from "axios";
+
 export default {
   data: function () {
     return {
-      // TEMPORARILY SET TO TRUE SO LOGIN SCREEN DOESN'T APPEAR EVERY REFRESH
       loggedIn: false,
+      username: "",
+      password: "",
+      route: "patients",
+      ogRoute: "patients",
     };
+  },
+  computed: {
+    sessionGuid: {
+      get: function () {
+        return this.$store.state.sessionGuid;
+      },
+      set: function (tSessionGuid) {
+        this.$store.dispatch("setSessionGuid", tSessionGuid);
+      },
+    },
+    apiURL: {
+      get: function () {
+        return this.$store.state.apiURL;
+      },
+    },
+  },
+  methods: {
+    apiCall: function (method, endpoint, data) {
+      const context = this;
+      const headers = {
+        sessionGuid: context.sessionGuid,
+      };
+      let url = context.apiURL + "/" + endpoint;
+      return new Promise((resolve, reject) => {
+        axios({
+          method,
+          url,
+          data,
+          headers,
+        }).then((response) => {
+          resolve(response);
+        }).catch((err) => {
+          console.error(err.response);
+          const statusCode = err.response.status;
+          const statusText = err.response.statusText;
+          if (statusCode === 401) {
+            context.onFail(statusText);
+            context.loggedIn = false;
+            context.sessionGuid = null;
+            reject(err.response);
+            return;
+          }
+          //this.onFail(err); //uncomment this if we want it to automaticlaly toast each time a call fails.
+          reject(err);
+        });
+      });
+    },
+    login: function () {
+      const context = this;
+      const payload = {
+        username: context.username,
+        password: context.password,
+      };
+
+      let url = context.apiURL + "/session/login";
+      axios
+        .post(url, payload)
+        .then((response) => {
+          context.sessionGuid = response.data.sessionGuid;
+          context.loggedIn = true;
+        })
+        .catch((err) => {
+          console.error(err.response);
+          const statusCode = err.response.status;
+          if (statusCode === 401) {
+            context.onFail("The credentials you entered we invalid.");
+            context.loggedIn = false;
+            context.sessionGuid = null;
+          }
+        });
+    },
+    onSuccess: function (message) {
+      this.$toasted.success(message, { theme: "bubble" });
+    },
+    onWarning: function (message) {
+      console.warn(message);
+      this.$toasted.warn(message, { theme: "bubble" });
+    },
+    onFail: function (message) {
+      console.error(message);
+      this.$toasted.error(message, { theme: "bubble" });
+    },
   },
 };
 </script>

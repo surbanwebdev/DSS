@@ -1,6 +1,4 @@
-const _ = require('lodash');
 const { getRequestSessionGuid, isAdmin, manageSession } = require('../Logic/session');
-
 
 module.exports = {
     requireValidSession: ((req, res, next) => {

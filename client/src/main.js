@@ -11,13 +11,14 @@ import VueCompositionAPI from '@vue/composition-api'
 import Vuelidate from 'vuelidate';
 import VueMq from 'vue-mq'
 import store from './store';
+import Toasted from 'vue-toasted';
  
 import {
   faShoppingCart,
   faDollarSign,
   faSyringe
 }
-  from "@fortawesome/free-solid-svg-icons";
+from "@fortawesome/free-solid-svg-icons";
 
 window.$ = window.jQuery = require('jquery');
 
@@ -38,6 +39,10 @@ Vue.use(VueMq, {
     laptop: 1250,
     desktop: Infinity,
   }
+})
+
+Vue.use(Toasted, {
+  duration: 3000
 })
 
 new Vue({
