@@ -63,7 +63,8 @@
 
 <script>
 import axios from "axios";
-import _ from 'lodash';
+import _ from "lodash";
+import router from './router';
 
 export default {
   data: function () {
@@ -91,42 +92,40 @@ export default {
     },
   },
   methods: {
-    apiCall: function (cfg) {
+    apiCall: async function (cfg) {
       const context = this;
-      let method = _.get(cfg,'method');
-      let endpoint = _.get(cfg,'endpoint');
-      const data = _.get(cfg,'data');
-      
+      let method = _.get(cfg, "method");
+      let endpoint = _.get(cfg, "endpoint");
+      const data = _.get(cfg, "data");
+
       const headers = {
         sessionGuid: context.sessionGuid,
       };
-      if (_.startsWith(endpoint,'/')){
-        endpoint = _.trim(endpoint,'/');
+      if (_.startsWith(endpoint, "/")) {
+        endpoint = _.trim(endpoint, "/");
       }
       let url = context.apiURL + "/" + endpoint;
-      return new Promise((resolve, reject) => {
-        axios({
+      try {
+        let response = await axios({
           method,
           url,
           data,
           headers,
-        }).then((response) => {
-          resolve(response);
-        }).catch((err) => {
-          console.error(err.response);
-          const statusCode = err.response.status;
-          const statusText = err.response.statusText;
-          if (statusCode === 401) {
-            context.onFail(statusText);
-            context.loggedIn = false;
-            context.sessionGuid = null;
-            reject(err.response);
-            return;
-          }
-          //this.onFail(err); //uncomment this if we want it to automaticlaly toast each time a call fails.
-          reject(err);
         });
-      });
+        return response;
+      } catch (err) {
+        console.error(err.response);
+        const statusCode = err.response.status;
+        const statusText = err.response.statusText;
+        if (statusCode === 401) {
+          context.onFail(statusText);
+          context.loggedIn = false;
+          context.sessionGuid = null;
+          return err.response;
+        }
+        //this.onFail(err); //uncomment this if we want it to automaticlaly toast each time a call fails.
+        return err.response;
+      }
     },
     login: function () {
       const context = this;
@@ -141,6 +140,7 @@ export default {
         .then((response) => {
           context.sessionGuid = response.data.sessionGuid;
           context.loggedIn = true;
+          router.push(context.route || context.ogRoute);
         })
         .catch((err) => {
           console.error(err.response);
@@ -160,7 +160,7 @@ export default {
       this.$toasted.warn(message, { theme: "bubble" });
     },
     onFail: function (message) {
-      console.error("ON FAIL",message);
+      console.error("ON FAIL", message);
       this.$toasted.error(message, { theme: "bubble" });
     },
   },

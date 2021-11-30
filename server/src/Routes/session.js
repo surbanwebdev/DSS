@@ -5,20 +5,11 @@ const {login, logout} = require('../Logic/session');
 const router = express.Router();
 
 router.post('/login',(async (req,res)=>{
-    login(req,res).catch((err)=>{
-        res.statusMessage = err;
-        res.status(500).end();
-        return;
-    });
+    login(req,res);
 }));
 
 router.post('/logout',requireValidSession,((req,res)=>{
-    logout(req,res).catch((err)=>{
-        res.statusMessage = "Internal Server Error";
-        res.status(500).end();
-        console.log("ERROR",err)
-        return;
-    });
+    logout(req,res);
 }));
 
 module.exports = router;

@@ -18,7 +18,7 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
     "sqlite": "^4.0.23",
-    "sqlite3": "^5.0.2",
+    "sqlite3": "^4.2.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
