@@ -21,11 +21,11 @@ async function create(req, res) {
             WHERE NOT EXISTS (SELECT * FROM Patient where PatientID = ?)`;
 
         let params = [
-            _.get(body, 'PatientID'),
-            _.get(body, 'Sex'),
-            _.get(body, 'Weight'),
-            _.get(body, 'Height'),
-            _.get(body, 'PatientID'),
+            _.get(body, 'patientID'),
+            _.get(body, 'sex'),
+            _.get(body, 'weight'),
+            _.get(body, 'height'),
+            _.get(body, 'patientID'),
         ];
         let rowId = await db.run(query, params);
 
@@ -50,10 +50,10 @@ async function update(req, res) {
             WHERE PatientID = ?`;
 
         let params = [
-            _.get(body, 'Sex'),
-            _.get(body, 'Weight'),
-            _.get(body, 'Height'),
-            _.get(body, 'PatientID'),
+            _.get(body, 'sex'),
+            _.get(body, 'weight'),
+            _.get(body, 'height'),
+            _.get(body, 'patientID'),
         ];
 
         let numOfRowsAffected = await db.run(query, params);
@@ -75,7 +75,7 @@ async function remove(req, res) {
         let query = `DELETE FROM Patient WHERE PatientID = ?`;
 
         let params = [
-            _.get(body, 'PatientID')
+            _.get(body, 'patientID')
         ];
         let numOfRowsAffected = await db.run(query, params);
 
@@ -96,7 +96,7 @@ async function get(req, res) {
         let query = `SELECT * FROM Patient WHERE PatientID = ?`;
 
         let params = [
-            _.get(body, 'PatientID')
+            _.get(body, 'patientID')
         ];
         console.log(params)
         let patient = await db.get(query, params);
@@ -124,8 +124,8 @@ async function search(req, res) {
         `;
 
         let rows = await db.all(query, [
-            _.get(body, 'Query'),
-            _.get(body, 'Query')
+            _.get(body, 'query'),
+            _.get(body, 'query')
         ]);
 
         rows = rows.filter((v,i,a)=>a.findIndex(t=>(t.ID === v.ID))===i);//remove duplicates by ID

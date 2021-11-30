@@ -105,6 +105,7 @@ export default {
         endpoint = _.trim(endpoint, "/");
       }
       let url = context.apiURL + "/" + endpoint;
+
       try {
         let response = await axios({
           method,
@@ -112,19 +113,23 @@ export default {
           data,
           headers,
         });
-        return response;
+        if (response.status >= 200 && response.status <= 299){
+          //Anything in 200 is good
+          return response;
+        }else{
+          //If not in 200 range, throw and let the catch block deal with it
+          throw(response);
+        }
       } catch (err) {
-        console.error(err.response);
         const statusCode = err.response.status;
         const statusText = err.response.statusText;
         if (statusCode === 401) {
+          //401 at any point means our session timed out.
           context.onFail(statusText);
           context.loggedIn = false;
           context.sessionGuid = null;
-          return err.response;
         }
-        //this.onFail(err); //uncomment this if we want it to automaticlaly toast each time a call fails.
-        return err.response;
+        throw err;
       }
     },
     login: function () {

@@ -6,28 +6,18 @@
         <div class="title-wrap d-flex align-items-center mb-2"></div>
         <p class="bold-heading mb-3">Add a New Patient</p>
         <form>
+
           <div class="form-group">
             <input
-              id="firstName"
+              id="patientID"
               @focus="$event.target.select()"
-              v-model="firstName"
+              v-model="patientID"
               class="form-control"
-              placeholder="First Name"
+              placeholder="PatientId"
               autofocus="true"
               required
             />
-            <label class="form-label" for="firstName">First Name</label>
-          </div>
-          <div class="form-group">
-            <input
-              id="lastName"
-              @focus="$event.target.select()"
-              v-model="lastName"
-              class="form-control"
-              placeholder="Last Name"
-              required
-            />
-            <label class="form-label" for="lastName">Last Name</label>
+            <label class="form-label" for="patientId">Patient ID</label>
           </div>
           <div class="form-group mb-1">
             <select name="sex" id="sex" class="form-control" placeholder="Sex">
@@ -58,58 +48,7 @@
             />
             <label class="form-label" for="lastName">Height</label>
           </div>
-          <div class="form-group">
-            <input
-              id="tbv"
-              @focus="$event.target.select()"
-              v-model.number="tbv"
-              type="number"
-              class="form-control"
-              placeholder="TBV Deviation %"
-              autofocus="true"
-              required
-            />
-            <label class="form-label" for="tbv">TBV Deviation %</label>
-          </div>
-          <div class="form-group">
-            <input
-              id="rbcv"
-              @focus="$event.target.select()"
-              v-model.number="rbcv"
-              type="number"
-              class="form-control"
-              placeholder="RBCV Deviation %"
-              required
-            />
-            <label class="form-label" for="rbcv">RBCV Deviation %</label>
-          </div>
-          <div class="form-group mb-1">
-            <input
-              id="nhct"
-              @focus="$event.target.select()"
-              v-model.number="nhct"
-              type="number"
-              class="form-control"
-              placeholder="Normalized Hct (nHct)"
-              required
-            />
-            <label class="form-label" for="nhct">Normalized Hct (nhct)</label>
-          </div>
-          <div class="form-group mb-1">
-            <input
-              id="pv"
-              @focus="$event.target.select()"
-              v-model.number="pv"
-              type="number"
-              class="form-control"
-              placeholder="Plasma Volume (PV)"
-              required
-            />
-            <label class="form-label" for="nhct">Plasma Volume (PV)</label>
-          </div>
-          <button type="submit" class="btn btn-primary" value="Submit">
-            Submit
-          </button>
+          <input type="button" class="btn btn-primary" value="Submit" v-on:click="addNewPatient" />
         </form>
       </div>
     </div>
@@ -121,6 +60,14 @@ import Navigation from "../components/Navigation.vue";
 import Footer from "../components/Footer.vue";
 
 export default {
+    data: function () {
+    return {
+      patientID: '',
+      sex: 'Male',
+      weight: 0,
+      height: 0
+    };
+  },
   components: {
     Navigation,
     Footer,
@@ -128,42 +75,29 @@ export default {
   name: "NewPatient",
   // THESE COMPUTED FUNCTIONS WILL ACCESS AND MODIFY THE DATA IN THE STORE
   computed: {
-    tbv: {
-      get: function () {
-        return this.$store.state.tbv;
-      },
-      set: function (newTbv) {
-        this.$store.dispatch("setTbv", newTbv);
-      },
-    },
-    rbcv: {
-      get: function () {
-        return this.$store.state.rbcv;
-      },
-      set: function (newRbcv) {
-        this.$store.dispatch("setRbcv", newRbcv);
-      },
-    },
-    nhct: {
-      get: function () {
-        return this.$store.state.nhct;
-      },
-      set: function (newNhct) {
-        this.$store.dispatch("setNhct", newNhct);
-      },
-    },
+    
   },
-  // methods: {
-  //   updateTbv: function (tbv) {
-  //     this.$store.commit("setTbv", tbv);
-  //   },
-  //   updateRbcv: function (value) {
-  //     this.$store.commit("setRbcv", value);
-  //   },
-  //   updateNhct: function (value) {
-  //     this.$store.commit("setNhct", value);
-  //   },
-  // },
+  methods:{
+    addNewPatient: function(){
+      const context = this;
+      this.$parent.apiCall({
+        method: 'post',
+        endpoint: 'patient',
+        data: {
+          patientID: context.patientID,
+          sex: context.sex,
+          weight: context.weight,
+          height: context.height
+        }
+      }).then((res)=>{
+        console.log('RES',res);
+        this.$parent.onSuccess("Patient Created");
+      }).catch((err)=>{
+        console.error("ERR",err);
+        this.$parent.onFail(err.response.statusText);
+      });
+    }
+  }
 };
 </script>
 
