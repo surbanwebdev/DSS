@@ -58,6 +58,7 @@
 <script>
 import Navigation from "../components/Navigation.vue";
 import Footer from "../components/Footer.vue";
+import router from '../router';
 
 export default {
     data: function () {
@@ -92,6 +93,7 @@ export default {
       }).then((res)=>{
         console.log('RES',res);
         this.$parent.onSuccess("Patient Created");
+        router.push('patients');
       }).catch((err)=>{
         console.error("ERR",err);
         this.$parent.onFail(err.response.statusText);
