@@ -18,7 +18,7 @@ async function create(req, res) {
         let query = `INSERT INTO Patient 
             (PatientID, Sex, Weight, Height) 
             SELECT ?,?,?,?
-            WHERE NOT EXISTS (SELECT * FROM Patient where PatientID = ?)`;
+            WHERE NOT EXISTS (SELECT * FROM Patient WHERE PatientID = ?)`;
 
         let params = [
             _.get(body, 'patientID'),
@@ -110,6 +110,24 @@ async function get(req, res) {
     }
 }
 
+async function getAll(req,res){
+    try{
+        const db = await sqlite.open(dbParams);
+        const body = req.body;
+        const page = _.get(body,'page');
+        const count = _.get(body,'count');
+
+        let query = `SELECT * FROM Patient`
+        let patients = await db.all(query);
+        res.statusMessage = 'OK';
+        res.status(200).send({ patients }).end();
+    }catch(err){
+        console.error(err);
+        res.statusMessage = 'Internal Server Error';
+        res.status(500).send(err).end();
+    }
+}
+
 async function search(req, res) {
     try {
         const db = await sqlite.open(dbParams);
@@ -145,5 +163,6 @@ module.exports = {
     update,
     remove,
     get,
+    getAll,
     search
 }

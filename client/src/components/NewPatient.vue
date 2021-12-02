@@ -48,7 +48,10 @@
             />
             <label class="form-label" for="lastName">Height</label>
           </div>
-          <input type="button" class="btn btn-primary" value="Submit" v-on:click="addNewPatient" />
+          <div>
+          <input type="button" class="btn btn-primary" value="Cancel" v-on:click="cancel" style="float:left"/>
+          <input type="button" class="btn btn-primary" value="Submit" v-on:click="addNewPatient" style="float:right"/>
+          </div>
         </form>
       </div>
     </div>
@@ -59,6 +62,7 @@
 import Navigation from "../components/Navigation.vue";
 import Footer from "../components/Footer.vue";
 import router from '../router';
+import _ from 'lodash';
 
 export default {
     data: function () {
@@ -79,8 +83,31 @@ export default {
     
   },
   methods:{
+    validate: function(){
+      let context = this;
+      if (_.trim(context.patientID) === ''){
+        context.$parent.onFail('Patient ID must not be empty');
+        return false;
+      }
+      if (context.weight === 0){
+        context.$parent.onFail('Patient weight must not be 0');
+        return false;
+      }
+      if (context.height === 0){
+        context.$parent.onFail('Patient height must not be 0');
+        return false;
+      }
+      return true;
+
+    },
+    cancel: function(){
+      router.back();
+    },
     addNewPatient: function(){
       const context = this;
+      if (!context.validate()){
+        return;
+      }
       this.$parent.apiCall({
         method: 'post',
         endpoint: 'patient',
@@ -92,11 +119,11 @@ export default {
         }
       }).then((res)=>{
         console.log('RES',res);
-        this.$parent.onSuccess("Patient Created");
+        context.$parent.onSuccess("Patient Created");
         router.push('patients');
       }).catch((err)=>{
         console.error("ERR",err);
-        this.$parent.onFail(err.response.statusText);
+        context.$parent.onFail(err.response.statusText);
       });
     }
   }

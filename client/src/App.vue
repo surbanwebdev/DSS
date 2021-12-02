@@ -64,7 +64,7 @@
 <script>
 import axios from "axios";
 import _ from "lodash";
-import router from './router';
+import router from "./router";
 
 export default {
   data: function () {
@@ -113,12 +113,12 @@ export default {
           data,
           headers,
         });
-        if (response.status >= 200 && response.status <= 299){
+        if (response.status >= 200 && response.status <= 299) {
           //Anything in 200 is good
           return response;
-        }else{
+        } else {
           //If not in 200 range, throw and let the catch block deal with it
-          throw(response);
+          throw (response);
         }
       } catch (err) {
         const statusCode = err.response.status;
@@ -131,6 +131,17 @@ export default {
         }
         throw err;
       }
+    },
+    onSuccess: function (message) {
+      this.$toasted.success(message, { theme: "bubble" });
+    },
+    onWarning: function (message) {
+      console.warn(message);
+      this.$toasted.warn(message, { theme: "bubble" });
+    },
+    onFail: function (message) {
+      console.error("ON FAIL", message);
+      this.$toasted.error(message, { theme: "bubble" });
     },
     login: function () {
       const context = this;
@@ -156,17 +167,6 @@ export default {
             context.sessionGuid = null;
           }
         });
-    },
-    onSuccess: function (message) {
-      this.$toasted.success(message, { theme: "bubble" });
-    },
-    onWarning: function (message) {
-      console.warn(message);
-      this.$toasted.warn(message, { theme: "bubble" });
-    },
-    onFail: function (message) {
-      console.error("ON FAIL", message);
-      this.$toasted.error(message, { theme: "bubble" });
     },
   },
 };

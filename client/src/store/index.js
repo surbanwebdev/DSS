@@ -40,8 +40,12 @@ export default new Vuex.Store({
     setNhct({ state }, newNhct) {
       state.nhct = newNhct
     },
-    setSessionGuid({state}, newSessionGuid){
+    setSessionGuid({ state }, newSessionGuid) {
       state.sessionGuid = newSessionGuid
     }
   },
+  methods: {
+
+
+  }
 })
