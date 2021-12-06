@@ -4,7 +4,7 @@ const {create, update, remove, get, search, getAll} = require('../Logic/patient'
 
 const router = express.Router();
 
-router.post('/',requireValidSession,(async (req,res)=>{ //localhost:8081/patients/
+router.post('/',requireValidSession,(async (req,res)=>{
     create(req,res);
 }));
 
@@ -16,7 +16,7 @@ router.get('/',requireValidSession,(async (req,res)=>{
     get(req,res);
 }));
 
-router.get('/getAll',requireValidSession,(async (req,res)=>{//localhost:8081/patients/all
+router.get('/getAll',requireValidSession,(async (req,res)=>{
     getAll(req,res);
 }));
 
@@ -24,7 +24,7 @@ router.delete('/',requireValidSession,(async (req,res)=>{
     remove(req,res);
 }));
 
-router.post('/search',requireValidSession,(async (req,res)=>{//localhost:8081/patients/search
+router.post('/search',requireValidSession,(async (req,res)=>{
     search(req,res);
 }));
 

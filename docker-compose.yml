@@ -1,0 +1,14 @@
+version: '2'
+services:
+    frontend:
+        build: 
+          context: ./client
+        ports:
+        - "8080:8080"
+        depends_on:
+        - server
+    server:
+      build: 
+        context: ./server
+      ports:
+        - "8081:8081"
