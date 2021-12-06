@@ -3,18 +3,14 @@ const sqlite3 = require('sqlite3');
 const sqlite = require('sqlite');
 const { v4 } = require('uuid');
 const _ = require('lodash');
+const { getDB } = require('./db');
 
-const dbPath = './DecisionSupport.db';
-const dbParams = {
-    filename: dbPath,
-    driver: sqlite3.Database
-}
 
 const timeout = 600000;//millisecs (10 mins)
 
 async function login(req, res) {
     try {
-        const db = await sqlite.open(dbParams);
+        const db = await getDB();
 
         const body = req.body;
         let userName = body.username;
@@ -56,8 +52,8 @@ async function logout(req, res) {
 
 async function processLogout(sessionGuid) {
     try {
+        const db = await getDB();
         let now = new Date(Date.now()).toISOString();
-        const db = await sqlite.open(dbParams);
         let query = `UPDATE UserSession SET LoggedOut = ? WHERE UserSessionGUID = ?`;
         await db.run(query, [now, sessionGuid]);
         return;
@@ -93,8 +89,8 @@ function getRequestSessionGuid(request) {
 
 async function manageSession(req, res) {
     try {
+        const db = await getDB();
         let sessionGuid = getRequestSessionGuid(req);
-        const db = await sqlite.open(dbParams);
 
         let query = `SELECT LastActive FROM UserSession
                 WHERE UserSessionGUID = ? and LoggedOut IS NULL`;
@@ -128,7 +124,7 @@ async function manageSession(req, res) {
 
 async function isAdmin(sessionGuid) {
     try {
-        const db = await sqlite.open(dbParams);
+        const db = await getDB();
 
         let query = `SELECT u.IsAdmin FROM UserSession us
                         JOIN User u on u.ID = us.UserID

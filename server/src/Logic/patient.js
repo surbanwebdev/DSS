@@ -3,16 +3,11 @@ const sqlite3 = require('sqlite3');
 const sqlite = require('sqlite');
 const { v4 } = require('uuid');
 const _ = require('lodash');
-
-const dbPath = './DecisionSupport.db';
-const dbParams = {
-    filename: dbPath,
-    driver: sqlite3.Database
-}
+const { getDB } = require('./db');
 
 async function create(req, res) {
     try {
-        const db = await sqlite.open(dbParams);
+        const db = await getDB();
         const body = req.body;
 
         let query = `INSERT INTO Patient 
@@ -40,7 +35,7 @@ async function create(req, res) {
 
 async function update(req, res) {
     try {
-        const db = await sqlite.open(dbParams);
+        const db = await getDB();
         const body = req.body;
 
         let query = `UPDATE Patient SET
@@ -69,7 +64,7 @@ async function update(req, res) {
 
 async function remove(req, res) {
     try {
-        const db = await sqlite.open(dbParams);
+        const db = await getDB();
         const body = req.body;
 
         let query = `DELETE FROM Patient WHERE PatientID = ?`;
@@ -90,7 +85,7 @@ async function remove(req, res) {
 
 async function get(req, res) {
     try {
-        const db = await sqlite.open(dbParams);
+        const db = await getDB();
         const body = req.body;
 
         let query = `SELECT * FROM Patient WHERE PatientID = ?`;
@@ -112,7 +107,7 @@ async function get(req, res) {
 
 async function getAll(req,res){
     try{
-        const db = await sqlite.open(dbParams);
+        const db = await getDB();
         const body = req.body;
         const page = _.get(body,'page');
         const count = _.get(body,'count');
@@ -130,7 +125,7 @@ async function getAll(req,res){
 
 async function search(req, res) {
     try {
-        const db = await sqlite.open(dbParams);
+        const db = await getDB();
         const body = req.body;
 
         let query = `
