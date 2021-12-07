@@ -10,6 +10,7 @@ const dbParams = {
 
 async function getDB(){
     if (!fs.existsSync(dbPath)){
+        console.log("Hey dude it works!")
         await setupDB();
     }
     return await sqlite.open(dbParams);
