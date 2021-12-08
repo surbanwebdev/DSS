@@ -3,13 +3,14 @@ volumes:
   database:
     external: true
 services:
-    frontend:
+    client:
         build: 
           context: ./client
         ports:
         - "8080:8080"
         depends_on:
         - server
+        container_name: DSS_UI
     server:
       build: 
         context: ./server
@@ -17,3 +18,4 @@ services:
         - "8081:8081"
       volumes:
         - database:/usr/src/app/db
+      container_name: DSS_API
