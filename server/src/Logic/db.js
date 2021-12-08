@@ -2,7 +2,7 @@ const sqlite3 = require('sqlite3');
 const sqlite = require('sqlite');
 const fs = require('fs');
 
-const dbPath = '/usr/src/app/db/DecisionSupport.db';
+const dbPath = './DecisionSupport.db';
 const dbParams = {
     filename: dbPath,
     driver: sqlite3.Database

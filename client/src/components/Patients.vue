@@ -19,7 +19,13 @@
             <router-link
               class="mb-3"
               :to="{
-                name: 'BVAData',
+                name: 'PatientDetails',
+                params: {
+                  patientID: patient.PatientID,
+                  sex: patient.Sex,
+                  weight: patient.Weight,
+                  height: patient.Height,
+                },
               }"
             >
               <button type="submit" class="btn btn-primary mt-3">
