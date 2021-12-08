@@ -63,6 +63,7 @@ export default {
   data: function () {
     return {
       patients: [],
+      variable: 0
     };
   },
 
