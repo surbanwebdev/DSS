@@ -12,13 +12,14 @@
             "type": "node",
             "request": "launch",
             "name": "Client",
-            "noDebug": true,
-            "cwd": "${workspaceRoot}",
-            "runtimeExecutable": "npm",
+            "runtimeExecutable": "node",
             "runtimeArgs": [
-                "run-script","serve"
-            ]
-        }
+                "${workspaceRoot}/client/node_modules/@vue/cli-service/bin/vue-cli-service.js", 
+                "serve",
+                "${workspaceRoot}/client/src/main.js"
+            ],
+            "cwd": "${workspaceRoot}/client"
+        },
     ],
     "compounds": [
         {

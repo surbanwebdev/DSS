@@ -1,10 +1,6 @@
-/* eslint-disable no-async-promise-executor */
-const sqlite3 = require('sqlite3');
-const sqlite = require('sqlite');
 const { v4 } = require('uuid');
 const _ = require('lodash');
 const { getDB } = require('./db');
-
 
 const timeout = 600000;//millisecs (10 mins)
 
@@ -51,35 +47,22 @@ async function logout(req, res) {
 }
 
 async function processLogout(sessionGuid) {
-    try {
-        const db = await getDB();
-        let now = new Date(Date.now()).toISOString();
-        let query = `UPDATE UserSession SET LoggedOut = ? WHERE UserSessionGUID = ?`;
-        await db.run(query, [now, sessionGuid]);
-        return;
-    } catch (err) {
-        res.statusMessage = 'Internal Server Error';
-        res.status(500).send(err).end();
-        return;
-    }
+    const db = await getDB();
+    let now = new Date(Date.now()).toISOString();
+    let query = `UPDATE UserSession SET LoggedOut = ? WHERE UserSessionGUID = ?`;
+    await db.run(query, [now, sessionGuid]);
+    return;
 }
 
 async function createSession(db, user) {
-    try {
-        let now = new Date(Date.now()).toISOString();
-        let newUserSessionGuid = v4();
-        let query = `INSERT INTO UserSession(UserId, UserName, UserPassword, UserSessionGuid, LoggedIn, LastActive)
-                            VALUES(?,?,?,?,?,?)`;
-        let payload = [user.ID, user.UserName, user.UserPassword, newUserSessionGuid, now, now];
+    let now = new Date(Date.now()).toISOString();
+    let newUserSessionGuid = v4();
+    let query = `INSERT INTO UserSession(UserId, UserName, UserPassword, UserSessionGuid, LoggedIn, LastActive)
+                        VALUES(?,?,?,?,?,?)`;
+    let payload = [user.ID, user.UserName, user.UserPassword, newUserSessionGuid, now, now];
 
-        await db.run(query, payload);
-        return newUserSessionGuid;
-        return;
-    } catch (err) {
-        res.statusMessage = 'Internal Server Error';
-        res.status(500).send(err).end();
-        return;
-    }
+    await db.run(query, payload);
+    return newUserSessionGuid;
 }
 
 function getRequestSessionGuid(request) {
@@ -123,26 +106,20 @@ async function manageSession(req, res) {
 }
 
 async function isAdmin(sessionGuid) {
-    try {
-        const db = await getDB();
+    const db = await getDB();
 
-        let query = `SELECT u.IsAdmin FROM UserSession us
-                        JOIN User u on u.ID = us.UserID
-                        WHERE us.UserSessionGuid = ?`;
+    let query = `SELECT u.IsAdmin FROM UserSession us
+                    JOIN User u on u.ID = us.UserID
+                    WHERE us.UserSessionGuid = ?`;
 
-        let row = await db.get(query, [sessionGuid]);
-        if (!row) {
-            return false;
-        }
-        if (_.toUpper(_.get(row, 'IsAdmin')) === 'YES') {
-            return true;
-        } else {
-            return false;
-        }
-    } catch (err) {
-        res.statusMessage = 'Internal Server Error';
-        res.status(500).send(err).end();
-        return;
+    let row = await db.get(query, [sessionGuid]);
+    if (!row) {
+        return false;
+    }
+    if (_.toUpper(_.get(row, 'IsAdmin')) === 'YES') {
+        return true;
+    } else {
+        return false;
     }
 }
 
