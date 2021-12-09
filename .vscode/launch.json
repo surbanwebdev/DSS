@@ -6,7 +6,7 @@
             "request": "launch",
             "name": "Server",
             "program": "${workspaceRoot}/server/src/app.js",
-            "cwd": "${workspaceRoot}"
+            "cwd": "${workspaceRoot}/server"
         },
         {
             "type": "node",
