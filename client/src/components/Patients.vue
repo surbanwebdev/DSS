@@ -20,15 +20,13 @@
               class="mb-3"
               :to="{
                 name: 'PatientDetails',
-                params: {
-                  patientID: patient.PatientID,
-                  sex: patient.Sex,
-                  weight: patient.Weight,
-                  height: patient.Height,
-                },
               }"
             >
-              <button type="submit" class="btn btn-primary mt-3">
+              <button
+                type="submit"
+                class="btn btn-primary mt-3"
+                v-on:click="updateCurrentPatient(patient.PatientID)"
+              >
                 View Patient
               </button>
             </router-link>
@@ -76,6 +74,9 @@ export default {
     calculateTargethct: function () {
       var calculated = this.nhct * 1.1;
       this.thct = calculated.toFixed(2);
+    },
+    updateCurrentPatient: function (id) {
+      this.$store.dispatch("setCurrentPatientID", id);
     },
     loadPatients: async function () {
       const context = this;

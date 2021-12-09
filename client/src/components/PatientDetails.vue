@@ -10,25 +10,25 @@
               <tr>
                 Patient:
                 {{
-                  $route.params.patientID
+                  currentPatientID
                 }}
               </tr>
               <tr>
                 Sex:
                 {{
-                  $route.params.sex
+                  patient.Sex
                 }}
               </tr>
               <tr>
                 Weight:
                 {{
-                  $route.params.weight
+                  patient.Weight
                 }}
               </tr>
               <tr>
                 Height:
                 {{
-                  $route.params.height
+                  patient.Height
                 }}
               </tr>
             </table>
@@ -65,6 +65,7 @@
 <script>
 import Navigation from "./Navigation";
 import Footer from "./Footer";
+import _ from "lodash";
 
 export default {
   name: "PatientDetails",
@@ -73,9 +74,36 @@ export default {
     Footer,
   },
   data: function () {
-    return {};
+    return {
+      currentPatientID: this.$store.state.currentPatientID,
+      patient: null,
+    };
   },
-  methods: {},
+  methods: {
+    loadPatient: async function () {
+      const context = this;
+      const endpoint = "patient/";
+      console.log("Current ID " + context.currentPatientID);
+      context.$parent
+        .apiCall({
+          method: "get",
+          data: { patientID: context.currentPatientID },
+          endpoint,
+        })
+        .then((res) => {
+          let patient = _.get(res, "data.patient", []);
+          console.log("PATIENT", patient);
+          context.patient = patient;
+        })
+        .catch((err) => {
+          console.error(err);
+          context.$parent.onFail(err.message);
+        });
+    },
+  },
+  created() {
+    this.loadPatient();
+  },
 };
 </script>
 
