@@ -8,29 +8,24 @@
         <form>
           <div class="form-group">
             <input
-              id="firstName"
+              id="patientID"
               @focus="$event.target.select()"
-              v-model="firstName"
+              v-model="patientID"
               class="form-control"
-              placeholder="First Name"
+              placeholder="PatientId"
               autofocus="true"
               required
             />
-            <label class="form-label" for="firstName">First Name</label>
-          </div>
-          <div class="form-group">
-            <input
-              id="lastName"
-              @focus="$event.target.select()"
-              v-model="lastName"
-              class="form-control"
-              placeholder="Last Name"
-              required
-            />
-            <label class="form-label" for="lastName">Last Name</label>
+            <label class="form-label" for="patientId">Patient ID</label>
           </div>
           <div class="form-group mb-1">
-            <select name="sex" id="sex" class="form-control" placeholder="Sex">
+            <select
+              name="sex"
+              id="sex"
+              class="form-control"
+              placeholder="Sex"
+              v-model="sex"
+            >
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
@@ -58,58 +53,22 @@
             />
             <label class="form-label" for="lastName">Height</label>
           </div>
-          <div class="form-group">
+          <div>
             <input
-              id="tbv"
-              @focus="$event.target.select()"
-              v-model.number="tbv"
-              type="number"
-              class="form-control"
-              placeholder="TBV Deviation %"
-              autofocus="true"
-              required
+              type="button"
+              class="btn btn-primary"
+              value="Cancel"
+              v-on:click="cancel"
+              style="float: left"
             />
-            <label class="form-label" for="tbv">TBV Deviation %</label>
-          </div>
-          <div class="form-group">
             <input
-              id="rbcv"
-              @focus="$event.target.select()"
-              v-model.number="rbcv"
-              type="number"
-              class="form-control"
-              placeholder="RBCV Deviation %"
-              required
+              type="button"
+              class="btn btn-primary"
+              value="Submit"
+              v-on:click="addNewPatient"
+              style="float: right"
             />
-            <label class="form-label" for="rbcv">RBCV Deviation %</label>
           </div>
-          <div class="form-group mb-1">
-            <input
-              id="nhct"
-              @focus="$event.target.select()"
-              v-model.number="nhct"
-              type="number"
-              class="form-control"
-              placeholder="Normalized Hct (nHct)"
-              required
-            />
-            <label class="form-label" for="nhct">Normalized Hct (nhct)</label>
-          </div>
-          <div class="form-group mb-1">
-            <input
-              id="pv"
-              @focus="$event.target.select()"
-              v-model.number="pv"
-              type="number"
-              class="form-control"
-              placeholder="Plasma Volume (PV)"
-              required
-            />
-            <label class="form-label" for="nhct">Plasma Volume (PV)</label>
-          </div>
-          <button type="submit" class="btn btn-primary" value="Submit">
-            Submit
-          </button>
         </form>
       </div>
     </div>
@@ -119,51 +78,72 @@
 <script>
 import Navigation from "../components/Navigation.vue";
 import Footer from "../components/Footer.vue";
+import router from "../router";
+import _ from "lodash";
 
 export default {
+  data: function () {
+    return {
+      patientID: "",
+      sex: "male",
+      weight: 0,
+      height: 0,
+    };
+  },
   components: {
     Navigation,
     Footer,
   },
   name: "NewPatient",
   // THESE COMPUTED FUNCTIONS WILL ACCESS AND MODIFY THE DATA IN THE STORE
-  computed: {
-    tbv: {
-      get: function () {
-        return this.$store.state.tbv;
-      },
-      set: function (newTbv) {
-        this.$store.dispatch("setTbv", newTbv);
-      },
+  computed: {},
+  methods: {
+    validate: function () {
+      let context = this;
+      if (_.trim(context.patientID) === "") {
+        context.$parent.onFail("Patient ID must not be empty");
+        return false;
+      }
+      if (context.weight === 0) {
+        context.$parent.onFail("Patient weight must not be 0");
+        return false;
+      }
+      if (context.height === 0) {
+        context.$parent.onFail("Patient height must not be 0");
+        return false;
+      }
+      return true;
     },
-    rbcv: {
-      get: function () {
-        return this.$store.state.rbcv;
-      },
-      set: function (newRbcv) {
-        this.$store.dispatch("setRbcv", newRbcv);
-      },
+    cancel: function () {
+      router.back();
     },
-    nhct: {
-      get: function () {
-        return this.$store.state.nhct;
-      },
-      set: function (newNhct) {
-        this.$store.dispatch("setNhct", newNhct);
-      },
+    addNewPatient: function () {
+      const context = this;
+      if (!context.validate()) {
+        return;
+      }
+      this.$parent
+        .apiCall({
+          method: "post",
+          endpoint: "patient",
+          data: {
+            patientID: context.patientID,
+            sex: context.sex,
+            weight: context.weight,
+            height: context.height,
+          },
+        })
+        .then((res) => {
+          console.log("RES", res);
+          context.$parent.onSuccess("Patient Created");
+          router.push("patients");
+        })
+        .catch((err) => {
+          console.error("ERR", err);
+          context.$parent.onFail(err.response.statusText);
+        });
     },
   },
-  // methods: {
-  //   updateTbv: function (tbv) {
-  //     this.$store.commit("setTbv", tbv);
-  //   },
-  //   updateRbcv: function (value) {
-  //     this.$store.commit("setRbcv", value);
-  //   },
-  //   updateNhct: function (value) {
-  //     this.$store.commit("setNhct", value);
-  //   },
-  // },
 };
 </script>
 

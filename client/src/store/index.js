@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     age: null,
     anemic: false,
+    currentPatientID: null,
     euvolemic: false,
     firstName: '',
     height: null,
@@ -27,7 +28,7 @@ export default new Vuex.Store({
     thct: null,
     weight: null,
     sessionGuid: null,
-    apiURL: "http://localhost:8081"
+    apiURL: "http://0.0.0.0:8081"
   },
   // SET ACTIONS TO UPDATE VARIABLES
   actions: {
@@ -40,8 +41,15 @@ export default new Vuex.Store({
     setNhct({ state }, newNhct) {
       state.nhct = newNhct
     },
-    setSessionGuid({state}, newSessionGuid){
+    setSessionGuid({ state }, newSessionGuid) {
       state.sessionGuid = newSessionGuid
+    },
+    setCurrentPatientID({ state }, currentPatientID) {
+      state.currentPatientID = currentPatientID
     }
   },
+  methods: {
+
+
+  }
 })

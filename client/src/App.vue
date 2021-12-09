@@ -63,7 +63,8 @@
 
 <script>
 import axios from "axios";
-import _ from 'lodash';
+import _ from "lodash";
+import router from "./router";
 
 export default {
   data: function () {
@@ -91,42 +92,58 @@ export default {
     },
   },
   methods: {
-    apiCall: function (cfg) {
+    apiCall: async function (cfg) {
       const context = this;
-      let method = _.get(cfg,'method');
-      let endpoint = _.get(cfg,'endpoint');
-      const data = _.get(cfg,'data');
-      
+      let method = _.toLower(_.get(cfg, "method"));
+      let endpoint = _.get(cfg, "endpoint");
+      const data = _.get(cfg, "data");
+
       const headers = {
         sessionGuid: context.sessionGuid,
       };
-      if (_.startsWith(endpoint,'/')){
-        endpoint = _.trim(endpoint,'/');
+      if (_.startsWith(endpoint, "/")) {
+        endpoint = _.trim(endpoint, "/");
       }
       let url = context.apiURL + "/" + endpoint;
-      return new Promise((resolve, reject) => {
-        axios({
-          method,
-          url,
-          data,
-          headers,
-        }).then((response) => {
-          resolve(response);
-        }).catch((err) => {
-          console.error(err.response);
-          const statusCode = err.response.status;
-          const statusText = err.response.statusText;
-          if (statusCode === 401) {
-            context.onFail(statusText);
-            context.loggedIn = false;
-            context.sessionGuid = null;
-            reject(err.response);
-            return;
-          }
-          //this.onFail(err); //uncomment this if we want it to automaticlaly toast each time a call fails.
-          reject(err);
+
+      try {
+        let response = await axios({
+            method,
+            url,
+            data: method === 'get' ? {} : data,
+            headers,
+            params: method === 'get' ? data : {}
         });
-      });
+
+        if (response.status >= 200 && response.status <= 299) {
+          //Anything in 200 is good
+          return response;
+        } else {
+          //If not in 200 range, throw and let the catch block deal with it
+          throw (response);
+        }
+      } catch (err) {
+        const statusCode = err.response.status;
+        const statusText = err.response.statusText;
+        if (statusCode === 401) {
+          //401 at any point means our session timed out.
+          context.onFail(statusText);
+          context.loggedIn = false;
+          context.sessionGuid = null;
+        }
+        throw err;
+      }
+    },
+    onSuccess: function (message) {
+      this.$toasted.success(message, { theme: "bubble" });
+    },
+    onWarning: function (message) {
+      console.warn(message);
+      this.$toasted.warn(message, { theme: "bubble" });
+    },
+    onFail: function (message) {
+      console.error("ON FAIL", message);
+      this.$toasted.error(message, { theme: "bubble" });
     },
     login: function () {
       const context = this;
@@ -141,6 +158,7 @@ export default {
         .then((response) => {
           context.sessionGuid = response.data.sessionGuid;
           context.loggedIn = true;
+          router.push(context.route || context.ogRoute);
         })
         .catch((err) => {
           console.error(err.response);
@@ -151,17 +169,6 @@ export default {
             context.sessionGuid = null;
           }
         });
-    },
-    onSuccess: function (message) {
-      this.$toasted.success(message, { theme: "bubble" });
-    },
-    onWarning: function (message) {
-      console.warn(message);
-      this.$toasted.warn(message, { theme: "bubble" });
-    },
-    onFail: function (message) {
-      console.error("ON FAIL",message);
-      this.$toasted.error(message, { theme: "bubble" });
     },
   },
 };
