@@ -2,8 +2,12 @@ const sqlite3 = require('sqlite3');
 const sqlite = require('sqlite');
 const fs = require('fs');
 
+<<<<<<< HEAD
 const dbPath = '/usr/src/app/db/DecisionSupport.db';
 
+=======
+const dbPath = './DecisionSupport.db';
+>>>>>>> zrk/post-docker-frontend
 const dbParams = {
     filename: dbPath,
     driver: sqlite3.Database

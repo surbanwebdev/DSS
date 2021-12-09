@@ -6,11 +6,12 @@
         <p class="bold-heading mb-4">Select a Patient:</p>
         <ul class="list-group">
           <li class="mb-2" v-for="patient in patients" :key="patient.pid">
-            <h5>{{ patient.lastName }}, {{ patient.firstName }}</h5>
             <div class="content-wrap d-flex justify-content-around">
               <div class="content-left">
                 Patient ID: {{ patient.PatientID }} <br />
                 Sex: {{ patient.Sex }} <br />
+              </div>
+              <div class="content-right">
                 Weight: {{ patient.Weight }} <br />
                 Height: {{ patient.Height }} <br />
               </div>
@@ -18,11 +19,15 @@
             <router-link
               class="mb-3"
               :to="{
-                name: 'BVAData',
+                name: 'PatientDetails',
               }"
             >
-              <button type="submit" class="btn btn-primary mt-3">
-                Select Patient
+              <button
+                type="submit"
+                class="btn btn-primary mt-3"
+                v-on:click="updateCurrentPatient(patient.PatientID)"
+              >
+                View Patient
               </button>
             </router-link>
             <hr />
@@ -51,7 +56,7 @@
 <script>
 import Navigation from "./Navigation";
 import Footer from "./Footer";
-import _ from 'lodash';
+import _ from "lodash";
 
 export default {
   name: "Patients",
@@ -64,33 +69,38 @@ export default {
       patients: [],
     };
   },
-  
+
   methods: {
     calculateTargethct: function () {
       var calculated = this.nhct * 1.1;
       this.thct = calculated.toFixed(2);
     },
-    loadPatients: async function(){
+    updateCurrentPatient: function (id) {
+      this.$store.dispatch("setCurrentPatientID", id);
+    },
+    loadPatients: async function () {
       const context = this;
-      const endpoint = 'patient/getAll';
-      context.$parent.apiCall({
-        method: 'get',
-        endpoint
-      }).then((res)=>{
-        let patients = _.get(res,'data.patients',[]);
-        console.log('PATIENTS',patients)
-        context.patients = patients;
-      }).catch((err)=>{
-        console.error(err);
-        context.$parent.onFail(err.message);
-      })
-    }
+      const endpoint = "patient/getAll";
+      context.$parent
+        .apiCall({
+          method: "get",
+          endpoint,
+        })
+        .then((res) => {
+          let patients = _.get(res, "data.patients", []);
+          console.log("PATIENTS", patients);
+          context.patients = patients;
+        })
+        .catch((err) => {
+          console.error(err);
+          context.$parent.onFail(err.message);
+        });
+    },
   },
   created() {
     this.calculateTargethct();
     this.loadPatients();
   },
-  
 };
 </script>
 

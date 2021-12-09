@@ -87,13 +87,14 @@ async function get(req, res) {
     try {
         const db = await getDB();
         const body = req.body;
+        console.log('REQBODY: ' + body);
 
         let query = `SELECT * FROM Patient WHERE PatientID = ?`;
 
         let params = [
             _.get(body, 'patientID')
         ];
-        console.log(params)
+        console.log("PARAMS: " + params)
         let patient = await db.get(query, params);
 
         res.statusMessage = 'OK';
@@ -105,18 +106,18 @@ async function get(req, res) {
     }
 }
 
-async function getAll(req,res){
-    try{
+async function getAll(req, res) {
+    try {
         const db = await getDB();
         const body = req.body;
-        const page = _.get(body,'page');
-        const count = _.get(body,'count');
+        const page = _.get(body, 'page');
+        const count = _.get(body, 'count');
 
         let query = `SELECT * FROM Patient`
         let patients = await db.all(query);
         res.statusMessage = 'OK';
         res.status(200).send({ patients }).end();
-    }catch(err){
+    } catch (err) {
         console.error(err);
         res.statusMessage = 'Internal Server Error';
         res.status(500).send(err).end();
@@ -141,7 +142,7 @@ async function search(req, res) {
             _.get(body, 'query')
         ]);
 
-        rows = rows.filter((v,i,a)=>a.findIndex(t=>(t.ID === v.ID))===i);//remove duplicates by ID
+        rows = rows.filter((v, i, a) => a.findIndex(t => (t.ID === v.ID)) === i);//remove duplicates by ID
 
         res.statusMessage = 'OK';
         res.status(200).send({ rows }).end();
@@ -154,7 +155,7 @@ async function search(req, res) {
 
 
 module.exports = {
-    create, 
+    create,
     update,
     remove,
     get,

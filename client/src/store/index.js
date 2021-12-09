@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     age: null,
     anemic: false,
+    currentPatientID: null,
     euvolemic: false,
     firstName: '',
     height: null,
@@ -42,6 +43,9 @@ export default new Vuex.Store({
     },
     setSessionGuid({ state }, newSessionGuid) {
       state.sessionGuid = newSessionGuid
+    },
+    setCurrentPatientID({ state }, currentPatientID) {
+      state.currentPatientID = currentPatientID
     }
   },
   methods: {

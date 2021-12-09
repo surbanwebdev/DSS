@@ -6,7 +6,6 @@
         <div class="title-wrap d-flex align-items-center mb-2"></div>
         <p class="bold-heading mb-3">Add a New Patient</p>
         <form>
-
           <div class="form-group">
             <input
               id="patientID"
@@ -20,7 +19,13 @@
             <label class="form-label" for="patientId">Patient ID</label>
           </div>
           <div class="form-group mb-1">
-            <select name="sex" id="sex" class="form-control" placeholder="Sex">
+            <select
+              name="sex"
+              id="sex"
+              class="form-control"
+              placeholder="Sex"
+              v-model="sex"
+            >
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
@@ -49,8 +54,20 @@
             <label class="form-label" for="lastName">Height</label>
           </div>
           <div>
-          <input type="button" class="btn btn-primary" value="Cancel" v-on:click="cancel" style="float:left"/>
-          <input type="button" class="btn btn-primary" value="Submit" v-on:click="addNewPatient" style="float:right"/>
+            <input
+              type="button"
+              class="btn btn-primary"
+              value="Cancel"
+              v-on:click="cancel"
+              style="float: left"
+            />
+            <input
+              type="button"
+              class="btn btn-primary"
+              value="Submit"
+              v-on:click="addNewPatient"
+              style="float: right"
+            />
           </div>
         </form>
       </div>
@@ -61,16 +78,16 @@
 <script>
 import Navigation from "../components/Navigation.vue";
 import Footer from "../components/Footer.vue";
-import router from '../router';
-import _ from 'lodash';
+import router from "../router";
+import _ from "lodash";
 
 export default {
-    data: function () {
+  data: function () {
     return {
-      patientID: '',
-      sex: 'Male',
+      patientID: "",
+      sex: "male",
       weight: 0,
-      height: 0
+      height: 0,
     };
   },
   components: {
@@ -79,54 +96,54 @@ export default {
   },
   name: "NewPatient",
   // THESE COMPUTED FUNCTIONS WILL ACCESS AND MODIFY THE DATA IN THE STORE
-  computed: {
-    
-  },
-  methods:{
-    validate: function(){
+  computed: {},
+  methods: {
+    validate: function () {
       let context = this;
-      if (_.trim(context.patientID) === ''){
-        context.$parent.onFail('Patient ID must not be empty');
+      if (_.trim(context.patientID) === "") {
+        context.$parent.onFail("Patient ID must not be empty");
         return false;
       }
-      if (context.weight === 0){
-        context.$parent.onFail('Patient weight must not be 0');
+      if (context.weight === 0) {
+        context.$parent.onFail("Patient weight must not be 0");
         return false;
       }
-      if (context.height === 0){
-        context.$parent.onFail('Patient height must not be 0');
+      if (context.height === 0) {
+        context.$parent.onFail("Patient height must not be 0");
         return false;
       }
       return true;
-
     },
-    cancel: function(){
+    cancel: function () {
       router.back();
     },
-    addNewPatient: function(){
+    addNewPatient: function () {
       const context = this;
-      if (!context.validate()){
+      if (!context.validate()) {
         return;
       }
-      this.$parent.apiCall({
-        method: 'post',
-        endpoint: 'patient',
-        data: {
-          patientID: context.patientID,
-          sex: context.sex,
-          weight: context.weight,
-          height: context.height
-        }
-      }).then((res)=>{
-        console.log('RES',res);
-        context.$parent.onSuccess("Patient Created");
-        router.push('patients');
-      }).catch((err)=>{
-        console.error("ERR",err);
-        context.$parent.onFail(err.response.statusText);
-      });
-    }
-  }
+      this.$parent
+        .apiCall({
+          method: "post",
+          endpoint: "patient",
+          data: {
+            patientID: context.patientID,
+            sex: context.sex,
+            weight: context.weight,
+            height: context.height,
+          },
+        })
+        .then((res) => {
+          console.log("RES", res);
+          context.$parent.onSuccess("Patient Created");
+          router.push("patients");
+        })
+        .catch((err) => {
+          console.error("ERR", err);
+          context.$parent.onFail(err.response.statusText);
+        });
+    },
+  },
 };
 </script>
 
