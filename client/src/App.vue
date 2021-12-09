@@ -94,7 +94,7 @@ export default {
   methods: {
     apiCall: async function (cfg) {
       const context = this;
-      let method = _.get(cfg, "method");
+      let method = _.toLower(_.get(cfg, "method"));
       let endpoint = _.get(cfg, "endpoint");
       const data = _.get(cfg, "data");
 
@@ -108,11 +108,13 @@ export default {
 
       try {
         let response = await axios({
-          method,
-          url,
-          data,
-          headers,
+            method,
+            url,
+            data: method === 'get' ? {} : data,
+            headers,
+            params: method === 'get' ? data : {}
         });
+
         if (response.status >= 200 && response.status <= 299) {
           //Anything in 200 is good
           return response;
