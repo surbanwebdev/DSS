@@ -37,7 +37,14 @@ async function setupDB() {
                 PatientID TEXT NOT NULL PRIMARY KEY UNIQUE,
                 Sex TEXT NOT NULL,
                 Weight REAL NOT NULL,
-                Height REAL NOT NULL
+                Height REAL NOT NULL,
+                Age INTEGER,
+                TBVDeviation REAL,
+                RBCVDeviation REAL,
+                PVDeviation REAL,
+                Phct REAL,
+                Nhct REAL
+                Notes TEXT
             );`;
 
         const user = `CREATE TABLE "User" (
