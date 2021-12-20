@@ -11,8 +11,8 @@ async function create(req, res) {
         const body = req.body;
 
         let query = `INSERT INTO Patient 
-            (PatientID, Sex, Weight, Height, Age, TBVDeviation) 
-            SELECT ?,?,?,?,?,?
+            (PatientID, Sex, Weight, Height, Age, TBVDeviation, RBCVDeviation, PVDeviation, Phct, Nhct, Notes) 
+            SELECT ?,?,?,?,?,?,?,?,?,?,?
             WHERE NOT EXISTS (SELECT * FROM Patient WHERE PatientID = ?)`;
 
         let params = [
@@ -22,6 +22,11 @@ async function create(req, res) {
             _.get(body, 'height'),
             _.get(body, 'age'),
             _.get(body, 'tbvDeviation'),
+            _.get(body, 'rbcvDeviation'),
+            _.get(body, 'pvDeviation'),
+            _.get(body, 'phct'),
+            _.get(body, 'nhct'),
+            _.get(body, 'notes'),
             _.get(body, 'patientID'),
         ];
         let rowId = await db.run(query, params);
@@ -46,6 +51,11 @@ async function update(req, res) {
             Height = ?,
             Age= ?,
             TBVDeviation=?,
+            RBCVDeviation=?,
+            PVDeviation=?,
+            Phct=?,
+            Nhct=?,
+            Notes=?,
             WHERE PatientID = ?`;
 
         let params = [
@@ -54,6 +64,11 @@ async function update(req, res) {
             _.get(body, 'height'),
             _.get(body, 'age'),
             _.get(body, 'tbvDeviation'),
+            _.get(body, 'rbcvDeviation'),
+            _.get(body, 'pvDeviation'),
+            _.get(body, 'phct'),
+            _.get(body, 'nhct'),
+            _.get(body, 'notes'),
             _.get(body, 'patientID'),
         ];
 

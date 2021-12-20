@@ -4,99 +4,97 @@
     <div class="container mt-5">
       <div class="card p-3">
         <p class="bold-heading mb-4">Patient Details:</p>
-        <ul class="list-group">
-          <li class="mb-2">
-            <table class="table table-striped">
-              <tr>
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <td>
                 Patient:
-                {{
-                  currentPatientID
-                }}
-              </tr>
-              <tr>
+                {{ currentPatientID }}
+              </td>
+            </tr>
+            <tr>
+              <td>
                 Sex:
-                {{
-                  patient.Sex
-                }}
-              </tr>
-              <tr>
+                {{ patient.Sex }}
+              </td>
+            </tr>
+            <tr>
+              <td>
                 Weight:
-                {{
-                  patient.Weight
-                }}
-              </tr>
-              <tr>
+                {{ patient.Weight }}
+              </td>
+            </tr>
+            <tr>
+              <td>
                 Height:
-                {{
-                  patient.Height
-                }}
-              </tr>
-              <tr>
+                {{ patient.Height }}
+              </td>
+            </tr>
+            <tr>
+              <td>
                 Age:
-                {{
-                  patient.Age
-                }}
-              </tr>
-              <tr>
+                {{ patient.Age }}
+              </td>
+            </tr>
+            <tr>
+              <td>
                 TBV Deviation %:
-                {{
-                  patient.TBVDeviation
-                }}
-              </tr>
-              <tr>
+                {{ patient.TBVDeviation }}
+              </td>
+            </tr>
+            <tr>
+              <td>
                 RBCV Deviation %:
-                {{
-                  patient.RBCVDeviation
-                }}
-              </tr>
-              <tr>
+                {{ patient.RBCVDeviation }}
+              </td>
+            </tr>
+            <tr>
+              <td>
                 PV Deviation %:
-                {{
-                  patient.PVDeviation
-                }}
-              </tr>
-              <tr>
+                {{ patient.PVDeviation }}
+              </td>
+            </tr>
+            <tr>
+              <td>
                 PHCT:
-                {{
-                  patient.PHCT
-                }}
-              </tr>
-              <tr>
+                {{ patient.Phct }}
+              </td>
+            </tr>
+            <tr>
+              <td>
                 NHCT:
-                {{
-                  patient.NHCT
-                }}
-              </tr>
-              <tr>
+                {{ patient.Nhct }}
+              </td>
+            </tr>
+            <tr>
+              <td>
                 Notes:
-                {{
-                  patient.Notes
-                }}
-              </tr>
-            </table>
-            <router-link
-              class="mb-3"
-              :to="{
-                name: '',
-              }"
-            >
-              <button type="submit" class="btn btn-primary mt-3">
-                Edit Patient Details
-              </button>
-            </router-link>
-            <router-link
-              class="mb-3"
-              :to="{
-                name: 'BVAData',
-              }"
-            >
-              <button type="submit" class="btn btn-primary mt-3">
-                Enter New BVA Data
-              </button>
-            </router-link>
-            <hr />
-          </li>
-        </ul>
+                {{ patient.Notes }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <router-link
+          class="mb-3"
+          :to="{
+            name: '',
+          }"
+        >
+          <button type="submit" class="btn btn-primary mt-3">
+            Edit Patient Details
+          </button>
+        </router-link>
+        <router-link
+          class="mb-3"
+          :to="{
+            name: 'BVAData',
+          }"
+        >
+          <button type="submit" class="btn btn-primary mt-3">
+            Enter New BVA Data
+          </button>
+        </router-link>
+        <hr />
       </div>
     </div>
     <div class="treatment-btn container"></div>
@@ -162,5 +160,16 @@ ul {
 
 .content-wrap {
   width: 100%;
+}
+
+.container.test {
+  border: 2px solid salmon;
+}
+
+.green-box {
+  background-color: blueviolet;
+  display: inline-block;
+  height: 2em;
+  width: 2em;
 }
 </style>

@@ -180,7 +180,7 @@ export default {
     Navigation,
     Footer,
   },
-  name: "NewPatient",
+  name: "EditPatient",
   // THESE COMPUTED FUNCTIONS WILL ACCESS AND MODIFY THE DATA IN THE STORE
   computed: {},
   methods: {
