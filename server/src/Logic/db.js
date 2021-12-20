@@ -43,7 +43,7 @@ async function setupDB() {
                 RBCVDeviation REAL,
                 PVDeviation REAL,
                 Phct REAL,
-                Nhct REAL
+                Nhct REAL,
                 Notes TEXT
             );`;
 

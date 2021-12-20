@@ -11,8 +11,8 @@ async function create(req, res) {
         const body = req.body;
 
         let query = `INSERT INTO Patient 
-            (PatientID, Sex, Weight, Height) 
-            SELECT ?,?,?,?
+            (PatientID, Sex, Weight, Height, Age, TBVDeviation) 
+            SELECT ?,?,?,?,?,?
             WHERE NOT EXISTS (SELECT * FROM Patient WHERE PatientID = ?)`;
 
         let params = [
@@ -20,6 +20,8 @@ async function create(req, res) {
             _.get(body, 'sex'),
             _.get(body, 'weight'),
             _.get(body, 'height'),
+            _.get(body, 'age'),
+            _.get(body, 'tbvDeviation'),
             _.get(body, 'patientID'),
         ];
         let rowId = await db.run(query, params);
@@ -41,13 +43,17 @@ async function update(req, res) {
         let query = `UPDATE Patient SET
             Sex = ?,
             Weight = ?,
-            Height = ?
+            Height = ?,
+            Age= ?,
+            TBVDeviation=?,
             WHERE PatientID = ?`;
 
         let params = [
             _.get(body, 'sex'),
             _.get(body, 'weight'),
             _.get(body, 'height'),
+            _.get(body, 'age'),
+            _.get(body, 'tbvDeviation'),
             _.get(body, 'patientID'),
         ];
 

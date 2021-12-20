@@ -31,6 +31,48 @@
                   patient.Height
                 }}
               </tr>
+              <tr>
+                Age:
+                {{
+                  patient.Age
+                }}
+              </tr>
+              <tr>
+                TBV Deviation %:
+                {{
+                  patient.TBVDeviation
+                }}
+              </tr>
+              <tr>
+                RBCV Deviation %:
+                {{
+                  patient.RBCVDeviation
+                }}
+              </tr>
+              <tr>
+                PV Deviation %:
+                {{
+                  patient.PVDeviation
+                }}
+              </tr>
+              <tr>
+                PHCT:
+                {{
+                  patient.PHCT
+                }}
+              </tr>
+              <tr>
+                NHCT:
+                {{
+                  patient.NHCT
+                }}
+              </tr>
+              <tr>
+                Notes:
+                {{
+                  patient.Notes
+                }}
+              </tr>
             </table>
             <router-link
               class="mb-3"

@@ -14,6 +14,7 @@
               <div class="content-right">
                 Weight: {{ patient.Weight }} <br />
                 Height: {{ patient.Height }} <br />
+                Age: {{ patient.Age }}
               </div>
             </div>
             <router-link

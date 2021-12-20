@@ -40,7 +40,7 @@
               placeholder="Weight (kg)"
               required
             />
-            <label class="form-label" for="lastName">Weight</label>
+            <label class="form-label" for="weight">Weight</label>
           </div>
           <div class="form-group">
             <input
@@ -51,7 +51,29 @@
               placeholder="Height (cm)"
               required
             />
-            <label class="form-label" for="lastName">Height</label>
+            <label class="form-label" for="height">Height</label>
+          </div>
+          <div class="form-group">
+            <input
+              id="age"
+              @focus="$event.target.select()"
+              v-model.number="age"
+              class="form-control"
+              placeholder="Age"
+              required
+            />
+            <label class="form-label" for="age">Age</label>
+          </div>
+          <div class="form-group">
+            <input
+              id="tbv-deviation"
+              @focus="$event.target.select()"
+              v-model.number="tbvDeviation"
+              class="form-control"
+              placeholder="TBV Deviation"
+              required
+            />
+            <label class="form-label" for="tbv-deviation">TBV Deviation</label>
           </div>
           <div>
             <input
@@ -88,6 +110,8 @@ export default {
       sex: "male",
       weight: 0,
       height: 0,
+      age: null,
+      tbvDeviation: 0,
     };
   },
   components: {
@@ -112,6 +136,10 @@ export default {
         context.$parent.onFail("Patient height must not be 0");
         return false;
       }
+      if (context.age === 0) {
+        context.$parent.onFail("Patient age must not be 0");
+        return false;
+      }
       return true;
     },
     cancel: function () {
@@ -131,6 +159,8 @@ export default {
             sex: context.sex,
             weight: context.weight,
             height: context.height,
+            age: context.age,
+            tbvDeviation: context.tbvDeviation,
           },
         })
         .then((res) => {
