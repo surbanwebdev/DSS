@@ -94,9 +94,49 @@
             Enter New BVA Data
           </button>
         </router-link>
-        <button type="submit" class="btn btn-outline-danger mt-3">
+        <!-- OPENS PATIENT DELETION MODAL -->
+        <button
+          class="btn btn-outline-danger mt-3"
+          data-bs-toggle="modal"
+          data-bs-target="#confirmDeleteModal"
+        >
           Delete Patient
         </button>
+        <div
+          class="modal fade"
+          id="confirmDeleteModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Confirm Deletion
+                </h5>
+              </div>
+              <div class="modal-body">
+                Are you sure you would like to delete all patient records for
+                Patient: <strong>{{ currentPatientID }}</strong
+                >?
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Cancel
+                </button>
+                <button type="button" class="btn btn-danger">
+                  Delete Patient
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
         <hr />
       </div>
     </div>
@@ -142,6 +182,9 @@ export default {
           console.error(err);
           context.$parent.onFail(err.message);
         });
+    },
+    deletePatient: async function () {
+      console.log("Patient Deleted.");
     },
   },
   created() {
