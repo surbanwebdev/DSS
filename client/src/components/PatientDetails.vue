@@ -94,6 +94,9 @@
             Enter New BVA Data
           </button>
         </router-link>
+        <button type="submit" class="btn btn-outline-danger mt-3">
+          Delete Patient
+        </button>
         <hr />
       </div>
     </div>
