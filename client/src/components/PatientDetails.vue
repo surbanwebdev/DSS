@@ -137,7 +137,7 @@
                     class="btn btn-primary"
                     data-bs-dismiss="modal"
                   >
-                    Go back to patients
+                    Return to patients
                   </button>
                 </router-link>
               </div>
