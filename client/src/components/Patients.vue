@@ -5,16 +5,9 @@
       <div class="card p-3">
         <p class="bold-heading mb-4">Select a Patient:</p>
         <ul class="list-group">
-          <li class="mb-2" v-for="patient in patients" :key="patient.pid">
+          <li class="mb-2 item" v-for="patient in patients" :key="patient.pid">
             <div class="content-wrap d-flex justify-content-around">
-              <div class="content-left">
-                Patient ID: {{ patient.PatientID }} <br />
-                Sex: {{ patient.Sex }} <br />
-              </div>
-              <div class="content-right">
-                Weight: {{ patient.Weight }} <br />
-                Height: {{ patient.Height }} <br />
-              </div>
+              <h4>Patient ID: {{ patient.PatientID }}</h4>
             </div>
             <router-link
               class="mb-3"
@@ -30,7 +23,7 @@
                 View Patient
               </button>
             </router-link>
-            <hr />
+            <hr class="divider" />
           </li>
         </ul>
       </div>
@@ -126,5 +119,13 @@ ul {
 
 .content-left,
 .content-right {
+}
+
+h4 {
+  color: gray;
+}
+
+.item:last-child > .divider {
+  display: none;
 }
 </style>
