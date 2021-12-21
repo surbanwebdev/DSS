@@ -114,15 +114,34 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">
-                  Confirm Deletion
+                  Confirm deletion
                 </h5>
               </div>
-              <div class="modal-body">
+              <div class="modal-body" v-if="isPatientDeleted">
+                Patient has been deleted!
+              </div>
+              <div class="modal-body" v-else>
                 Are you sure you would like to delete all patient records for
                 Patient: <strong>{{ currentPatientID }}</strong
                 >?
               </div>
-              <div class="modal-footer">
+              <div class="modal-footer" v-if="isPatientDeleted">
+                <router-link
+                  class="mb-3"
+                  :to="{
+                    name: 'Patients',
+                  }"
+                >
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-dismiss="modal"
+                  >
+                    Go back to patients
+                  </button>
+                </router-link>
+              </div>
+              <div class="modal-footer" v-else>
                 <button
                   type="button"
                   class="btn btn-secondary"
@@ -130,14 +149,17 @@
                 >
                   Cancel
                 </button>
-                <button type="button" class="btn btn-danger">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  @click="deletePatient"
+                >
                   Delete Patient
                 </button>
               </div>
             </div>
           </div>
         </div>
-        <hr />
       </div>
     </div>
     <div class="treatment-btn container"></div>
@@ -160,6 +182,7 @@ export default {
     return {
       currentPatientID: this.$store.state.currentPatientID,
       patient: null,
+      isPatientDeleted: false,
     };
   },
   methods: {
@@ -184,7 +207,25 @@ export default {
         });
     },
     deletePatient: async function () {
-      console.log("Patient Deleted.");
+      const context = this;
+      const endpoint = "patient/";
+      console.log("Current ID " + context.currentPatientID);
+      context.$parent
+        .apiCall({
+          method: "delete",
+          data: { patientID: context.currentPatientID },
+          endpoint,
+        })
+        .then((res) => {
+          let patient = _.get(res, "data.patient", []);
+          console.log("PATIENT", patient);
+          context.patient = patient;
+          context.isPatientDeleted = true;
+        })
+        .catch((err) => {
+          console.error(err);
+          context.$parent.onFail(err.message);
+        });
     },
   },
   created() {
