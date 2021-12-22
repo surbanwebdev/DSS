@@ -74,42 +74,26 @@
             </tr>
           </tbody>
         </table>
-        <router-link
-          class="mb-3"
-          :to="{
+        <router-link class="mb-3" :to="{
             name: '',
-          }"
-        >
+          }">
           <button type="submit" class="btn btn-primary mt-3">
             Edit Patient Details
           </button>
         </router-link>
-        <router-link
-          class="mb-3"
-          :to="{
+        <router-link class="mb-3" :to="{
             name: 'BVAData',
-          }"
-        >
+          }">
           <button type="submit" class="btn btn-primary mt-3">
             Enter New BVA Data
           </button>
         </router-link>
         <!-- OPENS PATIENT DELETION MODAL -->
-        <button
-          class="btn btn-outline-danger mt-3"
-          data-bs-toggle="modal"
-          data-bs-target="#confirmDeleteModal"
-        >
+        <button class="btn btn-outline-danger mt-3" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
           Delete Patient
         </button>
-        <div
-          class="modal fade"
-          id="confirmDeleteModal"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
+        <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -122,38 +106,22 @@
               </div>
               <div class="modal-body" v-else>
                 Are you sure you would like to delete all patient records for
-                Patient: <strong>{{ currentPatientID }}</strong
-                >?
+                Patient: <strong>{{ currentPatientID }}</strong>?
               </div>
               <div class="modal-footer" v-if="isPatientDeleted">
-                <router-link
-                  class="mb-3"
-                  :to="{
+                <router-link class="mb-3" :to="{
                     name: 'Patients',
-                  }"
-                >
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-bs-dismiss="modal"
-                  >
+                  }">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
                     Return to patients
                   </button>
                 </router-link>
               </div>
               <div class="modal-footer" v-else>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                   Cancel
                 </button>
-                <button
-                  type="button"
-                  class="btn btn-danger"
-                  @click="deletePatient"
-                >
+                <button type="button" class="btn btn-danger" @click="deletePatient">
                   Delete Patient
                 </button>
               </div>
@@ -168,95 +136,116 @@
 </template>
 
 <script>
-import Navigation from "./Navigation";
-import Footer from "./Footer";
-import _ from "lodash";
+  import Navigation from "./Navigation";
+  import Footer from "./Footer";
+  import _ from "lodash";
 
-export default {
-  name: "PatientDetails",
-  components: {
-    Navigation,
-    Footer,
-  },
-  data: function () {
-    return {
-      currentPatientID: this.$store.state.currentPatientID,
-      patient: null,
-      isPatientDeleted: false,
-    };
-  },
-  methods: {
-    loadPatient: async function () {
-      const context = this;
-      const endpoint = "patient/";
-      console.log("Current ID " + context.currentPatientID);
-      context.$parent
-        .apiCall({
-          method: "get",
-          data: { patientID: context.currentPatientID },
-          endpoint,
-        })
-        .then((res) => {
-          let patient = _.get(res, "data.patient", []);
-          console.log("PATIENT", patient);
-          context.patient = patient;
-        })
-        .catch((err) => {
-          console.error(err);
-          context.$parent.onFail(err.message);
-        });
+  export default {
+    name: "PatientDetails",
+    components: {
+      Navigation,
+      Footer,
     },
-    deletePatient: async function () {
-      const context = this;
-      const endpoint = "patient/";
-      console.log("Current ID " + context.currentPatientID);
-      context.$parent
-        .apiCall({
-          method: "delete",
-          data: { patientID: context.currentPatientID },
-          endpoint,
-        })
-        .then((res) => {
-          let patient = _.get(res, "data.patient", []);
-          console.log("PATIENT", patient);
-          context.patient = patient;
-          context.isPatientDeleted = true;
-        })
-        .catch((err) => {
-          console.error(err);
-          context.$parent.onFail(err.message);
-        });
+    data: function () {
+      return {
+        currentPatientID: this.$store.state.currentPatientID,
+        patient: null,
+        isPatientDeleted: false,
+      };
     },
-  },
-  created() {
-    this.loadPatient();
-  },
-};
+    methods: {
+      loadPatient: async function () {
+        const context = this;
+        const endpoint = "patient/";
+        console.log("Current ID " + context.currentPatientID);
+        context.$parent
+          .apiCall({
+            method: "get",
+            data: { patientID: context.currentPatientID },
+            endpoint,
+          })
+          .then((res) => {
+            let patient = _.get(res, "data.patient", []);
+            console.log("PATIENT", patient);
+            context.patient = patient;
+          })
+          .catch((err) => {
+            console.error(err);
+            context.$parent.onFail(err.message);
+          });
+      },
+      deletePatient: async function () {
+        const context = this;
+        const endpoint = "patient/";
+        console.log("Current ID " + context.currentPatientID);
+        context.$parent
+          .apiCall({
+            method: "delete",
+            data: { patientID: context.currentPatientID },
+            endpoint,
+          })
+          .then((res) => {
+            let patient = _.get(res, "data.patient", []);
+            console.log("PATIENT", patient);
+            context.patient = patient;
+            context.isPatientDeleted = true;
+          })
+          .catch((err) => {
+            console.error(err);
+            context.$parent.onFail(err.message);
+          });
+      },
+      updatePatient: async function () {
+        const context = this;
+        const endpoint = "patient/";
+        console.log("Current ID " + context.currentPatientID);
+        context.$parent
+          .apiCall({
+            method: "put",
+            data: {
+            },
+            endpoint,
+          })
+          .then((res) => {
+            let patient = _.get(res, "data.patient", []);
+            console.log("PATIENT", patient);
+            context.patient = patient;
+          })
+          .catch((err) => {
+            console.error(err);
+            context.$parent.onFail(err.message);
+          });
+      },
+    },
+    created() {
+      this.loadPatient();
+    },
+  };
 </script>
 
 <style scoped>
-.card {
-  border: none;
-  background: #fff;
-  text-align: left;
-}
+  .card {
+    border: none;
+    background: #fff;
+    text-align: left;
+  }
 
-ul {
-  list-style: none;
-}
+  ul {
+    list-style: none;
+  }
 
-.content-wrap {
-  width: 100%;
-}
+  .content-wrap {
+    width: 100%;
+  }
 
-.container.test {
-  border: 2px solid salmon;
-}
+  .container.test {
+    border: 2px solid salmon;
+  }
 
-.green-box {
-  background-color: blueviolet;
-  display: inline-block;
-  height: 2em;
-  width: 2em;
-}
+  .green-box {
+    background-color: blueviolet;
+    display: inline-block;
+    height: 2em;
+    width: 2em;
+  }
 </style>
