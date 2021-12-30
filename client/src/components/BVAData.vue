@@ -39,6 +39,30 @@
             />
             <label class="form-label" for="rbcv">RBCV Deviation %</label>
           </div>
+          <div class="form-group">
+            <input
+              id="pvDeviation"
+              @focus="$event.target.select()"
+              v-model.number="PVDeviation"
+              type="number"
+              class="form-control"
+              placeholder="PV Deviation %"
+              required
+            />
+            <label class="form-label" for="pvDeviation">PV Deviation %</label>
+          </div>
+          <div class="form-group">
+            <input
+              id="phct"
+              @focus="$event.target.select()"
+              v-model.number="phct"
+              type="number"
+              class="form-control"
+              placeholder="pHct"
+              required
+            />
+            <label class="form-label" for="phct">pHct</label>
+          </div>
           <div class="form-group mb-1">
             <input
               id="nhct"
@@ -46,10 +70,22 @@
               v-model.number="nhct"
               type="number"
               class="form-control"
-              placeholder="Normalized Hct (nhct)"
+              placeholder="nHct"
               required
             />
-            <label class="form-label" for="nhct">Normalized Hct (nhct)</label>
+            <label class="form-label" for="nhct">nHct</label>
+          </div>
+          <div id="textarea-fg" class="form-group mb-1">
+            <textarea
+              id="notes"
+              @focus="$event.target.select()"
+              v-model="notes"
+              type="text"
+              class="form-control"
+              placeholder="Notes"
+              required
+            />
+            <label id="notes" class="form-label" for="notes">Notes</label>
           </div>
           <div v-if="validateBvaValues">
             <router-link
@@ -210,5 +246,19 @@ input {
   list-style-type: none;
   color: red;
   padding: 0;
+}
+
+#textarea-fg {
+  position: relative;
+}
+
+label#notes {
+  position: absolute;
+  top: 46px;
+}
+
+textarea#notes {
+  border: none;
+  background-color: #ededed;
 }
 </style>
