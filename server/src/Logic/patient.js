@@ -43,15 +43,15 @@ async function update(req, res) {
             Sex = ?,
             Weight = ?,
             Height = ?,
-            Age= ?,
+            Age= ?
             WHERE PatientID = ?`;
 
         let params = [
-            _.get(body, 'sex'),
-            _.get(body, 'weight'),
-            _.get(body, 'height'),
-            _.get(body, 'age'),
-            _.get(body, 'patientID'),
+            _.get(body, 'Sex'),
+            _.get(body, 'Weight'),
+            _.get(body, 'Height'),
+            _.get(body, 'Age'),
+            _.get(body, 'PatientID'),
         ];
 
         let numOfRowsAffected = await db.run(query, params);
@@ -90,18 +90,22 @@ async function get(req, res) {
     try {
         const db = await getDB();
         const body = req.body;
-        console.log('REQBODY: ' + body);
 
         let query = `SELECT * FROM Patient WHERE PatientID = ?`;
 
         let params = [
             _.get(body, 'patientID')
         ];
-        console.log("PARAMS: " + params)
+
         let patient = await db.get(query, params);
 
+        query = `SELECT * FROM ArchivedTreatment where PatientID = ?`;
+        //params are the same
+
+        let archivedTreatments = await db.all(query, params);
+
         res.statusMessage = 'OK';
-        res.status(200).send({ patient }).end();
+        res.status(200).send({ patient, archivedTreatments }).end();
         return;
     } catch (err) {
         res.statusMessage = 'Internal Server Error';

@@ -81,7 +81,6 @@ export default {
         })
         .then((res) => {
           let patients = _.get(res, "data.patients", []);
-          console.log("PATIENTS", patients);
           context.patients = patients;
         })
         .catch((err) => {

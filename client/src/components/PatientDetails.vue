@@ -8,257 +8,76 @@
           <tbody>
             <tr>
               <td>
-                Patient:
-                {{ currentPatientID }}
+                <div v-if="!editMode">
+                  Patient:{{ currentPatientID }}
+                </div>
+                <div v-if="editMode">
+                  Patient: <input type="text" v-model="currentPatientID"></input>
+                </div>
               </td>
             </tr>
             <tr>
               <td>
-                Sex:
-                {{ patient.Sex }}
+                <div v-if="!editMode">
+                  Sex: {{ patient.Sex }}
+                </div>
+                <div v-if="editMode">
+                  Sex: <input type="text" v-model="patient.Sex"></input>
+                </div>
               </td>
             </tr>
             <tr>
               <td>
-                Weight:
-                {{ patient.Weight }}
+                <div v-if="!editMode">
+                  Weight: {{ patient.Weight }}
+                </div>
+                <div v-if="editMode">
+                  Weight: <input type="text" v-model="patient.Weight"></input>
+                </div>
               </td>
             </tr>
             <tr>
               <td>
-                Height:
-                {{ patient.Height }}
+                <div v-if="!editMode">
+                  Height: {{ patient.Height }}
+                </div>
+                <div v-if="editMode">
+                  Height: <input type="text" v-model="patient.Height"></input>
+                </div>
               </td>
             </tr>
             <tr>
               <td>
-                Age:
-                {{ patient.Age }}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                TBV Deviation %:
-                {{ patient.TBVDeviation }}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                RBCV Deviation %:
-                {{ patient.RBCVDeviation }}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                PV Deviation %:
-                {{ patient.PVDeviation }}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                PHCT:
-                {{ patient.Phct }}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                NHCT:
-                {{ patient.Nhct }}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Notes:
-                {{ patient.Notes }}
+                <div v-if="!editMode">
+                  Age: {{ patient.Age }}
+                </div>
+                <div v-if="editMode">
+                  Age: <input type="text" v-model="patient.Age"></input>
+                </div>
               </td>
             </tr>
           </tbody>
         </table>
-        <!-- UPDATE PATIENT MODAL LAUNCH -->
-        <button
-          type="submit"
-          class="btn btn-primary mt-3"
-          data-bs-toggle="modal"
-          data-bs-target="#updatePatientModal"
-        >
-          Edit Patient Details
-        </button>
-        <!-- UPDATE PATIENT MODAL -->
-        <div
-          class="modal fade"
-          id="updatePatientModal"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="updatePatientModalLabel"
-          aria-hidden="true"
-        >
-          <h1>Update the patient</h1>
+        <div v-if="!editMode">
+          <input
+            type="button"
+            class="btn btn-primary mt-3"
+            v-on:click="toggleEditMode()"
+            value="Edit Patient Details"/>
         </div>
-        <!-- <div
-          class="modal fade"
-          id="updatePatientModal"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="updatePatientModalLabel"
-          aria-hidden="true"
-        >
-          <form>
-            <div class="form-group">
-              <input
-                id="patientID"
-                @focus="$event.target.select()"
-                v-model="patientID"
-                class="form-control"
-                placeholder="PatientId"
-                autofocus="true"
-                required
-              />
-              <label class="form-label" for="patientId">Patient ID</label>
-            </div>
-            <div class="form-group mb-1">
-              <select
-                name="sex"
-                id="sex"
-                class="form-control"
-                placeholder="Sex"
-                v-model="sex"
-              >
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-              <label class="form-label" for="sex">Sex</label>
-            </div>
-            <div class="form-group">
-              <input
-                id="weight"
-                @focus="$event.target.select()"
-                v-model.number="weight"
-                class="form-control"
-                placeholder="Weight (kg)"
-                required
-              />
-              <label class="form-label" for="weight">Weight</label>
-            </div>
-            <div class="form-group">
-              <input
-                id="height"
-                @focus="$event.target.select()"
-                v-model.number="height"
-                class="form-control"
-                placeholder="Height (cm)"
-                required
-              />
-              <label class="form-label" for="height">Height</label>
-            </div>
-            <div class="form-group">
-              <input
-                id="age"
-                @focus="$event.target.select()"
-                v-model.number="age"
-                class="form-control"
-                placeholder="Age"
-                required
-              />
-              <label class="form-label" for="age">Age</label>
-            </div>
-            <div class="form-group">
-              <input
-                id="tbv-deviation"
-                @focus="$event.target.select()"
-                v-model.number="tbvDeviation"
-                class="form-control"
-                placeholder="TBV Deviation"
-                required
-              />
-              <label class="form-label" for="tbv-deviation"
-                >TBV Deviation</label
-              >
-            </div>
-            <div class="form-group">
-              <input
-                id="rbcv-deviation"
-                @focus="$event.target.select()"
-                v-model.number="rbcvDeviation"
-                class="form-control"
-                placeholder="RBCV Deviation"
-                required
-              />
-              <label class="form-label" for="rbcv-deviation"
-                >RBCV Deviation</label
-              >
-            </div>
-            <div class="form-group">
-              <input
-                id="pv-deviation"
-                @focus="$event.target.select()"
-                v-model.number="pvDeviation"
-                class="form-control"
-                placeholder="PV Deviation"
-                required
-              />
-              <label class="form-label" for="pv-deviation">PV Deviation</label>
-            </div>
-            <div class="form-group">
-              <input
-                id="phct"
-                @focus="$event.target.select()"
-                v-model.number="phct"
-                class="form-control"
-                placeholder="PHCT"
-                required
-              />
-              <label class="form-label" for="phct">PHCT</label>
-            </div>
-            <div class="form-group">
-              <input
-                id="nhct"
-                @focus="$event.target.select()"
-                v-model.number="nhct"
-                class="form-control"
-                placeholder="NHCT"
-                required
-              />
-              <label class="form-label" for="nhct">NHCT</label>
-            </div>
-            <div class="form-group">
-              <input
-                id="notes"
-                @focus="$event.target.select()"
-                v-model.number="notes"
-                class="form-control"
-                placeholder="Notes"
-                required
-              />
-              <label class="form-label" for="notes">Notes</label>
-            </div>
-            <div>
-              <input
-                type="button"
-                class="btn btn-primary"
-                value="Cancel"
-                v-on:click="cancel"
-                style="float: left"
-              />
-              <input
-                type="button"
-                class="btn btn-primary"
-                value="Submit"
-                v-on:click="addNewPatient"
-                style="float: right"
-              />
-            </div>
-          </form>
-        </div> -->
-        <router-link
-          class="mb-3"
-          :to="{
-            name: 'BVAData',
-          }"
-        >
-          <button type="submit" class="btn btn-primary mt-3">
-            Enter New BVA Data
-          </button>
-        </router-link>
+        <div v-if="editMode">
+            <input
+            type="button"
+            class="btn btn-primary mt-3"
+            v-on:click="toggleEditMode()"
+            value="Cancel"/>
+            <input
+            type="button"
+            class="btn btn-primary mt-3"
+            v-on:click="updatePatient()"
+            value="Save"/>
+        </div>
+
         <!-- DELETE PATIENT MODAL LAUNCH -->
         <button
           class="btn btn-outline-danger mt-3"
@@ -348,14 +167,26 @@ export default {
     return {
       currentPatientID: this.$store.state.currentPatientID,
       patient: null,
+      tPatient: null,
+      editMode: false,
       isPatientDeleted: false,
     };
   },
   methods: {
+    toggleEditMode: function(){
+      const context = this;
+      let tEditMode = !context.editMode;
+      if (tEditMode === true){
+        context.tPatient = context.patient;//preserve OG values in case of cancel or fail
+      }else{
+        context.patient = context.tPatient;
+        context.tPatient = {};
+      }
+      context.editMode = tEditMode;
+    },
     loadPatient: async function () {
       const context = this;
       const endpoint = "patient/";
-      console.log("Current ID " + context.currentPatientID);
       context.$parent
         .apiCall({
           method: "get",
@@ -363,9 +194,12 @@ export default {
           endpoint,
         })
         .then((res) => {
-          let patient = _.get(res, "data.patient", []);
+          let patient = _.get(res, "data.patient", {});
+          let archivedTreatments = _.get(res, "data.archivedTreatments", []);
           console.log("PATIENT", patient);
+          console.log("AT",archivedTreatments);
           context.patient = patient;
+          context.archivedTreatments = archivedTreatments;
         })
         .catch((err) => {
           console.error(err);
@@ -375,7 +209,6 @@ export default {
     deletePatient: async function () {
       const context = this;
       const endpoint = "patient/";
-      console.log("Current ID " + context.currentPatientID);
       context.$parent
         .apiCall({
           method: "delete",
@@ -384,7 +217,6 @@ export default {
         })
         .then((res) => {
           let patient = _.get(res, "data.patient", []);
-          console.log("PATIENT", patient);
           context.patient = patient;
           context.isPatientDeleted = true;
         })
@@ -396,7 +228,6 @@ export default {
     updatePatient: async function () {
       const context = this;
       const endpoint = "patient/";
-      console.log("Current ID " + context.currentPatientID);
       context.$parent
         .apiCall({
           method: "put",
@@ -405,20 +236,13 @@ export default {
             Sex: context.patient.Sex,
             Weight: context.patient.Weight,
             Height: context.patient.Height,
-            Age: context.patient.Age,
-            TBVDeviation: context.patient.TBVDeviation,
-            RBCVDeviation: context.patient.RBCVDeviation,
-            PVDeviation: context.patient.PVDeviation,
-            Phct: context.patient.Phct,
-            Nhct: context.patient.Nhct,
-            Notes: context.patient.Notes,
+            Age: context.patient.Age
           },
           endpoint,
         })
         .then((res) => {
-          let patient = _.get(res, "data.patient", []);
-          console.log("PATIENT", patient);
-          context.patient = patient;
+          context.tPatient = {};
+          context.editMode = false;
         })
         .catch((err) => {
           console.error(err);
