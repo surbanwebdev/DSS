@@ -57,9 +57,9 @@ async function processLogout(sessionGuid) {
 async function createSession(db, user) {
     let now = new Date(Date.now()).toISOString();
     let newUserSessionGuid = v4();
-    let query = `INSERT INTO UserSession(UserId, UserName, UserPassword, UserSessionGuid, LoggedIn, LastActive)
-                        VALUES(?,?,?,?,?,?)`;
-    let payload = [user.ID, user.UserName, user.UserPassword, newUserSessionGuid, now, now];
+    let query = `INSERT INTO UserSession(UserId, UserName, UserSessionGUID, LoggedIn, LastActive)
+                        VALUES(?,?,?,?,?)`;
+    let payload = [user.ID, user.UserName, newUserSessionGuid, now, now];
 
     await db.run(query, payload);
     return newUserSessionGuid;
@@ -110,7 +110,7 @@ async function isAdmin(sessionGuid) {
 
     let query = `SELECT u.IsAdmin FROM UserSession us
                     JOIN User u on u.ID = us.UserID
-                    WHERE us.UserSessionGuid = ?`;
+                    WHERE us.UserSessionGUID = ?`;
 
     let row = await db.get(query, [sessionGuid]);
     if (!row) {
