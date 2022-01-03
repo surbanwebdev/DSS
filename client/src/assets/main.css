@@ -129,6 +129,7 @@ hr {
 
 .btn {
   padding: 0.875rem 0.75rem !important;
+  text-transform: capitalize;
 }
 
 .button.choice:active {

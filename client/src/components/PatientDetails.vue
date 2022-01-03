@@ -8,74 +8,144 @@
           <tbody>
             <tr>
               <td>
-                <div v-if="!editMode">
-                  Patient:{{ currentPatientID }}
+                <div
+                  class="d-flex justify-content-between align-items-center"
+                  v-if="!editMode"
+                >
+                  <p>Patient:</p>
+                  <p>
+                    {{ currentPatientID }}
+                  </p>
                 </div>
-                <div v-if="editMode">
-                  Patient: <input type="text" v-model="currentPatientID"></input>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div v-if="!editMode">
-                  Sex: {{ patient.Sex }}
-                </div>
-                <div v-if="editMode">
-                  Sex: <input type="text" v-model="patient.Sex"></input>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div v-if="!editMode">
-                  Weight: {{ patient.Weight }}
-                </div>
-                <div v-if="editMode">
-                  Weight: <input type="text" v-model="patient.Weight"></input>
+                <div
+                  class="d-flex justify-content-between align-items-baseline"
+                  v-if="editMode"
+                >
+                  Patient:
+                  <input
+                    class="text-center"
+                    type="text"
+                    v-model="currentPatientID"
+                  />
                 </div>
               </td>
             </tr>
             <tr>
               <td>
-                <div v-if="!editMode">
-                  Height: {{ patient.Height }}
+                <div
+                  class="d-flex justify-content-between align-items-baseline"
+                  v-if="!editMode"
+                >
+                  <p>Sex:</p>
+                  <p>
+                    {{ patient.Sex }}
+                  </p>
                 </div>
-                <div v-if="editMode">
-                  Height: <input type="text" v-model="patient.Height"></input>
+                <div
+                  class="d-flex justify-content-between align-items-baseline"
+                  v-if="editMode"
+                >
+                  Sex:
+                  <input
+                    class="text-center"
+                    type="text"
+                    v-model="patient.Sex"
+                  />
                 </div>
               </td>
             </tr>
             <tr>
               <td>
-                <div v-if="!editMode">
-                  Age: {{ patient.Age }}
+                <div
+                  class="d-flex justify-content-between align-items-baseline"
+                  v-if="!editMode"
+                >
+                  <p>Weight:</p>
+                  <p>
+                    {{ patient.Weight }}
+                  </p>
                 </div>
-                <div v-if="editMode">
-                  Age: <input type="text" v-model="patient.Age"></input>
+                <div
+                  class="d-flex justify-content-between align-items-baseline"
+                  v-if="editMode"
+                >
+                  Weight:
+                  <input
+                    class="text-center"
+                    type="text"
+                    v-model="patient.Weight"
+                  />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div
+                  class="d-flex justify-content-between align-items-baseline"
+                  v-if="!editMode"
+                >
+                  <p>Height:</p>
+                  <p>
+                    {{ patient.Height }}
+                  </p>
+                </div>
+                <div
+                  class="d-flex justify-content-between align-items-baseline"
+                  v-if="editMode"
+                >
+                  Height:
+                  <input
+                    class="text-center"
+                    type="text"
+                    v-model="patient.Height"
+                  />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div
+                  class="d-flex justify-content-between align-items-baseline"
+                  v-if="!editMode"
+                >
+                  <p>Age:</p>
+                  <p>
+                    {{ patient.Age }}
+                  </p>
+                </div>
+                <div
+                  class="d-flex justify-content-between align-items-baseline"
+                  v-if="editMode"
+                >
+                  Age:
+                  <input
+                    class="text-center"
+                    type="text"
+                    v-model="patient.Age"
+                  />
                 </div>
               </td>
             </tr>
           </tbody>
         </table>
-        <div v-if="!editMode">
+        <div class="d-flex justify-content-center" v-if="!editMode">
+          <button class="btn btn-primary mt-3" v-on:click="toggleEditMode()">
+            Edit Patient Details
+          </button>
+        </div>
+        <div class="d-flex justify-content-between" v-if="editMode">
+          <input
+            type="button"
+            class="btn btn-secondary mt-3"
+            v-on:click="toggleEditMode()"
+            value="Cancel"
+          />
           <input
             type="button"
             class="btn btn-primary mt-3"
-            v-on:click="toggleEditMode()"
-            value="Edit Patient Details"/>
-        </div>
-        <div v-if="editMode">
-            <input
-            type="button"
-            class="btn btn-primary mt-3"
-            v-on:click="toggleEditMode()"
-            value="Cancel"/>
-            <input
-            type="button"
-            class="btn btn-primary mt-3"
             v-on:click="updatePatient()"
-            value="Save"/>
+            value="Save"
+          />
         </div>
 
         <!-- DELETE PATIENT MODAL LAUNCH -->
@@ -173,12 +243,12 @@ export default {
     };
   },
   methods: {
-    toggleEditMode: function(){
+    toggleEditMode: function () {
       const context = this;
       let tEditMode = !context.editMode;
-      if (tEditMode === true){
-        context.tPatient = context.patient;//preserve OG values in case of cancel or fail
-      }else{
+      if (tEditMode === true) {
+        context.tPatient = context.patient; //preserve OG values in case of cancel or fail
+      } else {
         context.patient = context.tPatient;
         context.tPatient = {};
       }
@@ -197,7 +267,7 @@ export default {
           let patient = _.get(res, "data.patient", {});
           let archivedTreatments = _.get(res, "data.archivedTreatments", []);
           console.log("PATIENT", patient);
-          console.log("AT",archivedTreatments);
+          console.log("AT", archivedTreatments);
           context.patient = patient;
           context.archivedTreatments = archivedTreatments;
         })
@@ -236,7 +306,7 @@ export default {
             Sex: context.patient.Sex,
             Weight: context.patient.Weight,
             Height: context.patient.Height,
-            Age: context.patient.Age
+            Age: context.patient.Age,
           },
           endpoint,
         })
@@ -280,5 +350,9 @@ ul {
   display: inline-block;
   height: 2em;
   width: 2em;
+}
+
+input.text-center {
+  max-width: 120px;
 }
 </style>
