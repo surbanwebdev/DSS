@@ -36,7 +36,7 @@ async function logout(req, res) {
     try {
         let sessionGuid = getRequestSessionGuid(req);
         await processLogout(sessionGuid);
-        res.statusMessage = "Successfully logged out"
+        res.statusMessage = "Successfully logged out";
         res.status(200).end();
         return;
     } catch (err) {
@@ -44,6 +44,11 @@ async function logout(req, res) {
         res.status(500).send(err).end();
         return;
     }
+}
+
+async function ping(req,res){
+    res.statusMessage = "OK";
+    res.status(200).end();
 }
 
 async function processLogout(sessionGuid) {
@@ -128,5 +133,6 @@ module.exports = {
     logout,
     getRequestSessionGuid,
     isAdmin,
-    manageSession
+    manageSession, 
+    ping
 }

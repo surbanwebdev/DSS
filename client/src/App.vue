@@ -58,9 +58,6 @@
   </div>
 </template>
 
-
-
-
 <script>
 import axios from "axios";
 import _ from "lodash";
@@ -74,62 +71,79 @@ export default {
       password: "",
       route: "patients",
       ogRoute: "patients",
+      sessionTimeout: 10, //minutes
     };
   },
+  mounted: function () {
+    let cSessionGuid = this.getCookie("sessionGUID");
+    if (!cSessionGuid || cSessionGuid === "") {
+      this.loggedIn = false;
+      return;
+    }
+
+    //if we get here, cookie is present and good.
+    this.loggedIn = true;
+    
+  },
   computed: {
-    sessionGuid: {
-      get: function () {
-        return this.$store.state.sessionGuid;
-      },
-      set: function (tSessionGuid) {
-        this.$store.dispatch("setSessionGuid", tSessionGuid);
-      },
-    },
     apiURL: {
       get: function () {
         return this.$store.state.apiURL;
       },
     },
   },
+  watch: {
+    $route(to, from) {
+      this.ping();
+    },
+  },
   methods: {
     apiCall: async function (cfg) {
       const context = this;
+      const sessionGuid = context.getCookie("sessionGUID");
+      if (!sessionGuid || sessionGuid === "") {
+        context.loggedIn = false;
+        return;
+      }
       let method = _.toLower(_.get(cfg, "method"));
       let endpoint = _.get(cfg, "endpoint");
       const data = _.get(cfg, "data");
 
       const headers = {
-        sessionGuid: context.sessionGuid,
+        sessionGuid,
       };
       if (_.startsWith(endpoint, "/")) {
         endpoint = _.trim(endpoint, "/");
       }
       let url = context.apiURL + "/" + endpoint;
-
+  
       try {
         let response = await axios({
-            method,
-            url,
-            data: method === 'get' ? {} : data,
-            headers,
-            params: method === 'get' ? data : {}
+          method,
+          url,
+          data: method === "get" ? {} : data,
+          headers,
+          params: method === "get" ? data : {},
         });
 
         if (response.status >= 200 && response.status <= 299) {
           //Anything in 200 is good
+          context.setCookie(sessionGuid, context.sessionTimeout); //reset the cookie timeout
           return response;
-        } else {
-          //If not in 200 range, throw and let the catch block deal with it
-          throw (response);
         }
+
+        //If not in 200 range, throw and let the catch block deal with it
+        throw response;
       } catch (err) {
         const statusCode = err.response.status;
         const statusText = err.response.statusText;
         if (statusCode === 401) {
           //401 at any point means our session timed out.
-          context.onFail(statusText);
-          context.loggedIn = false;
-          context.sessionGuid = null;
+          context.onFail("The session has expired. Please log in again.");
+          context.deleteCookie();
+        } else {
+          //any other error except 401 means the server still thinks the sesion is good.
+          context.setCookie(sessionGuid, context.sessionTimeout); //reset the cookie timeout
         }
         throw err;
       }
@@ -145,6 +159,77 @@ export default {
       console.error("ON FAIL", message);
       this.$toasted.error(message, { theme: "bubble" });
     },
+    setCookie: function (cvalue, exMinutes) {
+      const d = new Date();
+      d.setTime(d.getTime() + exMinutes * 60 * 1000);
+      let expires = "expires=" + d.toUTCString();
+      document.cookie =
+        "sessionGUID=" + cvalue + ";" + expires + ";path=/";
+    },
+    getCookie: function () {
+      let name = "sessionGUID" + "=";
+      let decodedCookie = decodeURIComponent(document.cookie);
+      let ca = decodedCookie.split(";");
+      for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == " ") {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    },
+    checkCookie: function () {
+      /*
+        This gets called immediately after login.
+        It first checks to see if the cookie exists / hasn't expired.
+        If it is invalid / non-existant, loggedIn = false thus forcing another login.
+        If the cookie is present / valid, it sets a timer to call itself (recursion) in X minutes
+        to check again.
+
+        After every API call, the cookie should be updated.
+      */
+      const context = this;
+      const tCookie = context.getCookie("sessionGUID");
+      if (!tCookie || tCookie === "") {
+        context.loggedIn = false;
+        return;
+      }
+      setTimeout(context.checkCookie, context.sessionTimeout * 60 * 1000);
+    },
+    deleteCookie: function () {
+      this.loggedIn = false;
+      this.setCookie("Timedout", -100);
+    },
+    ping: function(){
+      const context = this;
+      const sessionGuid = context.getCookie();
+      if (!sessionGuid || sessionGuid === "") {
+        context.loggedIn = false;
+        return;
+      }
+
+      let url = "session/ping";
+      context
+        .apiCall({
+          endpoint: url,
+          method: "post",
+          data: {},
+        })
+        .then(() => {
+          context.setCookie(sessionGuid, context.sessionTimeout);
+        })
+        .catch((err) => {
+          console.error(err.response);
+          const statusCode = err.response.status;
+          if (statusCode === 401) {
+            context.onFail("The session has expired. Please log in again.");
+            context.deleteCookie();
+          }
+        });
+    },
     login: function () {
       const context = this;
       const payload = {
@@ -156,8 +241,10 @@ export default {
       axios
         .post(url, payload)
         .then((response) => {
-          context.sessionGuid = response.data.sessionGuid;
+          const sessionGuid = response.data.sessionGuid;
+          context.setCookie(sessionGuid, context.sessionTimeout);
           context.loggedIn = true;
+          context.checkCookie();
           router.push(context.route || context.ogRoute);
         })
         .catch((err) => {
