@@ -4,79 +4,203 @@
     <div class="container mt-5">
       <div class="card p-3">
         <p class="bold-heading mb-4">Patient Details:</p>
-        <table class="table table-striped">
+        <table class="table table-striped mb-0">
           <tbody>
             <tr>
               <td>
-                <div v-if="!editMode">
-                  Patient:{{ currentPatientID }}
+                <div
+                  v-if="!editMode"
+                  class="
+                    d-flex
+                    justify-content-between
+                    align-items-baseline
+                    full-width
+                  "
+                >
+                  <div class="content-left">Patient:</div>
+                  <div class="content-right">{{ currentPatientID }}</div>
                 </div>
-                <div v-if="editMode">
-                  Patient: <input type="text" v-model="currentPatientID"></input>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div v-if="!editMode">
-                  Sex: {{ patient.Sex }}
-                </div>
-                <div v-if="editMode">
-                  Sex: <input type="text" v-model="patient.Sex"></input>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div v-if="!editMode">
-                  Weight: {{ patient.Weight }}
-                </div>
-                <div v-if="editMode">
-                  Weight: <input type="text" v-model="patient.Weight"></input>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div v-if="!editMode">
-                  Height: {{ patient.Height }}
-                </div>
-                <div v-if="editMode">
-                  Height: <input type="text" v-model="patient.Height"></input>
+                <div
+                  v-if="editMode"
+                  class="
+                    d-flex
+                    justify-content-between
+                    align-items-baseline
+                    full-width
+                  "
+                >
+                  Patient:
+                  <input
+                    class="text-center"
+                    type="text"
+                    v-model="currentPatientID"
+                  />
                 </div>
               </td>
             </tr>
             <tr>
               <td>
-                <div v-if="!editMode">
-                  Age: {{ patient.Age }}
+                <div
+                  v-if="!editMode"
+                  class="
+                    d-flex
+                    justify-content-between
+                    align-items-baseline
+                    full-width
+                  "
+                >
+                  <div class="content-left">Sex:</div>
+                  <div class="content-right">{{ patient.Sex }}</div>
                 </div>
-                <div v-if="editMode">
-                  Age: <input type="text" v-model="patient.Age"></input>
+                <div
+                  v-if="editMode"
+                  class="
+                    d-flex
+                    justify-content-between
+                    align-items-baseline
+                    full-width
+                  "
+                >
+                  Sex:
+                  <select class="text-center" v-model="patient.Sex">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div
+                  v-if="!editMode"
+                  class="
+                    d-flex
+                    justify-content-between
+                    align-items-baseline
+                    full-width
+                  "
+                >
+                  <div class="content-left">Weight</div>
+                  <div class="content-right">{{ patient.Weight }}</div>
+                </div>
+                <div
+                  v-if="editMode"
+                  class="
+                    d-flex
+                    justify-content-between
+                    align-items-baseline
+                    full-width
+                  "
+                >
+                  Weight:
+                  <input
+                    class="text-center"
+                    type="text"
+                    v-model="patient.Weight"
+                  />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div
+                  v-if="!editMode"
+                  class="
+                    d-flex
+                    justify-content-between
+                    align-items-baseline
+                    full-width
+                  "
+                >
+                  <div class="content-left">Height</div>
+                  <div class="content-right">{{ patient.Height }}</div>
+                </div>
+                <div
+                  v-if="editMode"
+                  class="
+                    d-flex
+                    justify-content-between
+                    align-items-baseline
+                    full-width
+                  "
+                >
+                  Height:
+                  <input
+                    class="text-center"
+                    type="text"
+                    v-model="patient.Height"
+                  />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div
+                  v-if="!editMode"
+                  class="
+                    d-flex
+                    justify-content-between
+                    align-items-baseline
+                    full-width
+                  "
+                >
+                  <div class="content-left">Age</div>
+                  <div class="content-right">{{ patient.Age }}</div>
+                </div>
+                <div
+                  v-if="editMode"
+                  class="
+                    d-flex
+                    justify-content-between
+                    align-items-baseline
+                    full-width
+                  "
+                >
+                  Age:
+                  <input
+                    class="text-center"
+                    type="text"
+                    v-model="patient.Age"
+                  />
                 </div>
               </td>
             </tr>
           </tbody>
         </table>
-        <div v-if="!editMode">
-          <input
-            type="button"
-            class="btn btn-primary mt-3"
-            v-on:click="toggleEditMode()"
-            value="Edit Patient Details"/>
+        <div
+          v-if="!editMode"
+          class="d-flex justify-content-between align-items-baseline"
+        >
+          <button class="btn btn-primary my-3" v-on:click="toggleEditMode()">
+            Edit Patient Details
+          </button>
         </div>
-        <div v-if="editMode">
-            <input
-            type="button"
-            class="btn btn-primary mt-3"
-            v-on:click="toggleEditMode()"
-            value="Cancel"/>
-            <input
-            type="button"
-            class="btn btn-primary mt-3"
-            v-on:click="updatePatient()"
-            value="Save"/>
+        <div
+          v-if="editMode"
+          class="
+            d-flex
+            justify-content-between
+            align-items-baseline
+            button-wrap
+            py-3
+          "
+        >
+          <button class="btn btn-secondary mt-3" v-on:click="toggleEditMode()">
+            Cancel
+          </button>
+          <button class="btn btn-primary mt-3" v-on:click="updatePatient()">
+            Save
+          </button>
         </div>
+
+        <router-link
+          class="mb-3"
+          :to="{
+            name: 'BVAData',
+          }"
+        >
+          <button class="btn btn-primary">Enter New BVA Details</button>
+        </router-link>
 
         <!-- DELETE PATIENT MODAL LAUNCH -->
         <button
@@ -86,6 +210,7 @@
         >
           Delete Patient
         </button>
+
         <!-- DELETE PATIENT MODAL -->
         <div
           class="modal fade"
@@ -145,6 +270,7 @@
             </div>
           </div>
         </div>
+        <!-- END DELETE MODAL -->
       </div>
     </div>
     <div class="treatment-btn container"></div>
@@ -173,12 +299,12 @@ export default {
     };
   },
   methods: {
-    toggleEditMode: function(){
+    toggleEditMode: function () {
       const context = this;
       let tEditMode = !context.editMode;
-      if (tEditMode === true){
-        context.tPatient = context.patient;//preserve OG values in case of cancel or fail
-      }else{
+      if (tEditMode === true) {
+        context.tPatient = context.patient; //preserve OG values in case of cancel or fail
+      } else {
         context.patient = context.tPatient;
         context.tPatient = {};
       }
@@ -197,7 +323,7 @@ export default {
           let patient = _.get(res, "data.patient", {});
           let archivedTreatments = _.get(res, "data.archivedTreatments", []);
           console.log("PATIENT", patient);
-          console.log("AT",archivedTreatments);
+          console.log("AT", archivedTreatments);
           context.patient = patient;
           context.archivedTreatments = archivedTreatments;
         })
@@ -236,7 +362,7 @@ export default {
             Sex: context.patient.Sex,
             Weight: context.patient.Weight,
             Height: context.patient.Height,
-            Age: context.patient.Age
+            Age: context.patient.Age,
           },
           endpoint,
         })
@@ -280,5 +406,14 @@ ul {
   display: inline-block;
   height: 2em;
   width: 2em;
+}
+
+select {
+  width: 295px;
+  background-color: #fff;
+}
+
+.button-wrap > button {
+  width: 240px;
 }
 </style>
