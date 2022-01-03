@@ -72,14 +72,29 @@ export default {
       route: "patients",
       ogRoute: "patients",
       sessionTimeout: 10, //minutes
+      cookieTimer: undefined,
+      pingTimer: undefined
     };
   },
   mounted: function () {
+    const context = this;
     let cSessionGuid = this.getCookie("sessionGUID");
     if (!cSessionGuid || cSessionGuid === "") {
       this.loggedIn = false;
       return;
     }
+    
+    let url = window.location.href;
+    if (_.endsWith(url,'/login')){
+      this.deleteCookie();
+      this.loggedIn = false;
+      return;
+    }
+
+    var events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
+    events.forEach(function(name) {
+      document.addEventListener(name, context.resetCookieTimer, true);
+    });
 
     //if we get here, cookie is present and good.
     this.loggedIn = true;
@@ -182,6 +197,7 @@ export default {
       return "";
     },
     checkCookie: function () {
+      console.log('CHECKING COOKIE');
       /*
         This gets called immediately after login.
         It first checks to see if the cookie exists / hasn't expired.
@@ -197,17 +213,33 @@ export default {
         context.loggedIn = false;
         return;
       }
-      setTimeout(context.checkCookie, context.sessionTimeout * 60 * 1000);
+      context.resetCookieTimer();
     },
     deleteCookie: function () {
       this.loggedIn = false;
       this.setCookie("Timedout", -100);
     },
+    resetCookieTimer: function(){
+      const context = this;
+      clearTimeout(context.cookieTimer);
+      context.cookieTimer = setTimeout(context.checkCookie, context.sessionTimeout * 60 * 1000);
+    },
+    checkPing: function(){
+      const context = this;
+      clearTimeout(context.pingTimer);
+      context.ping();
+      context.pingTimer = setTimeout(context.pingTimer, 1 * 60 * 1000);
+    },
     ping: function(){
+      //the point of this function is to make the server check it's session and update if not expired
       const context = this;
       const sessionGuid = context.getCookie();
       if (!sessionGuid || sessionGuid === "") {
         context.loggedIn = false;
+        return;
+      }
+
+      if (!this.loggedIn){
         return;
       }
 
@@ -245,6 +277,7 @@ export default {
           context.setCookie(sessionGuid, context.sessionTimeout);
           context.loggedIn = true;
           context.checkCookie();
+          context.checkPing();
           router.push(context.route || context.ogRoute);
         })
         .catch((err) => {
