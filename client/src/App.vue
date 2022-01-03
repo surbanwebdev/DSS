@@ -73,28 +73,32 @@ export default {
       ogRoute: "patients",
       sessionTimeout: 10, //minutes
       cookieTimer: undefined,
-      pingTimer: undefined
+      pingTimer: undefined,
+      lastInteraction: undefined
     };
   },
   mounted: function () {
     const context = this;
     let cSessionGuid = this.getCookie("sessionGUID");
     if (!cSessionGuid || cSessionGuid === "") {
-      this.loggedIn = false;
+      this.logout();
       return;
     }
     
     let url = window.location.href;
     if (_.endsWith(url,'/login')){
-      this.deleteCookie();
-      this.loggedIn = false;
+      this.logout();
       return;
     }
 
     var events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
     events.forEach(function(name) {
       document.addEventListener(name, context.resetCookieTimer, true);
+      document.addEventListener(name, context.setLastInteraction, true);
     });
+    context.lastInteraction = new Date();
+    context.checkCookie();
+    context.checkPing();
 
     //if we get here, cookie is present and good.
     this.loggedIn = true;
@@ -117,7 +121,7 @@ export default {
       const context = this;
       const sessionGuid = context.getCookie("sessionGUID");
       if (!sessionGuid || sessionGuid === "") {
-        context.loggedIn = false;
+        context.logout();
         return;
       }
       let method = _.toLower(_.get(cfg, "method"));
@@ -155,10 +159,12 @@ export default {
         if (statusCode === 401) {
           //401 at any point means our session timed out.
           context.onFail("The session has expired. Please log in again.");
-          context.deleteCookie();
+          context.logout();
         } else {
           //any other error except 401 means the server still thinks the sesion is good.
-          context.setCookie(sessionGuid, context.sessionTimeout); //reset the cookie timeout
+          if (endpoint != 'session/ping'){
+            context.setCookie(sessionGuid, context.sessionTimeout); //reset the cookie timeout
+          }
         }
         throw err;
       }
@@ -197,7 +203,6 @@ export default {
       return "";
     },
     checkCookie: function () {
-      console.log('CHECKING COOKIE');
       /*
         This gets called immediately after login.
         It first checks to see if the cookie exists / hasn't expired.
@@ -210,32 +215,61 @@ export default {
       const context = this;
       const tCookie = context.getCookie("sessionGUID");
       if (!tCookie || tCookie === "") {
-        context.loggedIn = false;
+        context.logout();
         return;
       }
       context.resetCookieTimer();
     },
-    deleteCookie: function () {
-      this.loggedIn = false;
-      this.setCookie("Timedout", -100);
+    logout: function () {
+      let url = "session/logout";
+      context
+        .apiCall({
+          endpoint: url,
+          method: "post",
+          data: {},
+        })
+        .catch((err) => {
+          console.error(err);
+          const statusCode = err.response.status;
+        }).finally(()=>{
+          this.loggedIn = false;
+          this.setCookie("Timedout", -100);
+        });
     },
     resetCookieTimer: function(){
       const context = this;
       clearTimeout(context.cookieTimer);
       context.cookieTimer = setTimeout(context.checkCookie, context.sessionTimeout * 60 * 1000);
     },
+    setLastInteraction(){
+      this.lastInteraction = new Date();
+    },
     checkPing: function(){
       const context = this;
       clearTimeout(context.pingTimer);
-      context.ping();
       context.pingTimer = setTimeout(context.pingTimer, 1 * 60 * 1000);
+      
+      let delta = Math.abs(new Date() - context.lastInteraction); //millisecs
+
+      if (delta > context.sessionTimeout * 60 * 1000){
+        //if no keyboard, mouse, touchscreen interaction in the specified timeout, kill the session
+        context.logout();
+        return;
+      }
+
+      if (delta > (context.sessionTimeout * 0.9) * 60 * 1000){
+        //warning; optional
+      }
+
+      context.ping();//let the API know the user is still doing something on the UI
+
     },
     ping: function(){
       //the point of this function is to make the server check it's session and update if not expired
       const context = this;
       const sessionGuid = context.getCookie();
       if (!sessionGuid || sessionGuid === "") {
-        context.loggedIn = false;
+        context.delteCookie();
         return;
       }
 
@@ -251,15 +285,13 @@ export default {
           data: {},
         })
         .then(() => {
-          context.setCookie(sessionGuid, context.sessionTimeout);
+          console.log(new Date()+' Ping... OK');
+          context.resetCookieTimer();
         })
         .catch((err) => {
-          console.error(err.response);
+          console.log('Ping... FAIL');
+          console.error(err);
           const statusCode = err.response.status;
-          if (statusCode === 401) {
-            context.onFail("The session has expired. Please log in again.");
-            context.deleteCookie();
-          }
         });
     },
     login: function () {
@@ -285,8 +317,7 @@ export default {
           const statusCode = err.response.status;
           if (statusCode === 401) {
             context.onFail("The credentials you entered we invalid.");
-            context.loggedIn = false;
-            context.sessionGuid = null;
+            context.logout();
           }
         });
     },

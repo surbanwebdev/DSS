@@ -166,8 +166,8 @@ export default {
   data: function () {
     return {
       currentPatientID: this.$store.state.currentPatientID,
-      patient: null,
-      tPatient: null,
+      patient: {},
+      tPatient: {},
       editMode: false,
       isPatientDeleted: false,
     };
@@ -196,8 +196,6 @@ export default {
         .then((res) => {
           let patient = _.get(res, "data.patient", {});
           let archivedTreatments = _.get(res, "data.archivedTreatments", []);
-          console.log("PATIENT", patient);
-          console.log("AT",archivedTreatments);
           context.patient = patient;
           context.archivedTreatments = archivedTreatments;
         })
