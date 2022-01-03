@@ -95,7 +95,7 @@ async function manageSession(req, res) {
         if (delta > timeout) {
             await processLogout(sessionGuid);
             res.statusMessage = 'Session has expired';
-            res.status(401).end();//this really should be a 403 but for the sake of keeping it simple
+            res.status(403).end();
             return;
         }
 

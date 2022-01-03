@@ -70,38 +70,40 @@ export default {
       username: "",
       password: "",
       route: "patients",
-      ogRoute: "patients",
-      sessionTimeout: 10, //minutes
-      cookieTimer: undefined,
-      pingTimer: undefined,
-      lastInteraction: undefined
+      sessionTimeout: 2, //minutes
+      sessionTimer: undefined,
+      lastInteraction: undefined,
+      intervalCounter: 0
     };
+  },
+  beforeUnmount: function(){
+    clearInterval(this.sessionTimer);
   },
   mounted: function () {
     const context = this;
-    let cSessionGuid = this.getCookie("sessionGUID");
-    if (!cSessionGuid || cSessionGuid === "") {
-      this.logout();
+    
+    context.lastInteraction = new Date();
+
+    let url = _.trim(window.location.href,'/');
+    if (_.endsWith(url,':8080')){
+      //we were redirected to login the non-conventional way...
+      context.logout();
       return;
     }
-    
-    let url = window.location.href;
-    if (_.endsWith(url,'/login')){
-      this.logout();
+
+    let cSessionGuid = this.getSessionCookie("sessionGUID");
+    if ((!cSessionGuid || cSessionGuid === "") && context.loggedIn) {
+      context.logout();
       return;
     }
 
     var events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
     events.forEach(function(name) {
-      document.addEventListener(name, context.resetCookieTimer, true);
       document.addEventListener(name, context.setLastInteraction, true);
     });
-    context.lastInteraction = new Date();
-    context.checkCookie();
-    context.checkPing();
 
-    //if we get here, cookie is present and good.
-    this.loggedIn = true;
+    context.loggedIn = true;
+    context.checkSession();
     
   },
   computed: {
@@ -119,9 +121,14 @@ export default {
   methods: {
     apiCall: async function (cfg) {
       const context = this;
-      const sessionGuid = context.getCookie("sessionGUID");
+      const sessionGuid = context.getSessionCookie("sessionGUID");
       if (!sessionGuid || sessionGuid === "") {
-        context.logout();
+        /*
+          if I don't have a session guid, I can't logout anyway
+          so may as well just delete the sesion cookie and redirect
+          to login.
+        */
+        context.deleteSessionCookie();
         return;
       }
       let method = _.toLower(_.get(cfg, "method"));
@@ -147,7 +154,7 @@ export default {
 
         if (response.status >= 200 && response.status <= 299) {
           //Anything in 200 is good
-          context.setCookie(sessionGuid, context.sessionTimeout); //reset the cookie timeout
+          context.setSessionCookie(sessionGuid, context.sessionTimeout); //reset the cookie timeout
           return response;
         }
 
@@ -156,14 +163,19 @@ export default {
       } catch (err) {
         const statusCode = err.response.status;
         const statusText = err.response.statusText;
-        if (statusCode === 401) {
-          //401 at any point means our session timed out.
+        if (statusCode === 403) {
+          /*
+            403 at any point means our session timed out on the API
+            so all we need to do is get rid of the cookie and force
+            the user to login again
+          */
+
           context.onFail("The session has expired. Please log in again.");
-          context.logout();
+          context.deleteSessionCookie();
         } else {
           //any other error except 401 means the server still thinks the sesion is good.
           if (endpoint != 'session/ping'){
-            context.setCookie(sessionGuid, context.sessionTimeout); //reset the cookie timeout
+            context.setSessionCookie(sessionGuid, context.sessionTimeout); //reset the cookie timeout
           }
         }
         throw err;
@@ -174,20 +186,20 @@ export default {
     },
     onWarning: function (message) {
       console.warn(message);
-      this.$toasted.warn(message, { theme: "bubble" });
+      this.$toasted.info(message, { theme: "bubble" });
     },
     onFail: function (message) {
       console.error("ON FAIL", message);
       this.$toasted.error(message, { theme: "bubble" });
     },
-    setCookie: function (cvalue, exMinutes) {
+    setSessionCookie: function (cvalue, exMinutes) {
       const d = new Date();
       d.setTime(d.getTime() + exMinutes * 60 * 1000);
       let expires = "expires=" + d.toUTCString();
       document.cookie =
         "sessionGUID=" + cvalue + ";" + expires + ";path=/";
     },
-    getCookie: function () {
+    getSessionCookie: function () {
       let name = "sessionGUID" + "=";
       let decodedCookie = decodeURIComponent(document.cookie);
       let ca = decodedCookie.split(";");
@@ -202,74 +214,52 @@ export default {
       }
       return "";
     },
-    checkCookie: function () {
-      /*
-        This gets called immediately after login.
-        It first checks to see if the cookie exists / hasn't expired.
-        If it is invalid / non-existant, loggedIn = false thus forcing another login.
-        If the cookie is present / valid, it sets a timer to call itself (recursion) in X minutes
-        to check again.
-
-        After every API call, the cookie should be updated.
-      */
-      const context = this;
-      const tCookie = context.getCookie("sessionGUID");
-      if (!tCookie || tCookie === "") {
-        context.logout();
-        return;
-      }
-      context.resetCookieTimer();
-    },
-    logout: function () {
-      let url = "session/logout";
-      context
-        .apiCall({
-          endpoint: url,
-          method: "post",
-          data: {},
-        })
-        .catch((err) => {
-          console.error(err);
-          const statusCode = err.response.status;
-        }).finally(()=>{
-          this.loggedIn = false;
-          this.setCookie("Timedout", -100);
-        });
-    },
-    resetCookieTimer: function(){
-      const context = this;
-      clearTimeout(context.cookieTimer);
-      context.cookieTimer = setTimeout(context.checkCookie, context.sessionTimeout * 60 * 1000);
+    deleteSessionCookie: function(){
+      this.setSessionCookie("Session Time Out", -100);
+      this.loggedIn = false;
+      clearInterval(this.sessionTimer);
     },
     setLastInteraction(){
       this.lastInteraction = new Date();
     },
-    checkPing: function(){
+    checkSession: function(){
       const context = this;
-      clearTimeout(context.pingTimer);
-      context.pingTimer = setTimeout(context.pingTimer, 1 * 60 * 1000);
-      
-      let delta = Math.abs(new Date() - context.lastInteraction); //millisecs
-
-      if (delta > context.sessionTimeout * 60 * 1000){
-        //if no keyboard, mouse, touchscreen interaction in the specified timeout, kill the session
-        context.logout();
+      if (!context.loggedIn){
+        console.log('Not logged in at session check')
         return;
       }
+      clearInterval(context.sessionTimer);
+      context.intervalCounter = 0;
+      context.sessionTimer = setInterval(()=>{
+        let delta = Math.abs(new Date() - context.lastInteraction); //millisecs
+        if (delta > context.sessionTimeout * 60 * 1000){
+          //if no keyboard, mouse, touchscreen interaction in the specified timeout, kill the session
+          context.onFail('No activity in specified timeout. Logging out.');
+          context.logout();
+          return;
+        }
 
-      if (delta > (context.sessionTimeout * 0.9) * 60 * 1000){
-        //warning; optional
-      }
+        if (delta > (context.sessionTimeout * 0.9) * 60 * 1000){
+          delta = (context.sessionTimeout * 60 * 1000) - delta; //reusing variable
+          delta = Math.round(delta / 1000);
+          context.onWarning("Session ends in "+delta+" seconds unless interaction occurs");
+        }
 
-      context.ping();//let the API know the user is still doing something on the UI
+        if (context.intervalCounter === 60){
+          //if we've hit 60 1-second intervals, ping the server and let them know we're still good on the UI.
+          context.ping();//let the API know the user is still doing something on the UI
+          context.intervalCounter = 0;
+        }
+        context.intervalCounter++;
+      }, 1000);
 
     },
     ping: function(){
       //the point of this function is to make the server check it's session and update if not expired
       const context = this;
-      const sessionGuid = context.getCookie();
+      const sessionGuid = context.getSessionCookie();
       if (!sessionGuid || sessionGuid === "") {
-        context.delteCookie();
+        context.deleteSessionCookie();
         return;
       }
 
@@ -286,10 +276,9 @@ export default {
         })
         .then(() => {
           console.log(new Date()+' Ping... OK');
-          context.resetCookieTimer();
         })
         .catch((err) => {
-          console.log('Ping... FAIL');
+          console.log(new Date()+'Ping... FAIL');
           console.error(err);
           const statusCode = err.response.status;
         });
@@ -301,26 +290,51 @@ export default {
         password: context.password,
       };
 
+      let ogURL = window.location.href;
+      let ogRoute = _.last(_.split(ogURL, '/'));
+      if (ogRoute === '' || ogRoute === '/'){
+        context.route = 'patients'
+      }else{
+        context.route = ogRoute;
+      }
+
       let url = context.apiURL + "/session/login";
       axios
         .post(url, payload)
         .then((response) => {
           const sessionGuid = response.data.sessionGuid;
-          context.setCookie(sessionGuid, context.sessionTimeout);
+          context.setSessionCookie(sessionGuid, context.sessionTimeout);
           context.loggedIn = true;
-          context.checkCookie();
-          context.checkPing();
-          router.push(context.route || context.ogRoute);
+          context.checkSession();
+          router.push(context.route);
         })
         .catch((err) => {
-          console.error(err.response);
+          console.error(err);
           const statusCode = err.response.status;
           if (statusCode === 401) {
             context.onFail("The credentials you entered we invalid.");
+            console.log('login fail logout')
             context.logout();
           }
         });
     },
+    logout: function () {
+      console.log('Logging out...')
+      const context = this;
+      let url = "session/logout";
+      context
+        .apiCall({
+          endpoint: url,
+          method: "post",
+          data: {},
+        })
+        .catch((err) => {
+          console.error(err);
+          const statusCode = err.response.status;
+        }).finally(()=>{
+          this.deleteSessionCookie();
+        });
+    }//here is the end of the chain
   },
 };
 </script>
