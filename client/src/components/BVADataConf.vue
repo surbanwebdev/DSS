@@ -341,35 +341,31 @@
           </div>
         </div>
       </form>
-    </div>
-    <div class="treatment-btn container">
-      <!-- rbcv MAY NEED TO BE CHANGED TO ANOTHER VALUE IN THE FUTURE -->
-      <router-link
-        :to="{
-          name: 'TargetHct',
-          params: { nhct: this.nhct },
-        }"
+      <div
+        class="
+          d-flex
+          justify-content-between
+          align-items-baseline
+          button-wrap
+          py-3
+        "
       >
-        <button type="submit" class="btn btn-primary mt-3">Confirm</button>
-      </router-link>
-      <!-- <router-link
-        v-if="tbv > 10 && rbcv > 10"
-        :to="{
-          name: 'InitialHypervolemia',
-          params: { tbv: this.tbv },
-        }"
-      >
-        <button type="submit" class="btn btn-primary mt-3">Confirm</button>
-      </router-link>
-      <router-link
-        v-else
-        :to="{
-          name: 'Hypertensive',
-          params: { tbv: this.tbv },
-        }"
-      >
-        <button type="submit" class="btn btn-primary mt-3">Confirm</button>
-      </router-link> -->
+        <router-link
+          :to="{
+            name: 'BVAData',
+          }"
+        >
+          <button type="submit" class="btn btn-secondary mt-3">Back</button>
+        </router-link>
+        <router-link
+          :to="{
+            name: 'TargetHct',
+            params: { nhct: this.nhct },
+          }"
+        >
+          <button type="submit" class="btn btn-primary mt-3">Confirm</button>
+        </router-link>
+      </div>
     </div>
     <Footer />
   </div>
@@ -440,5 +436,9 @@ svg {
 
 ul {
   list-style: none;
+}
+
+.button-wrap > a > button {
+  width: 240px;
 }
 </style>

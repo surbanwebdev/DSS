@@ -80,8 +80,8 @@
                     full-width
                   "
                 >
-                  <div class="content-left">Weight</div>
-                  <div class="content-right">{{ patient.Weight }}</div>
+                  <div class="content-left">Weight:</div>
+                  <div class="content-right">{{ patient.Weight }} kg</div>
                 </div>
                 <div
                   v-if="editMode"
@@ -92,7 +92,7 @@
                     full-width
                   "
                 >
-                  Weight:
+                  Weight (kg):
                   <input
                     class="text-center"
                     type="text"
@@ -112,8 +112,8 @@
                     full-width
                   "
                 >
-                  <div class="content-left">Height</div>
-                  <div class="content-right">{{ patient.Height }}</div>
+                  <div class="content-left">Height:</div>
+                  <div class="content-right">{{ patient.Height }} cm</div>
                 </div>
                 <div
                   v-if="editMode"
@@ -124,7 +124,7 @@
                     full-width
                   "
                 >
-                  Height:
+                  Height (cm):
                   <input
                     class="text-center"
                     type="text"
@@ -144,7 +144,7 @@
                     full-width
                   "
                 >
-                  <div class="content-left">Age</div>
+                  <div class="content-left">Age:</div>
                   <div class="content-right">{{ patient.Age }}</div>
                 </div>
                 <div
