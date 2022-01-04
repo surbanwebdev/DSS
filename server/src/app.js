@@ -6,7 +6,10 @@ const sessionRoutes = require('./Routes/session');
 const testRoutes = require('./Routes/test');
 const patientRoutes = require('./Routes/patient');
 const settingsRoutes = require('./Routes/settings');
+const symptomsRoutes = require('./Routes/symptoms');
 const {tweakRquest} = require('./Middleware/global');
+
+
 
 const app = express();
 
@@ -21,5 +24,7 @@ app.use('/test', testRoutes);
 app.use('/patient', patientRoutes);
 
 app.use('/settings', settingsRoutes);
+
+app.use('/symptoms', symptomsRoutes);
 
 app.listen(process.env.PORT || 8081);

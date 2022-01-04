@@ -4,12 +4,12 @@ const { getAllSettings } = require('../Logic/settings');
 
 const router = express.Router();
 
-router.get('/GetAllSettings', (async (req, res) => {
+router.get('/GetAllSettings', async (req, res) => {
     getAllSettings(req, res);
-}));
+});
 
-router.get('/GetSetting', (async (req, res) => {
+router.get('/GetSetting', async (req, res) => {
     getSetting(req, res);
-}));
+});
 
 module.exports = router;
