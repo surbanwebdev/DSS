@@ -9,6 +9,7 @@ export default new Vuex.Store({
     age: null,
     anemic: false,
     currentPatientID: null,
+    currentPatientSex: null,
     euvolemic: false,
     firstName: '',
     height: null,
@@ -46,6 +47,9 @@ export default new Vuex.Store({
     },
     setCurrentPatientID({ state }, currentPatientID) {
       state.currentPatientID = currentPatientID
+    },
+    setCurrentPatientSex({ state }, currentPatientSex) {
+      state.currentPatientSex = currentPatientSex
     }
   },
   methods: {

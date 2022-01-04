@@ -5,12 +5,32 @@
       <p class="treatment-group my-2">Treatment Group: BVA Guided Care</p>
 
       <div class="card p-3">
-        <p class="bold-heading mb-2">Normalized Hematocrit: {{ nhct }}</p>
-        <p class="bold-heading mb-2">Target Hematocrit: {{ thct }}</p>
+        <table class="table table-striped mb-0">
+          <tbody>
+            <tr>
+              <td>
+                <p class="bold-heading mb-2">
+                  Normalized Hematocrit: {{ nhct }}
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p class="bold-heading mb-2">Target Hematocrit: {{ thct }}</p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p class="bold-heading mb-2">
+                  Distance to Target: {{ thct - nhct }}
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
     <div class="treatment-btn container">
-      <!-- rbcv MAY NEED TO BE CHANGED TO ANOTHER VALUE IN THE FUTURE -->
       <router-link
         v-if="tbv > 10 && rbcv > 10"
         :to="{
@@ -47,7 +67,14 @@ export default {
   methods: {
     calculateTargethct: function () {
       var calculated = this.nhct * 1.1;
-      this.thct = calculated.toFixed(2);
+      var preThct = calculated.toFixed(2);
+      if (this.currentPatientSex == "female" && preThct > 48) {
+        this.thct = 48;
+      } else if (this.currentPatientSex == "male" && preThct > 49) {
+        this.thct = 49;
+      } else {
+        this.thct = preThct;
+      }
     },
   },
   created() {
@@ -59,6 +86,8 @@ export default {
       rbcv: this.$store.state.rbcv,
       nhct: this.$store.state.nhct,
       thct: this.$store.state.thct,
+      currentPatientID: this.$store.state.currentPatientID,
+      currentPatientSex: this.$store.state.currentPatientSex,
     };
   },
 };

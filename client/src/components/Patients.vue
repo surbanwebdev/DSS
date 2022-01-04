@@ -18,7 +18,9 @@
               <button
                 type="submit"
                 class="btn btn-primary mt-3"
-                v-on:click="updateCurrentPatient(patient.PatientID)"
+                v-on:click="
+                  updateCurrentPatient(patient.PatientID, patient.Sex)
+                "
               >
                 View Patient
               </button>
@@ -68,8 +70,9 @@ export default {
       var calculated = this.nhct * 1.1;
       this.thct = calculated.toFixed(2);
     },
-    updateCurrentPatient: function (id) {
+    updateCurrentPatient: function (id, sex) {
       this.$store.dispatch("setCurrentPatientID", id);
+      this.$store.dispatch("setCurrentPatientSex", sex);
     },
     loadPatients: async function () {
       const context = this;
