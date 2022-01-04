@@ -5,30 +5,55 @@
       <p class="treatment-group my-2">Treatment Group: BVA Guided Care</p>
 
       <div class="card p-3">
-        <p class="bold-heading mb-2">Normalized Hematocrit: {{ nhct }}</p>
-        <p class="bold-heading mb-2">Target Hematocrit: {{ thct }}</p>
+        <table class="table table-striped mb-0">
+          <tbody>
+            <tr>
+              <td class="d-flex justify-content-between align-items-baseline">
+                <div class="content-left">Normalized Hematocrit:</div>
+                <div class="content-right">
+                  {{ nhct }}
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="d-flex justify-content-between align-items-baseline">
+                <div class="content-left">Target Hematocrit:</div>
+                <div class="content-right">
+                  {{ thct }}
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="d-flex justify-content-between align-items-baseline">
+                <div class="content-left">Distance to Target Hct:</div>
+                <div class="content-right">
+                  {{ distanceToTarget }}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="treatment-btn container">
+          <router-link
+            v-if="tbv > 10 && rbcv > 10"
+            :to="{
+              name: 'InitialHypervolemia',
+              params: { tbv: this.tbv },
+            }"
+          >
+            <button type="submit" class="btn btn-primary mt-3">Confirm</button>
+          </router-link>
+          <router-link
+            v-else
+            :to="{
+              name: 'BVASymptoms',
+              params: { tbv: this.tbv },
+            }"
+          >
+            <button type="submit" class="btn btn-primary mt-3">Confirm</button>
+          </router-link>
+        </div>
       </div>
-    </div>
-    <div class="treatment-btn container">
-      <!-- rbcv MAY NEED TO BE CHANGED TO ANOTHER VALUE IN THE FUTURE -->
-      <router-link
-        v-if="tbv > 10 && rbcv > 10"
-        :to="{
-          name: 'InitialHypervolemia',
-          params: { tbv: this.tbv },
-        }"
-      >
-        <button type="submit" class="btn btn-primary mt-3">Confirm</button>
-      </router-link>
-      <router-link
-        v-else
-        :to="{
-          name: 'BVASymptoms',
-          params: { tbv: this.tbv },
-        }"
-      >
-        <button type="submit" class="btn btn-primary mt-3">Confirm</button>
-      </router-link>
     </div>
     <Footer />
   </div>
@@ -47,11 +72,24 @@ export default {
   methods: {
     calculateTargethct: function () {
       var calculated = this.nhct * 1.1;
-      this.thct = calculated.toFixed(2);
+      var preThct = calculated.toFixed(2);
+      //  48 POINT CEILING FOR FEMALE AND 49 FOR MALE
+      if (this.currentPatientSex == "female" && preThct > 48) {
+        this.thct = 48;
+      } else if (this.currentPatientSex == "male" && preThct > 49) {
+        this.thct = 49;
+      } else {
+        this.thct = preThct;
+      }
+    },
+    calculateDistanceToTarget: function () {
+      var calculated = this.thct - this.nhct;
+      this.distanceToTarget = calculated.toFixed(2);
     },
   },
   created() {
     this.calculateTargethct();
+    this.calculateDistanceToTarget();
   },
   data: function () {
     return {
@@ -59,6 +97,9 @@ export default {
       rbcv: this.$store.state.rbcv,
       nhct: this.$store.state.nhct,
       thct: this.$store.state.thct,
+      currentPatientID: this.$store.state.currentPatientID,
+      currentPatientSex: this.$store.state.currentPatientSex,
+      distanceToTarget: null,
     };
   },
 };
