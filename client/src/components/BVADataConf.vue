@@ -2,7 +2,7 @@
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
     <div class="container mt-5">
-      <p class="treatment-group my-2">Treatment Group: BVA Guided Care</p>
+      <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
       <form>
         <div class="card p-3">
           <p class="bold-heading mb-2">BVA-Assessment Data Confirmation</p>
@@ -383,9 +383,11 @@ export default {
   name: "BVADataConf",
   data: function () {
     return {
-      tbv: this.$store.state.tbv,
-      rbcv: this.$store.state.rbcv,
+      currentPatientID: this.$store.state.currentPatientID,
       nhct: this.$store.state.nhct,
+      rbcv: this.$store.state.rbcv,
+      pv: this.$store.state.pv,
+      tbv: this.$store.state.tbv,
       thct: this.$store.state.thct,
     };
   },

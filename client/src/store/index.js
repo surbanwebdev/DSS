@@ -39,6 +39,9 @@ export default new Vuex.Store({
     setRbcv({ state }, newRbcv) {
       state.rbcv = newRbcv
     },
+    setPv({ state }, newPv) {
+      state.pv = newPv
+    },
     setNhct({ state }, newNhct) {
       state.nhct = newNhct
     },
