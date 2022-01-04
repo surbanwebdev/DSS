@@ -95,7 +95,6 @@
         <router-link
           :to="{
             name: 'SuggestedTreatment',
-            params: { tbvHigh: this.tbvHigh, tbv: this.tbv },
           }"
         >
           <button type="submit" class="btn btn-primary mt-3">
@@ -120,8 +119,7 @@ export default {
   name: "InitialHypervolemia",
   data: function () {
     return {
-      tbv: this.$route.params.tbv,
-      tbvHigh: false,
+      tbv: this.$store.state.tbv,
     };
   },
   methods: {
