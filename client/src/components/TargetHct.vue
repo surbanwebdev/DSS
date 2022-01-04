@@ -2,8 +2,7 @@
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
     <div class="container mt-5">
-      <p class="treatment-group my-2">Treatment Group: BVA Guided Care</p>
-
+      <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
       <div class="card p-3">
         <table class="table table-striped mb-0">
           <tbody>
@@ -35,6 +34,7 @@
         </table>
         <div class="treatment-btn container">
           <router-link
+            v-if="tbv > 10 && pv > 10"
             :to="{
               name: 'SymptomCheck',
             }"
@@ -82,13 +82,13 @@ export default {
   },
   data: function () {
     return {
-      tbv: this.$store.state.tbv,
-      rbcv: this.$store.state.rbcv,
-      nhct: this.$store.state.nhct,
-      thct: this.$store.state.thct,
       currentPatientID: this.$store.state.currentPatientID,
       currentPatientSex: this.$store.state.currentPatientSex,
       distanceToTarget: null,
+      nhct: this.$store.state.nhct,
+      rbcv: this.$store.state.rbcv,
+      tbv: this.$store.state.tbv,
+      thct: this.$store.state.thct,
     };
   },
 };
