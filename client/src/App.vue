@@ -70,18 +70,18 @@ export default {
       username: "",
       password: "",
       route: "patients",
-      sessionTimeout: 2, //minutes
       sessionTimer: undefined,
       lastInteraction: undefined,
-      intervalCounter: 0
+      intervalCounter: 0,
+      settings: {}
     };
   },
   beforeUnmount: function(){
     clearInterval(this.sessionTimer);
   },
-  mounted: function () {
+  mounted: async function () {
     const context = this;
-    
+    await context.loadSettings();
     context.lastInteraction = new Date();
 
     let url = _.trim(window.location.href,'/');
@@ -154,7 +154,7 @@ export default {
 
         if (response.status >= 200 && response.status <= 299) {
           //Anything in 200 is good
-          context.setSessionCookie(sessionGuid, context.sessionTimeout); //reset the cookie timeout
+          context.setSessionCookie(sessionGuid, context.settings.SessionTimeout); //reset the cookie timeout
           return response;
         }
 
@@ -175,7 +175,7 @@ export default {
         } else {
           //any other error except 401 means the server still thinks the sesion is good.
           if (endpoint != 'session/ping'){
-            context.setSessionCookie(sessionGuid, context.sessionTimeout); //reset the cookie timeout
+            context.setSessionCookie(sessionGuid, context.settings.SessionTimeout); //reset the cookie timeout
           }
         }
         throw err;
@@ -232,15 +232,15 @@ export default {
       context.intervalCounter = 0;
       context.sessionTimer = setInterval(()=>{
         let delta = Math.abs(new Date() - context.lastInteraction); //millisecs
-        if (delta > context.sessionTimeout * 60 * 1000){
+        if (delta > context.settings.SessionTimeout * 60 * 1000){
           //if no keyboard, mouse, touchscreen interaction in the specified timeout, kill the session
           context.onFail('No activity in specified timeout. Logging out.');
           context.logout();
           return;
         }
 
-        if (delta > (context.sessionTimeout * 0.9) * 60 * 1000){
-          delta = (context.sessionTimeout * 60 * 1000) - delta; //reusing variable
+        if (delta > (context.settings.SessionTimeout * 0.9) * 60 * 1000){
+          delta = (context.settings.SessionTimeout * 60 * 1000) - delta; //reusing variable
           delta = Math.round(delta / 1000);
           context.onWarning("Session ends in "+delta+" seconds unless interaction occurs");
         }
@@ -303,7 +303,7 @@ export default {
         .post(url, payload)
         .then((response) => {
           const sessionGuid = response.data.sessionGuid;
-          context.setSessionCookie(sessionGuid, context.sessionTimeout);
+          context.setSessionCookie(sessionGuid, context.settings.SessionTimeout);
           context.loggedIn = true;
           context.checkSession();
           router.push(context.route);
@@ -334,8 +334,30 @@ export default {
         }).finally(()=>{
           this.deleteSessionCookie();
         });
-    }//here is the end of the chain
-  },
+    },//here is the end of the chain
+    loadSettings: function(){
+      return new Promise((resolve,reject)=>{
+        const context = this;
+        let url = context.apiURL + "/settings/GetAllSettings";
+        axios
+          .get(url)
+          .then((response) => {
+            let tSettings = {};
+            let settings = response.data.settings;
+            for(var i = 0; i < settings.length; i++){
+              let tSetting = settings[i];
+              _.set(tSettings, tSetting.Setting, tSetting.Value);
+            }
+            context.settings = tSettings;
+            resolve();
+          })
+          .catch((err) => {
+            context.onFail(err);
+            reject();
+          });
+      });
+    }//end of chain
+  }
 };
 </script>
 

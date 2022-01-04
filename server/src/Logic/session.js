@@ -1,8 +1,7 @@
 const { v4 } = require('uuid');
 const _ = require('lodash');
 const { getDB } = require('./db');
-
-const timeout = 600000;//millisecs (10 mins)
+const { getSettingFromDatabase } = require('./settings');
 
 async function login(req, res) {
     try {
@@ -92,6 +91,7 @@ async function manageSession(req, res) {
         let lastActive = new Date(_.get(row, 'LastActive'));
         let now = new Date();
         let delta = now.getTime() - lastActive.getTime();
+        let timeout = Number(await getSettingFromDatabase("SessionTimeout")) * 60 * 1000;
         if (delta > timeout) {
             await processLogout(sessionGuid);
             res.statusMessage = 'Session has expired';
