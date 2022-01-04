@@ -19,7 +19,7 @@ import TreatmentComplete from '../components/TreatmentComplete.vue'
 import BVAData from '../components/BVAData.vue'
 import BVADataConf from '../components/BVADataConf.vue'
 import BVADataConf2 from '../components/BVADataConf2.vue'
-import InitialHypervolemia from '../components/InitialHypervolemia.vue'
+import SymptomCheck from '../components/SymptomCheck.vue'
 import Hypertensive from '../components/Hypertensive.vue'
 import HypertensivePlan from '../components/HypertensivePlan.vue'
 import Hypotensive from '../components/Hypotensive.vue'
@@ -134,9 +134,9 @@ const routes = [
     component: BVADataConf2,
   },
   {
-    path: '/initial-hypervolemia',
-    name: 'InitialHypervolemia',
-    component: InitialHypervolemia,
+    path: '/symptom-check',
+    name: 'SymptomCheck',
+    component: SymptomCheck,
   },
   {
     path: '/hypertensive',

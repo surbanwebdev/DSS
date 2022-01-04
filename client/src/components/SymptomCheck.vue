@@ -116,19 +116,11 @@ export default {
     Navigation,
     Footer,
   },
-  name: "InitialHypervolemia",
+  name: "SymptomCheck",
   data: function () {
     return {
       tbv: this.$store.state.tbv,
     };
-  },
-  methods: {
-    setTbvLevel: function () {
-      this.tbv > 31 ? (this.tbvHigh = true) : (this.tbvHigh = false);
-    },
-  },
-  beforeMount() {
-    this.setTbvLevel();
   },
 };
 </script>

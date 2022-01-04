@@ -35,19 +35,8 @@
         </table>
         <div class="treatment-btn container">
           <router-link
-            v-if="tbv > 10 && rbcv > 10"
             :to="{
-              name: 'InitialHypervolemia',
-              params: { tbv: this.tbv },
-            }"
-          >
-            <button type="submit" class="btn btn-primary mt-3">Confirm</button>
-          </router-link>
-          <router-link
-            v-else
-            :to="{
-              name: 'BVASymptoms',
-              params: { tbv: this.tbv },
+              name: 'SymptomCheck',
             }"
           >
             <button type="submit" class="btn btn-primary mt-3">Confirm</button>
