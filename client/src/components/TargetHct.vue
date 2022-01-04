@@ -88,6 +88,7 @@ export default {
       nhct: this.$store.state.nhct,
       rbcv: this.$store.state.rbcv,
       tbv: this.$store.state.tbv,
+      pv: this.$store.state.pv,
       thct: this.$store.state.thct,
     };
   },

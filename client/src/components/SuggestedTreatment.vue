@@ -3,7 +3,7 @@
     <Navigation />
     <div class="container mt-5">
       <p v-if="tbv" class="treatment-group my-2">
-        Treatment Group: BVA-Guided Care
+        Patient ID: {{ currentPatientID }}
       </p>
       <p v-else class="treatment-group my-2">Treatment Group: Standard Care</p>
       <div class="card p-3">
@@ -63,6 +63,7 @@ export default {
   name: "SuggestedTreatment",
   data: function () {
     return {
+      currentPatientID: this.$store.state.currentPatientID,
       tbv: this.$store.state.tbv,
     };
   },

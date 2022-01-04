@@ -119,6 +119,7 @@ export default {
   name: "SymptomCheck",
   data: function () {
     return {
+      currentPatientID: this.$store.state.currentPatientID,
       tbv: this.$store.state.tbv,
     };
   },
