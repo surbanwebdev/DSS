@@ -36,7 +36,15 @@
           <router-link
             v-if="tbv > 10 && pv > 10"
             :to="{
-              name: 'SymptomCheck',
+              name: 'InitialHypervolemic',
+            }"
+          >
+            <button type="submit" class="btn btn-primary mt-3">Confirm</button>
+          </router-link>
+          <router-link
+            v-else
+            :to="{
+              name: 'Hypertensive',
             }"
           >
             <button type="submit" class="btn btn-primary mt-3">Confirm</button>

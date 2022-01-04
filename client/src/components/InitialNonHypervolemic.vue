@@ -4,7 +4,7 @@
     <div class="container mt-5">
       <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
       <div class="card p-3">
-        <p class="bold-heading mb-1">Initial Evaluation</p>
+        <p class="bold-heading mb-1">Initial treatment for non-hypervolmia</p>
         <p class="bold-heading indent mb-1">
           What symptoms of congestion are present?
         </p>
@@ -116,7 +116,7 @@ export default {
     Navigation,
     Footer,
   },
-  name: "SymptomCheck",
+  name: "InitialNonHypervolemic",
   data: function () {
     return {
       currentPatientID: this.$store.state.currentPatientID,
