@@ -64,7 +64,7 @@ a {
 }
 
 /* GLOBAL INPUT STYLES */
-input[type='text'] {
+input[type='text'], select {
   border: 3px solid var(--daxor-blue);
   padding: 0.5rem 1rem;
   font-family: var(--main-font);

@@ -2,9 +2,9 @@
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
     <div class="container mt-5">
-      <p class="treatment-group my-2">Treatment Group: BVA-Guided Care</p>
+      <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
       <div class="card p-3">
-        <p class="bold-heading mb-1">Initial Evaluation</p>
+        <p class="bold-heading mb-1">Initial treatment for non-hypervolmia</p>
         <p class="bold-heading indent mb-1">
           What symptoms of congestion are present?
         </p>
@@ -95,7 +95,6 @@
         <router-link
           :to="{
             name: 'SuggestedTreatment',
-            params: { tbvHigh: this.tbvHigh, tbv: this.tbv },
           }"
         >
           <button type="submit" class="btn btn-primary mt-3">
@@ -117,20 +116,12 @@ export default {
     Navigation,
     Footer,
   },
-  name: "InitialHypervolemia",
+  name: "InitialNonHypervolemic",
   data: function () {
     return {
-      tbv: this.$route.params.tbv,
-      tbvHigh: false,
+      currentPatientID: this.$store.state.currentPatientID,
+      tbv: this.$store.state.tbv,
     };
-  },
-  methods: {
-    setTbvLevel: function () {
-      this.tbv > 31 ? (this.tbvHigh = true) : (this.tbvHigh = false);
-    },
-  },
-  beforeMount() {
-    this.setTbvLevel();
   },
 };
 </script>

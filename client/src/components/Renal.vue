@@ -10,7 +10,7 @@
         <div class="radio-box-wrap">
           <!-- PARENT LABEL WILL ACTIVATE INNER RADIO BUTTON -->
           <label
-            v-on:click="renalPresent = true"
+            v-on:click="renalProblems = true"
             class="form-check-label"
             for="Low"
             style="width: 100%"
@@ -39,7 +39,7 @@
           </label>
           <!-- PARENT LABEL WILL ACTIVATE INNER RADIO BUTTON -->
           <label
-            v-on:click="renalPresent = false"
+            v-on:click="renalProblems = false"
             class="form-check-label"
             for="High"
             style="width: 100%"
@@ -67,11 +67,12 @@
             </div>
           </label>
         </div>
-        <div v-if="renalPresent == true" class="assessment-btn">
+        <!-- IF RENAL FUNCTION ISSUES GO TO RENAL PLAN COMPONENT -->
+        <div v-if="renalProblems == true" class="assessment-btn">
           <router-link
             :to="{
               name: 'RenalPlan',
-              params: { renalPresent: this.renalPresent },
+              params: { renalProblems: this.renalProblems },
             }"
           >
             <button type="submit" class="btn btn-primary mt-3">
@@ -79,7 +80,30 @@
             </button>
           </router-link>
         </div>
-        <div v-if="renalPresent == false" class="assessment-btn">
+        <!-- IF NO RENAL ISSUES BUT RBCV ISSUES -->
+        <div v-if="renalProblems == false && rbcv < -10" class="assessment-btn">
+          <router-link
+            :to="{
+              name: 'InitialAnemia',
+            }"
+          >
+            <button type="submit" class="btn btn-primary mt-3">
+              Submit Assessment
+            </button>
+          </router-link>
+        </div>
+        <div v-if="renalProblems == false && rbcv > 10" class="assessment-btn">
+          <router-link
+            :to="{
+              name: 'InitialPolycythemic',
+            }"
+          >
+            <button type="submit" class="btn btn-primary mt-3">
+              Submit Assessment
+            </button>
+          </router-link>
+        </div>
+        <div v-if="renalProblems == false" class="assessment-btn">
           <router-link
             :to="{
               name: 'DischargePlan',
@@ -108,7 +132,7 @@ export default {
   name: "Renal",
   data: function () {
     return {
-      renalPresent: undefined,
+      renalProblems: undefined,
     };
   },
 };

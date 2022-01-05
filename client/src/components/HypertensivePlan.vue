@@ -23,7 +23,7 @@
         <p class="bold-heading mb-3">Consider vasodilators.</p>
         <router-link
           :to="{
-            name: 'Hypotensive',
+            name: 'Edema',
           }"
         >
           <button type="submit" class="btn btn-primary mt-3">

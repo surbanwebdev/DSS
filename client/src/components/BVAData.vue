@@ -2,7 +2,7 @@
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
     <div class="container mt-5">
-      <p class="treatment-group my-2">Treatment Group: BVA Guided Care</p>
+      <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
       <div class="card p-3">
         <div class="title-wrap d-flex align-items-center mb-2"></div>
         <p class="bold-heading mb-3">BVA-Assessment Data Entry</p>
@@ -41,15 +41,15 @@
           </div>
           <div class="form-group">
             <input
-              id="pvDeviation"
+              id="pv"
               @focus="$event.target.select()"
-              v-model.number="PVDeviation"
+              v-model.number="pv"
               type="number"
               class="form-control"
               placeholder="PV Deviation %"
               required
             />
-            <label class="form-label" for="pvDeviation">PV Deviation %</label>
+            <label class="form-label" for="pv">PV Deviation %</label>
           </div>
           <div class="form-group">
             <input
@@ -122,6 +122,11 @@ export default {
     Navigation,
     Footer,
   },
+  data: function () {
+    return {
+      currentPatientID: this.$store.state.currentPatientID,
+    };
+  },
   name: "BVAData",
   // THESE COMPUTED FUNCTIONS WILL ACCESS AND MODIFY THE DATA IN THE STORE
   computed: {
@@ -141,6 +146,14 @@ export default {
         this.$store.dispatch("setRbcv", newRbcv);
       },
     },
+    pv: {
+      get: function () {
+        return this.$store.state.pv;
+      },
+      set: function (newPv) {
+        this.$store.dispatch("setPv", newPv);
+      },
+    },
     nhct: {
       get: function () {
         return this.$store.state.nhct;
@@ -153,20 +166,10 @@ export default {
       var tvbGood = this.tbv || this.tbv === 0;
       var rbcvGood = this.rbcv || this.rbcv === 0;
       var nhctGood = this.nhct || this.nhct === 0;
-      return tvbGood && rbcvGood && nhctGood;
+      var pvGood = this.pv || this.pv === 0;
+      return tvbGood && rbcvGood && nhctGood && pvGood;
     },
   },
-  // methods: {
-  //   updateTbv: function (tbv) {
-  //     this.$store.commit("setTbv", tbv);
-  //   },
-  //   updateRbcv: function (value) {
-  //     this.$store.commit("setRbcv", value);
-  //   },
-  //   updateNhct: function (value) {
-  //     this.$store.commit("setNhct", value);
-  //   },
-  // },
 };
 </script>
 

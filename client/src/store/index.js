@@ -9,6 +9,7 @@ export default new Vuex.Store({
     age: null,
     anemic: false,
     currentPatientID: null,
+    currentPatientSex: null,
     euvolemic: false,
     firstName: '',
     height: null,
@@ -38,6 +39,9 @@ export default new Vuex.Store({
     setRbcv({ state }, newRbcv) {
       state.rbcv = newRbcv
     },
+    setPv({ state }, newPv) {
+      state.pv = newPv
+    },
     setNhct({ state }, newNhct) {
       state.nhct = newNhct
     },
@@ -46,6 +50,9 @@ export default new Vuex.Store({
     },
     setCurrentPatientID({ state }, currentPatientID) {
       state.currentPatientID = currentPatientID
+    },
+    setCurrentPatientSex({ state }, currentPatientSex) {
+      state.currentPatientSex = currentPatientSex
     }
   },
   methods: {
