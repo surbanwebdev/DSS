@@ -84,15 +84,15 @@ export default {
     await context.loadSettings();
     context.lastInteraction = new Date();
 
-    let url = _.trim(window.location.href,'/');
-    if (_.endsWith(url,':8080')){
-      //we were redirected to login the non-conventional way...
+    let cSessionGuid = this.getSessionCookie("sessionGUID");
+    if ((!cSessionGuid || cSessionGuid === "") && context.loggedIn) {
       context.logout();
       return;
     }
 
-    let cSessionGuid = this.getSessionCookie("sessionGUID");
-    if ((!cSessionGuid || cSessionGuid === "") && context.loggedIn) {
+    let url = _.trim(window.location.href,'/');
+    if (_.endsWith(url,':8080')){
+      //we were redirected to login the non-conventional way...
       context.logout();
       return;
     }
@@ -115,6 +115,13 @@ export default {
   },
   watch: {
     $route(to, from) {
+      const context = this;
+      let url = _.trim(window.location.href,'/');
+      if (_.endsWith(url,':8080')){
+        //we were redirected to login the non-conventional way...
+        context.logout();
+        return;
+      }
       this.ping();
     },
   },
