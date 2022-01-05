@@ -1,6 +1,6 @@
 const express = require('express');
 const { requireValidSession } = require('../Middleware/session');
-const { create, update, remove, get, search, getAll } = require('../Logic/patient');
+const { create, update, remove, get, search, getAll, archiveTreatment } = require('../Logic/patient');
 
 const router = express.Router();
 
@@ -27,5 +27,10 @@ router.delete('/', requireValidSession, (async (req, res) => {
 router.post('/search', requireValidSession, (async (req, res) => {
     search(req, res);
 }));
+
+router.post('/archiveTreatment', requireValidSession, (async (req, res) => {
+    archiveTreatment(req, res);
+}));
+
 
 module.exports = router;

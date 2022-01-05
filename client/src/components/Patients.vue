@@ -119,10 +119,6 @@ ul {
   width: 100%;
 }
 
-.content-left,
-.content-right {
-}
-
 h4 {
   color: gray;
 }

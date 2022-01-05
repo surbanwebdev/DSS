@@ -292,8 +292,8 @@ export default {
   data: function () {
     return {
       currentPatientID: this.$store.state.currentPatientID,
-      patient: null,
-      tPatient: null,
+      patient: '',
+      tPatient: '',
       editMode: false,
       isPatientDeleted: false,
     };

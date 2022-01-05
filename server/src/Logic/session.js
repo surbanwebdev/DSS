@@ -1,8 +1,7 @@
 const { v4 } = require('uuid');
 const _ = require('lodash');
 const { getDB } = require('./db');
-
-const timeout = 600000;//millisecs (10 mins)
+const { getSettingFromDatabase } = require('./settings');
 
 async function login(req, res) {
     try {
@@ -36,7 +35,7 @@ async function logout(req, res) {
     try {
         let sessionGuid = getRequestSessionGuid(req);
         await processLogout(sessionGuid);
-        res.statusMessage = "Successfully logged out"
+        res.statusMessage = "Successfully logged out";
         res.status(200).end();
         return;
     } catch (err) {
@@ -44,6 +43,11 @@ async function logout(req, res) {
         res.status(500).send(err).end();
         return;
     }
+}
+
+async function ping(req,res){
+    res.statusMessage = "OK";
+    res.status(200).end();
 }
 
 async function processLogout(sessionGuid) {
@@ -87,10 +91,11 @@ async function manageSession(req, res) {
         let lastActive = new Date(_.get(row, 'LastActive'));
         let now = new Date();
         let delta = now.getTime() - lastActive.getTime();
+        let timeout = Number(await getSettingFromDatabase("SessionTimeout")) * 60 * 1000;
         if (delta > timeout) {
             await processLogout(sessionGuid);
             res.statusMessage = 'Session has expired';
-            res.status(401).end();
+            res.status(403).end();
             return;
         }
 
@@ -128,5 +133,6 @@ module.exports = {
     logout,
     getRequestSessionGuid,
     isAdmin,
-    manageSession
+    manageSession, 
+    ping
 }

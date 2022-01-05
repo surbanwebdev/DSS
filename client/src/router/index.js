@@ -21,6 +21,8 @@ import BVADataConf from '../components/BVADataConf.vue'
 import BVADataConf2 from '../components/BVADataConf2.vue'
 import InitialHypervolemic from '../components/InitialHypervolemic.vue'
 import InitialNonHypervolemic from '../components/InitialNonHypervolemic.vue'
+import InitialAnemic from '../components/InitialAnemic.vue'
+import InitialPolycythemic from '../components/InitialPolycythemic'
 import Hypertensive from '../components/Hypertensive.vue'
 import HypertensivePlan from '../components/HypertensivePlan.vue'
 import Hypotensive from '../components/Hypotensive.vue'
@@ -143,6 +145,16 @@ const routes = [
     path: '/initial-non-hypervolemic',
     name: 'InitialNonHypervolemic',
     component: InitialNonHypervolemic,
+  },
+  {
+    path: '/initial-anemic',
+    name: 'InitialAnemic',
+    component: InitialAnemic,
+  },
+  {
+    path: '/initial-polycythemic',
+    name: 'InitialPolycythemic',
+    component: InitialPolycythemic
   },
   {
     path: '/hypertensive',

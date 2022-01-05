@@ -36,9 +36,33 @@
             dose by continuous infusion.
           </p>
         </div>
+        <!-- SENDS CLINICIAN TO ANEMIA COMPONENTS -->
         <router-link
+          v-if="rbcv < -10"
           :to="{
-            name: 'DailyTreatmentComplete',
+            name: 'InitialAnemia',
+          }"
+        >
+          <button type="submit" class="btn btn-primary mt-3">
+            Acknowledge Suggestion
+          </button>
+        </router-link>
+
+        <router-link
+          v-if="rbcv > 10"
+          :to="{
+            name: 'InitialPolycythemic',
+          }"
+        >
+          <button type="submit" class="btn btn-primary mt-3">
+            Acknowledge Suggestion
+          </button>
+        </router-link>
+
+        <router-link
+          v-else
+          :to="{
+            name: 'DischargePlan',
           }"
         >
           <button type="submit" class="btn btn-primary mt-3">
@@ -65,6 +89,7 @@ export default {
     return {
       currentPatientID: this.$store.state.currentPatientID,
       tbv: this.$store.state.tbv,
+      rbcv: this.$store.state.tbv,
     };
   },
 };
