@@ -1,7 +1,3 @@
-/* eslint-disable no-async-promise-executor */
-const sqlite3 = require('sqlite3');
-const sqlite = require('sqlite');
-const { v4 } = require('uuid');
 const _ = require('lodash');
 const { getDB } = require('./db');
 
@@ -99,8 +95,7 @@ async function get(req, res) {
 
         let patient = await db.get(query, params);
 
-        query = `SELECT * FROM ArchivedTreatment where PatientID = ?`;
-        //params are the same
+        query = `SELECT * FROM ArchivedTreatment WHERE PatientID = ? ORDER BY TestDate DESC`;
 
         let archivedTreatments = await db.all(query, params);
 
@@ -116,9 +111,9 @@ async function get(req, res) {
 async function getAll(req, res) {
     try {
         const db = await getDB();
-        const body = req.body;
-        const page = _.get(body, 'page');
-        const count = _.get(body, 'count');
+        //const body = req.body;
+        //const page = _.get(body, 'page');
+        //const count = _.get(body, 'count');
 
         let query = `SELECT * FROM Patient`
         let patients = await db.all(query);
@@ -160,6 +155,44 @@ async function search(req, res) {
     }
 }
 
+async function archiveTreatment(req,res){
+    try {
+        const db = await getDB();
+        const body = req.body;
+        const treatment = _.get(body,'treatment');
+        
+        let query = `INSERT INTO ArchivedTreatment (UserID, PatientID, Height, Weight, Age, TestDate, TestType, 
+            TBVDeviation, PVDeviation, RBVDeviation, NHCT, PHCT, PatientDischarged, SuggestedTreatment, Notes)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+
+        let params = [
+            _.get(treatment,'UserID'),
+            _.get(treatment,'PatientID'),
+            _.get(treatment,'Height'),
+            _.get(treatment,'Weight'),
+            _.get(treatment,'Age'),
+            _.get(treatment,'TestDate'),
+            _.get(treatment,'TBVDeviation'),
+            _.get(treatment,'PVDeviation'),
+            _.get(treatment,'RBVDeviation'),
+            _.get(treatment,'NHCT'),
+            _.get(treatment,'PHCT'),
+            _.get(treatment,'PatientDischarged'),
+            _.get(treatment,'SuggestedTreatment'),
+            _.get(treatment,'Notes')
+        ];
+
+        let numOfRowsAffected = await db.run(query,params);
+        
+        res.statusMessage = 'OK';
+        res.status(200).send({numOfRowsAffected}).end();
+        return;
+    } catch (err) {
+        res.statusMessage = 'Internal Server Error';
+        res.status(500).send(err).end();
+    }
+}
+
 
 module.exports = {
     create,
@@ -167,5 +200,6 @@ module.exports = {
     remove,
     get,
     getAll,
-    search
+    search,
+    archiveTreatment
 }
