@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div>
+    <Navigation />
       <div v-if="!loggedIn" class="login">
         <div class="jumbotron mb-4">
           <div class="bg-img py-5">
@@ -62,8 +63,12 @@
 import axios from "axios";
 import _ from "lodash";
 import router from "./router";
+import Navigation from "./components/Navigation";
 
 export default {
+  components:{
+    Navigation,
+  },
   data: function () {
     return {
       loggedIn: false,
@@ -90,10 +95,14 @@ export default {
       return;
     }
 
+    //if we get here, we have a valid cookie and presumably valid API Session.
+    context.loggedIn = true;
+
+    //so if we wind up here and we have a good cookie, we don't need to login in
+    //but rather go to the first page (patients)
     let url = _.trim(window.location.href,'/');
     if (_.endsWith(url,':8080')){
-      //we were redirected to login the non-conventional way...
-      context.logout();
+      router.push('Patients')
       return;
     }
 
@@ -102,9 +111,7 @@ export default {
       document.addEventListener(name, context.setLastInteraction, true);
     });
 
-    context.loggedIn = true;
     context.checkSession();
-    
   },
   computed: {
     apiURL: {
@@ -115,12 +122,17 @@ export default {
   },
   watch: {
     $route(to, from) {
+      console.log(to);
       const context = this;
       let url = _.trim(window.location.href,'/');
-      if (_.endsWith(url,':8080')){
-        //we were redirected to login the non-conventional way...
-        context.logout();
-        return;
+      if (_.get(to,'Name') === 'Home'){
+        if (context.getSessionCookie("sessionGUID")!= ''){
+          router.push('Patients');
+          return;
+        }else{
+          context.logout();
+          return;
+        }
       }
       this.ping();
     },
@@ -311,6 +323,8 @@ export default {
         .then((response) => {
           const sessionGuid = response.data.sessionGuid;
           context.setSessionCookie(sessionGuid, context.settings.SessionTimeout);
+          context.username = '';
+          context.password = '';
           context.loggedIn = true;
           context.checkSession();
           router.push(context.route);

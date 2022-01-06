@@ -2,15 +2,39 @@
   <div>
     <div class="nav d-flex justify-content-between">
       <div class="nav-left d-flex">
-        <router-link :to="{ name: 'Home' }">
-          <img class="logo" src="../assets/logo-white.png" alt="" />
-        </router-link>
-
+          <img class="logo" src="../assets/logo-white.png" alt="" v-on:click="confirmHome"/>
         <h6>Decision Support</h6>
       </div>
 
       <div class="nav-right">
-        <!-- <i class="ri-menu-3-line menu"></i> -->
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="hamburger" id="hamburger-1">
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </div>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" v-on:click="">Home<span class="sr-only"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" v-on:click="">Archived Tests<span class="sr-only"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" v-on:click="">Utilities<span class="sr-only"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" v-on:click="">Stop Counting<span class="sr-only"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" v-on:click="">Logout<span class="sr-only"></span></a>
+          </li>
+        </ul>
+      </div>
+      <!--
         <button
           class="btn btn-primary btn-sm"
           v-on:click="checkNavigation()">
@@ -21,8 +45,14 @@
           v-on:click="confirmLogout()">
           Logout
         </button>
+        -->
       </div>
     </div>
+    
+
+
+
+    
     <div class="modal" tabindex="-1" role="dialog" id="myModal" data-keyboard="false" data-backdrop="static">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -49,15 +79,18 @@ import _ from "lodash";
 import router from '../router';
 export default {
   name: "Navigation",
-
   data: function () {
     return {
-      action: ''
+      action: '',
+      previousPage: ''
     };
+  },
+  mounted: function(){
+    this.previousPage = '';
   },
   methods: {
     logout: function(){
-      this.$parent.$parent.logout();
+      this.$parent.logout();
     },
     goBack: function(){
       router.go(-1); 
@@ -67,7 +100,13 @@ export default {
       $('#myModal').modal('show');
       this.action='logout'
     },
+    confirmHome: function(){
+      $('#modal-body-text').text('You will lose any unsaved progress if you proceed. Are you sure you want to return to the home screen?');
+      $('#myModal').modal('show');
+      this.action='home'
+    },
     checkNavigation: function(){
+      console.log(this.previousPage);
       //basically if going back takes the user to login, they're going to be auto logged out...
       //so we want to make the user aware of this.
     },
@@ -76,6 +115,9 @@ export default {
       switch(this.action){
         case 'logout':
           this.logout();
+          break;
+        case 'home':
+          router.push('/');
           break;
         default:
           break;

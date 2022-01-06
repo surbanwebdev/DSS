@@ -95,14 +95,7 @@
 </template>
 
 <script>
-import Navigation from "./Navigation";
-import Footer from "./Footer";
-
 export default {
-  components: {
-    Navigation,
-    Footer,
-  },
   name: "Edema",
   data: function () {
     return {

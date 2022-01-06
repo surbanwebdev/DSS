@@ -279,16 +279,10 @@
 </template>
 
 <script>
-import Navigation from "./Navigation";
-import Footer from "./Footer";
 import _ from "lodash";
 
 export default {
   name: "PatientDetails",
-  components: {
-    Navigation,
-    Footer,
-  },
   data: function () {
     return {
       currentPatientID: this.$store.state.currentPatientID,

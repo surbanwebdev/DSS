@@ -24,14 +24,7 @@
 </template>
 
 <script>
-import Navigation from "./Navigation";
-import Footer from "./Footer";
-
 export default {
-  components: {
-    Navigation,
-    Footer,
-  },
   name: "BVADataConf2",
   methods: {
     addClassToLast: function () {

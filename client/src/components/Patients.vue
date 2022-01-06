@@ -49,16 +49,10 @@
 </template>
 
 <script>
-import Navigation from "./Navigation";
-import Footer from "./Footer";
 import _ from "lodash";
 
 export default {
   name: "Patients",
-  components: {
-    Navigation,
-    Footer,
-  },
   data: function () {
     return {
       patients: [],
