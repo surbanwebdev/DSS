@@ -1,58 +1,51 @@
 <template>
   <div>
-    <div class="nav d-flex justify-content-between">
+    <nav class="nav navbar sticky-top navbar-light bg-light">
       <div class="nav-left d-flex">
           <img class="logo" src="../assets/logo-white.png" alt="" v-on:click="confirmHome"/>
-        <h6>Decision Support</h6>
+          <h6>Decision Support</h6>
       </div>
-
       <div class="nav-right">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <div class="hamburger" id="hamburger-1">
+      <button class="navbar-toggler bg-light" type="button" 
+      data-bs-toggle="collapse" 
+      data-bs-target="#navbarCollapse"
+      aria-controls="navbarCollapse" 
+      aria-expanded="false" 
+      aria-label="Toggle navigation">
+        <div class="navbar-toggler-icon">
           <span class="line"></span>
           <span class="line"></span>
           <span class="line"></span>
         </div>
       </button>
-      <div class="collapse navbar-collapse" id="navbarText">
+      </div>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" v-on:click="">Home<span class="sr-only"></span></a>
-          </li>
+            <button
+            class="btn btn-primary btn-sm nav-button"
+            v-on:click="checkNavigation()">
+            Home
+            </button>
+        </li>
           <li class="nav-item">
-            <a class="nav-link" v-on:click="">Archived Tests<span class="sr-only"></span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" v-on:click="">Utilities<span class="sr-only"></span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" v-on:click="">Stop Counting<span class="sr-only"></span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" v-on:click="">Logout<span class="sr-only"></span></a>
-          </li>
+            <button
+            class="btn btn-primary btn-sm nav-button"
+            v-on:click="checkNavigation()">
+            Back
+            </button>
+        </li>
+        <li>
+          <button
+            class="btn btn-primary btn-sm nav-button"
+            v-on:click="confirmLogout()">
+            Logout
+          </button>
+        </li>
         </ul>
       </div>
-      <!--
-        <button
-          class="btn btn-primary btn-sm"
-          v-on:click="checkNavigation()">
-          Back
-        </button>
-        <button
-          class="btn btn-primary btn-sm"
-          v-on:click="confirmLogout()">
-          Logout
-        </button>
-        -->
-      </div>
-    </div>
-    
+    </nav>
 
-
-
-    
     <div class="modal" tabindex="-1" role="dialog" id="myModal" data-keyboard="false" data-backdrop="static">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -75,8 +68,9 @@
 
 
 <script>
-import _ from "lodash";
+//import _ from "lodash";
 import router from '../router';
+import $ from 'jquery'
 export default {
   name: "Navigation",
   data: function () {
@@ -147,5 +141,10 @@ h6 {
 
 .menu {
   font-size: 1.5rem;
+}
+
+.nav-button {
+  width: 200px;
+  float: center;
 }
 </style>

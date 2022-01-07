@@ -1,6 +1,5 @@
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
-    <Navigation />
     <div class="container mt-5">
       <div class="card p-3">
         <p class="bold-heading mb-4">Select a Patient:</p>

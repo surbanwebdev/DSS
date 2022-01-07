@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <div>
-    <Navigation />
+      <div v-if="loggedIn">
+        <Navigation/>
+      </div>
       <div v-if="!loggedIn" class="login">
         <div class="jumbotron mb-4">
           <div class="bg-img py-5">
