@@ -155,8 +155,6 @@
   </div>
 </template>
 <script>
-import Navigation from "../components/Navigation.vue";
-import Footer from "../components/Footer.vue";
 import router from "../router";
 import _ from "lodash";
 
@@ -175,10 +173,6 @@ export default {
       nhct: 0,
       notes: "",
     };
-  },
-  components: {
-    Navigation,
-    Footer,
   },
   name: "NewPatient",
   // THESE COMPUTED FUNCTIONS WILL ACCESS AND MODIFY THE DATA IN THE STORE

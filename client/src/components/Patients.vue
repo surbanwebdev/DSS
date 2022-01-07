@@ -1,6 +1,5 @@
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
-    <Navigation />
     <div class="container mt-5">
       <div class="card p-3">
         <p class="bold-heading mb-4">Select a Patient:</p>
@@ -49,16 +48,10 @@
 </template>
 
 <script>
-import Navigation from "./Navigation";
-import Footer from "./Footer";
 import _ from "lodash";
 
 export default {
   name: "Patients",
-  components: {
-    Navigation,
-    Footer,
-  },
   data: function () {
     return {
       patients: [],

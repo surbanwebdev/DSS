@@ -18,14 +18,7 @@
   </div>
 </template>
 <script>
-import Navigation from "../components/Navigation.vue";
-import Footer from "../components/Footer.vue";
-
 export default {
-  components: {
-    Navigation,
-    Footer,
-  },
   name: "Results",
   data: function () {
     // tbv: this.$store.state.tbv,
