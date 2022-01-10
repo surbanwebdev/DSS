@@ -1,44 +1,50 @@
 <template>
   <div>
-    <nav class="nav navbar sticky-top navbar-light bg-light">
+    <nav class="nav navbar sticky-top navbar-dark bg-light">
       <div class="nav-left d-flex">
-          <img class="logo" src="../assets/logo-white.png" alt=""/>
-          <h6>Decision Support</h6>
+        <img class="logo" src="../assets/logo-white.png" alt="" />
+        <h6>Decision Support</h6>
       </div>
       <div class="nav-right">
-      <button class="navbar-toggler bg-light" type="button" 
-      data-bs-toggle="collapse" 
-      data-bs-target="#navbarCollapse"
-      aria-controls="navbarCollapse" 
-      aria-expanded="false" 
-      aria-label="Toggle navigation">
-        <div class="navbar-toggler-icon">
-          <span class="line"></span>
-          <span class="line"></span>
-          <span class="line"></span>
-        </div>
-      </button>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+          aria-controls="navbarCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <div class="navbar-toggler-icon">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+          </div>
+        </button>
       </div>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
             <button
-            class="btn btn-primary btn-sm nav-button"
-            v-on:click="goHome">
-            Home
+              class="btn btn-primary btn-sm nav-button"
+              v-on:click="goHome"
+            >
+              Home
             </button>
           </li>
           <li class="nav-item">
-              <button
+            <button
               class="btn btn-primary btn-sm nav-button"
-              v-on:click="goBack">
+              v-on:click="goBack"
+            >
               Back
-              </button>
+            </button>
           </li>
           <li>
             <button
               class="btn btn-primary btn-sm nav-button"
-              v-on:click="confirmLogout">
+              v-on:click="confirmLogout"
+            >
               Logout
             </button>
           </li>
@@ -46,7 +52,14 @@
       </div>
     </nav>
 
-    <div class="modal" tabindex="-1" role="dialog" id="myModal" data-keyboard="false" data-backdrop="static">
+    <div
+      class="modal"
+      tabindex="-1"
+      role="dialog"
+      id="myModal"
+      data-keyboard="false"
+      data-backdrop="static"
+    >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -56,57 +69,72 @@
             <p id="modal-body-text">Please Confirm.</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" id='modal-confirm-button' v-on:click="modalConfirm">Yes</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#myModal').modal('hide')">No</button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              id="modal-confirm-button"
+              v-on:click="modalConfirm"
+            >
+              Yes
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              onclick="$('#myModal').modal('hide')"
+            >
+              No
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
 </template>
 
 <script>
 //import _ from "lodash";
-import router from '../router';
-import $ from 'jquery'
+import router from "../router";
+import $ from "jquery";
 export default {
   name: "Navigation",
   data: function () {
     return {
-      action: '',
-      previousPage: ''
+      action: "",
+      previousPage: "",
     };
   },
-  mounted: function(){
-    this.previousPage = '';
+  mounted: function () {
+    this.previousPage = "";
   },
   methods: {
-    logout: function(){
+    logout: function () {
       this.$parent.logout();
     },
-    goBack: function(){
-      router.go(-1); 
+    goBack: function () {
+      router.go(-1);
     },
-    goHome: function(){
-      router.push('Patients');
+    goHome: function () {
+      router.push("Patients");
     },
-    confirmLogout: function(){
-      this.action='logout';
-      $('#modal-body-text').text('You will lose any unsaved progress if you proceed. Are you sure you want to log out?');
-      $('#myModal').modal('show');
+    confirmLogout: function () {
+      this.action = "logout";
+      $("#modal-body-text").text(
+        "You will lose any unsaved progress if you proceed. Are you sure you want to log out?"
+      );
+      $("#myModal").modal("show");
     },
 
-    modalConfirm: function(){
-      $('#myModal').modal('hide');
-      switch(this.action){
-        case 'logout':
+    modalConfirm: function () {
+      $("#myModal").modal("hide");
+      switch (this.action) {
+        case "logout":
           this.logout();
           break;
         default:
           break;
       }
-    }
+    },
   },
 };
 </script>
@@ -136,5 +164,20 @@ h6 {
 .nav-button {
   width: 200px;
   float: center;
+}
+
+.navbar-dark .navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+  outline: none;
+  box-shadow: none;
+}
+.navbar-toggler-icon {
+  width: 1.25em;
+  height: 1.25em;
 }
 </style>
