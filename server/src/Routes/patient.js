@@ -1,6 +1,6 @@
 const express = require('express');
 const { requireValidSession } = require('../Middleware/session');
-const { create, update, remove, get, search, getAll, archiveTreatment } = require('../Logic/patient');
+const { create, update, remove, get, search, getAll, archiveTreatment, getAllArchivedTreatments, getArchivedTreatmentsSinceLastDischarge } = require('../Logic/patient');
 
 const router = express.Router();
 
@@ -30,6 +30,14 @@ router.post('/search', requireValidSession, (async (req, res) => {
 
 router.post('/archiveTreatment', requireValidSession, (async (req, res) => {
     archiveTreatment(req, res);
+}));
+
+router.get('/getAllArchivedTreatment',requireValidSession, (async (req, res) => {
+    getAllArchivedTreatments(req, res);
+}));
+
+router.get('/getTreatmentsSinceLastDischarge',requireValidSession, (async (req, res) => {
+    getArchivedTreatmentsSinceLastDischarge(req, res);
 }));
 
 
