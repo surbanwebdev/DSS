@@ -89,7 +89,7 @@ export default {
       router.go(-1); 
     },
     goHome: function(){
-      router.push('Home');
+      router.push('Patients');
     },
     confirmLogout: function(){
       this.action='logout';
