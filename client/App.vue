@@ -82,7 +82,8 @@ export default {
   mounted: async function () {
     const context = this;
     await context.loadSettings();
-    context.lastInteraction = new Date();
+    context.setLastInteraction();
+
 
     let cSessionGuid = this.getSessionCookie("sessionGUID");
     if ((!cSessionGuid || cSessionGuid === "") && context.loggedIn) {
@@ -311,6 +312,7 @@ export default {
         .then((response) => {
           const sessionGuid = response.data.sessionGuid;
           context.setSessionCookie(sessionGuid, context.settings.SessionTimeout);
+          context.setLastInteraction();
           context.loggedIn = true;
           context.checkSession();
           router.push(context.route);
