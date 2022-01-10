@@ -9,8 +9,10 @@ module.exports = {
             return;
         }
 
-        manageSession(req, res).then(() => {
-            next();
+        manageSession(req, res).then((pass) => {
+            if (pass){
+                next();
+            }
         }).catch((err) => {
             res.statusMessage = err;
             res.status(500).end();

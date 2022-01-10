@@ -86,7 +86,7 @@ async function manageSession(req, res) {
         if (!row) {
             res.statusMessage = 'Invalid Session';
             res.status(401).end();
-            return;
+            return false;
         }
         let lastActive = new Date(_.get(row, 'LastActive'));
         let now = new Date();
@@ -96,17 +96,17 @@ async function manageSession(req, res) {
             await processLogout(sessionGuid);
             res.statusMessage = 'Session has expired';
             res.status(403).end();
-            return;
+            return false;
         }
 
         //if we're here, just need to reset lastActive resolve
         query = `UPDATE UserSession SET LastActive = ? WHERE UserSessionGUID = ?`;
         await db.run(query, [now.toISOString(), sessionGuid]);
-        return;
+        return true;
     } catch (err) {
         res.statusMessage = 'Internal Server Error';
         res.status(500).send(err).end();
-        return;
+        return false;
     }
 }
 
