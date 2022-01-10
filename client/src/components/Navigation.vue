@@ -1,54 +1,41 @@
 <template>
   <div>
     <nav class="nav navbar sticky-top navbar-dark bg-light">
-      <div class="nav-left d-flex">
-        <img class="logo" src="../assets/logo-white.png" alt="" />
-        <h6>Decision Support</h6>
-      </div>
-      <div class="nav-right">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarCollapse"
-          aria-controls="navbarCollapse"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <div class="navbar-toggler-icon">
-            <span class="line"></span>
-            <span class="line"></span>
-            <span class="line"></span>
-          </div>
-        </button>
-      </div>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <button
-              class="btn btn-primary btn-sm nav-button"
-              v-on:click="goHome"
-            >
-              Home
-            </button>
-          </li>
-          <li class="nav-item">
-            <button
-              class="btn btn-primary btn-sm nav-button"
-              v-on:click="goBack"
-            >
-              Back
-            </button>
-          </li>
-          <li>
-            <button
-              class="btn btn-primary btn-sm nav-button"
-              v-on:click="confirmLogout"
-            >
-              Logout
-            </button>
-          </li>
-        </ul>
+      <div class="container">
+        <div class="nav-left d-flex">
+          <img class="logo" src="../assets/logo-white.png" alt="" />
+          <h6>Decision Support</h6>
+        </div>
+        <div class="nav-right">
+          <button
+            class="navbar-toggler px-0"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <div class="navbar-toggler-icon">
+              <span class="line"></span>
+              <span class="line"></span>
+              <span class="line"></span>
+            </div>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto mt-3">
+            <li class="nav-item">
+              <p v-on:click="goHome">Home</p>
+            </li>
+            <li class="nav-item">
+              <p v-on:click="goBack">Back</p>
+            </li>
+            <li class="nav-item">
+              <p v-on:click="confirmLogout">Logout</p>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
 
@@ -179,5 +166,10 @@ h6 {
 .navbar-toggler-icon {
   width: 1.25em;
   height: 1.25em;
+}
+
+ul {
+  width: 100%;
+  list-style-type: none;
 }
 </style>
