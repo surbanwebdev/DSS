@@ -162,8 +162,8 @@ async function archiveTreatment(req,res){
         const treatment = _.get(body,'treatment');
         
         let query = `INSERT INTO ArchivedTreatment (UserID, PatientID, Height, Weight, Age, TestDate, TestType, 
-            TBVDeviation, PVDeviation, RBVDeviation, NHCT, PHCT, PatientDischarged, SuggestedTreatment, Notes)
-        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+            TBVDeviation, PVDeviation, RBVDeviation, NHCT, PHCT, PatientDischarged, SuggestedTreatment, Notes, Symptoms)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
 
         let params = [
             _.get(treatment,'UserID'),
@@ -179,7 +179,8 @@ async function archiveTreatment(req,res){
             _.get(treatment,'PHCT'),
             _.get(treatment,'PatientDischarged'),
             _.get(treatment,'SuggestedTreatment'),
-            _.get(treatment,'Notes')
+            _.get(treatment,'Notes'),
+            _.get(treatment,'Symptoms')
         ];
 
         let numOfRowsAffected = await db.run(query,params);

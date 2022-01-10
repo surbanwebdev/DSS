@@ -2,7 +2,7 @@
   <div>
     <nav class="nav navbar sticky-top navbar-light bg-light">
       <div class="nav-left d-flex">
-          <img class="logo" src="../assets/logo-white.png" alt="" v-on:click="confirmHome"/>
+          <img class="logo" src="../assets/logo-white.png" alt=""/>
           <h6>Decision Support</h6>
       </div>
       <div class="nav-right">
@@ -24,24 +24,24 @@
           <li class="nav-item">
             <button
             class="btn btn-primary btn-sm nav-button"
-            v-on:click="checkNavigation()">
+            v-on:click="goHome">
             Home
             </button>
-        </li>
+          </li>
           <li class="nav-item">
+              <button
+              class="btn btn-primary btn-sm nav-button"
+              v-on:click="goBack">
+              Back
+              </button>
+          </li>
+          <li>
             <button
-            class="btn btn-primary btn-sm nav-button"
-            v-on:click="checkNavigation()">
-            Back
+              class="btn btn-primary btn-sm nav-button"
+              v-on:click="confirmLogout">
+              Logout
             </button>
-        </li>
-        <li>
-          <button
-            class="btn btn-primary btn-sm nav-button"
-            v-on:click="confirmLogout()">
-            Logout
-          </button>
-        </li>
+          </li>
         </ul>
       </div>
     </nav>
@@ -66,7 +66,6 @@
   
 </template>
 
-
 <script>
 //import _ from "lodash";
 import router from '../router';
@@ -89,29 +88,20 @@ export default {
     goBack: function(){
       router.go(-1); 
     },
+    goHome: function(){
+      router.push('Home');
+    },
     confirmLogout: function(){
+      this.action='logout';
       $('#modal-body-text').text('You will lose any unsaved progress if you proceed. Are you sure you want to log out?');
       $('#myModal').modal('show');
-      this.action='logout'
     },
-    confirmHome: function(){
-      $('#modal-body-text').text('You will lose any unsaved progress if you proceed. Are you sure you want to return to the home screen?');
-      $('#myModal').modal('show');
-      this.action='home'
-    },
-    checkNavigation: function(){
-      console.log(this.previousPage);
-      //basically if going back takes the user to login, they're going to be auto logged out...
-      //so we want to make the user aware of this.
-    },
+
     modalConfirm: function(){
       $('#myModal').modal('hide');
       switch(this.action){
         case 'logout':
           this.logout();
-          break;
-        case 'home':
-          router.push('/');
           break;
         default:
           break;

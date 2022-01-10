@@ -124,7 +124,6 @@ export default {
   },
   watch: {
     $route(to, from) {
-      console.log(to);
       const context = this;
       let url = _.trim(window.location.href,'/');
       if (_.get(to,'Name') === 'Home'){
