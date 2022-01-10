@@ -171,7 +171,7 @@ export default {
       } catch (err) {
         const statusCode = err.response.status;
         const statusText = err.response.statusText;
-        if (statusCode === 403) {
+        if (statusCode === 401 || statusCode === 403) {
           /*
             403 at any point means our session timed out on the API
             so all we need to do is get rid of the cookie and force
