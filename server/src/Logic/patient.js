@@ -18,6 +18,7 @@ async function create(req, res) {
             _.get(body, 'height'),
             _.get(body, 'age'),
             _.get(body, 'patientID'),
+            0 //discharged
         ];
         let rowId = await db.run(query, params);
 
@@ -86,18 +87,16 @@ async function get(req, res) {
     try {
         const db = await getDB();
         const body = req.body;
+        const patientID = _.get(body, 'patientID');
 
         let query = `SELECT * FROM Patient WHERE PatientID = ?`;
 
         let params = [
-            _.get(body, 'patientID')
+            patientID
         ];
 
         let patient = await db.get(query, params);
-
-        query = `SELECT * FROM ArchivedTreatment WHERE PatientID = ? ORDER BY TestDate DESC`;
-
-        let archivedTreatments = await db.all(query, params);
+        let archivedTreatments = await getAllArchivedTreatments(patientID);
 
         res.statusMessage = 'OK';
         res.status(200).send({ patient, archivedTreatments }).end();
@@ -184,6 +183,14 @@ async function archiveTreatment(req,res){
         ];
 
         let numOfRowsAffected = await db.run(query,params);
+
+        if (Number(_.get(treatment,'PatientDischarged')) === 1){
+            query = `UPDATE Patient SET Discharged = 1 WHERE PatientID = ?`
+            params = [
+                _.get(treatment,'PatientID')
+            ];
+            numOfRowsAffected += await db.run(query);
+        }
         
         res.statusMessage = 'OK';
         res.status(200).send({numOfRowsAffected}).end();
@@ -194,6 +201,26 @@ async function archiveTreatment(req,res){
     }
 }
 
+async function getArchivedTreatmentsSinceLastDischarge(patientID){
+    const db = await getDB();
+    let query = `SELECT * FROM ArchivedTreatment 
+        WHERE TestDate > (SELECT TestDate FROM ArchivedTreatment WHERE patientID = ? AND PatientDischarged = 1 LIMIT 1 ORDER BY TestDate DESC)
+        AND PatientID = ? ORDER BY TestDate DESC`;
+    let params = [
+        patientID,
+        patientID
+    ];
+    return await db.all(query, params);
+}
+
+async function getAllArchivedTreatments(patientID){
+    const db = await getDB();
+    let query = `SELECT * FROM ArchivedTreatment WHERE PatientID = ? ORDER BY TestDate DESC`;
+    let params = [
+        patientID
+    ];
+    return await db.all(query, params);
+}
 
 module.exports = {
     create,
@@ -202,5 +229,7 @@ module.exports = {
     get,
     getAll,
     search,
-    archiveTreatment
+    archiveTreatment, 
+    getArchivedTreatmentsSinceLastDischarge,
+    getAllArchivedTreatments
 }

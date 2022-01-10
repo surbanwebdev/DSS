@@ -9,8 +9,6 @@ const settingsRoutes = require('./Routes/settings');
 const symptomsRoutes = require('./Routes/symptoms');
 const {tweakRquest} = require('./Middleware/global');
 
-
-
 const app = express();
 
 app.use(bodyParser.json());
