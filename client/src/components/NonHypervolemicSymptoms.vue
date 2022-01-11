@@ -50,13 +50,31 @@
 
         <div class="assessment-btn">
           <router-link
+            v-if="rbcv < -10"
             :to="{
-              name: 'HypertensivePlan',
-              params: { hypertensionPresent: this.hypertensionPresent },
+              name: 'InitialAnemic',
+            }"
+          >
+            <button type="submit" class="btn btn-primary mt-3">Anemic</button>
+          </router-link>
+          <router-link
+            v-else-if="rbcv > 10"
+            :to="{
+              name: 'InitialPolycythemic',
             }"
           >
             <button type="submit" class="btn btn-primary mt-3">
-              Submit Assessment
+              Polycythemic
+            </button>
+          </router-link>
+          <router-link
+            v-else
+            :to="{
+              name: '',
+            }"
+          >
+            <button type="submit" class="btn btn-primary mt-3">
+              Discharge Plan
             </button>
           </router-link>
         </div>
@@ -71,9 +89,7 @@ export default {
   name: "NonHypervolemicSymptoms",
   data: function () {
     return {
-      symHypotension: this.$store.state.symHypotension,
-      symEdemic: this.$store.state.symEdemic,
-      symRenal: this.$store.state.symRenal,
+      rbcv: this.$store.state.rbcv,
     };
   },
   computed: {
