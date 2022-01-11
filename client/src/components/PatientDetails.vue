@@ -1,6 +1,5 @@
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
-    <Navigation />
     <div class="container mt-5">
       <div class="card p-3">
         <p class="bold-heading mb-4">Patient Details:</p>
@@ -274,7 +273,6 @@
       </div>
     </div>
     <div class="treatment-btn container"></div>
-    <Footer />
   </div>
 </template>
 
@@ -286,8 +284,8 @@ export default {
   data: function () {
     return {
       currentPatientID: this.$store.state.currentPatientID,
-      patient: '',
-      tPatient: '',
+      patient: "",
+      tPatient: "",
       editMode: false,
       isPatientDeleted: false,
     };
