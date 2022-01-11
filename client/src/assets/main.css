@@ -95,6 +95,11 @@ input[type='button'].btn-dark.red {
 }
 
 /* LAYOUT */
+nav.nav.navbar.sticky-top.navbar-dark.bg-light {
+  position: fixed;
+  width: 100%;
+}
+
 .full-height {
   height: 64vh;
 }

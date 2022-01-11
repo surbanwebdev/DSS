@@ -29,7 +29,11 @@ export default new Vuex.Store({
     thct: null,
     weight: null,
     sessionGuid: null,
-    apiURL: "http://localhost:8081"
+    apiURL: "http://localhost:8081",
+    symHypertension: false,
+    symHypotension: false,
+    symEdemic: false,
+    symRenal: false
   },
   // SET ACTIONS TO UPDATE VARIABLES
   actions: {
@@ -53,7 +57,19 @@ export default new Vuex.Store({
     },
     setCurrentPatientSex({ state }, currentPatientSex) {
       state.currentPatientSex = currentPatientSex
-    }
+    },
+    setHypertension({ state }, newHypertension) {
+      state.symHypertension = newHypertension
+    },
+    setHypotension({ state }, newHypotension) {
+      state.symHypotension = newHypotension
+    },
+    setEdemic({ state }, newEdemic) {
+      state.symEdemic = newEdemic
+    },
+    setRenal({ state }, newRenal) {
+      state.symRenal = newRenal
+    },
   },
   methods: {
 

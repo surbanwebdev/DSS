@@ -23,8 +23,7 @@ import InitialHypervolemic from '../components/InitialHypervolemic.vue'
 import InitialNonHypervolemic from '../components/InitialNonHypervolemic.vue'
 import InitialAnemic from '../components/InitialAnemic.vue'
 import InitialPolycythemic from '../components/InitialPolycythemic'
-import Hypertensive from '../components/Hypertensive.vue'
-import HypertensivePlan from '../components/HypertensivePlan.vue'
+import NonHypervolemicSymptoms from '../components/NonHypervolemicSymptoms.vue'
 import Hypotensive from '../components/Hypotensive.vue'
 import HypotensivePlan from '../components/HypotensivePlan.vue'
 import Edema from '../components/Edema.vue'
@@ -157,14 +156,9 @@ const routes = [
     component: InitialPolycythemic
   },
   {
-    path: '/hypertensive',
-    name: 'Hypertensive',
-    component: Hypertensive,
-  },
-  {
-    path: '/hypertensive-plan',
-    name: 'HypertensivePlan',
-    component: HypertensivePlan,
+    path: '/non-hypervolemic-symptoms',
+    name: 'NonHypervolemicSymptoms',
+    component: NonHypervolemicSymptoms,
   },
   {
     path: '/hypotensive',

@@ -44,7 +44,7 @@
           <router-link
             v-else
             :to="{
-              name: 'Hypertensive',
+              name: 'NonHypervolemicSymptoms',
             }"
           >
             <button type="submit" class="btn btn-primary mt-3">Confirm</button>
@@ -57,7 +57,6 @@
 </template>
 
 <script>
-
 export default {
   name: "TargetHct",
   methods: {
