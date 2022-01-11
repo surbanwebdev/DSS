@@ -1,7 +1,7 @@
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
-    <div class="container mt-5">
+    <div class="container">
       <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
       <form>
         <div class="card p-3">
@@ -203,14 +203,15 @@
       <form>
         <div class="card p-3 mt-1">
           <div id="radio-box-wrap-2" class="radio-box-wrap py-3 px-2">
-            <!-- TRUE ANEMIA -->
-            <label class="underline" style="width: 100%">
+            <!-- TRUE POLYCYTHEMIA -->
+            <label style="width: 100%">
               <div
-                v-if="rbcv < -10"
+                v-if="rbcv > 10"
                 class="
                   radio-box
                   d-flex
                   align-items-center
+                  no-border
                   justify-content-between
                   p-2
                   alert-danger
@@ -219,10 +220,10 @@
                 <div
                   class="content-left d-flex align-items-center bold-heading"
                 >
-                  True anemic
+                  True polycythemic
                 </div>
                 <div class="content-right d-flex align-items-center">
-                  <p class="my-0 mx-3 spec">rbcv &#60; -10%</p>
+                  <p class="my-0 mx-3 spec">rbcv > +10%</p>
                 </div>
               </div>
 
@@ -232,6 +233,7 @@
                   radio-box
                   d-flex
                   align-items-center
+                  no-border
                   justify-content-between
                   p-2
                   disable-opacity
@@ -240,10 +242,10 @@
                 <div
                   class="content-left d-flex align-items-center bold-heading"
                 >
-                  True anemic
+                  True polycythemic
                 </div>
                 <div class="content-right d-flex align-items-center">
-                  <p class="my-0 mx-3 spec">rbcv &#60; -10%</p>
+                  <p class="my-0 mx-3 spec">rbcv > +10%</p>
                 </div>
               </div>
             </label>
@@ -293,14 +295,14 @@
               </div>
             </label>
 
-            <label style="width: 100%">
+            <!-- TRUE ANEMIA -->
+            <label class="underline" style="width: 100%">
               <div
-                v-if="rbcv > 10"
+                v-if="rbcv < -10"
                 class="
                   radio-box
                   d-flex
                   align-items-center
-                  no-border
                   justify-content-between
                   p-2
                   alert-danger
@@ -309,10 +311,10 @@
                 <div
                   class="content-left d-flex align-items-center bold-heading"
                 >
-                  True polycythemic
+                  True anemic
                 </div>
                 <div class="content-right d-flex align-items-center">
-                  <p class="my-0 mx-3 spec">rbcv > +10%</p>
+                  <p class="my-0 mx-3 spec">rbcv &#60; -10%</p>
                 </div>
               </div>
 
@@ -322,7 +324,6 @@
                   radio-box
                   d-flex
                   align-items-center
-                  no-border
                   justify-content-between
                   p-2
                   disable-opacity
@@ -331,10 +332,10 @@
                 <div
                   class="content-left d-flex align-items-center bold-heading"
                 >
-                  True polycythemic
+                  True anemic
                 </div>
                 <div class="content-right d-flex align-items-center">
-                  <p class="my-0 mx-3 spec">rbcv > +10%</p>
+                  <p class="my-0 mx-3 spec">rbcv &#60; -10%</p>
                 </div>
               </div>
             </label>

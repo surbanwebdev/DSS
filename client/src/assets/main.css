@@ -101,7 +101,7 @@ nav.nav.navbar.sticky-top.navbar-dark.bg-light {
 }
 
 .full-height {
-  height: 64vh;
+  padding-top: 4em;
 }
 
 .full-width {
@@ -138,10 +138,6 @@ hr {
 
 .button.choice:active {
   background-color: var(red);
-}
-
-.full-height {
-  min-height: 100vh;
 }
 
 /* INCREASES GLOBAL FONT SIZE ON TABLETS */

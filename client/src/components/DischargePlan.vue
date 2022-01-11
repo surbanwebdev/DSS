@@ -24,7 +24,7 @@
         </p>
         <router-link
           :to="{
-            name: 'Edema',
+            name: 'TreatmentComplete',
           }"
         >
           <button type="submit" class="btn btn-primary mt-3">

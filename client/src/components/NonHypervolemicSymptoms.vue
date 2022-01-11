@@ -1,6 +1,5 @@
  <template>
   <div class="full-height d-flex flex-column justify-content-between">
-    <Navigation />
     <div class="container">
       <p class="treatment-group my-2">Treatment Group: BVA-Guided Care</p>
       <div class="card p-3">
@@ -55,7 +54,7 @@
               name: 'InitialAnemic',
             }"
           >
-            <button type="submit" class="btn btn-primary mt-3">Anemic</button>
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
           </router-link>
           <router-link
             v-else-if="rbcv > 10"
@@ -63,24 +62,19 @@
               name: 'InitialPolycythemic',
             }"
           >
-            <button type="submit" class="btn btn-primary mt-3">
-              Polycythemic
-            </button>
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
           </router-link>
           <router-link
             v-else
             :to="{
-              name: '',
+              name: 'DischargePlan',
             }"
           >
-            <button type="submit" class="btn btn-primary mt-3">
-              Discharge Plan
-            </button>
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
           </router-link>
         </div>
       </div>
     </div>
-    <Footer />
   </div>
 </template>
 
