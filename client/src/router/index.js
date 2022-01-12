@@ -37,6 +37,7 @@ import BVASymptoms from '../components/BVASymptoms.vue'
 import NewPatient from '../components/NewPatient.vue'
 import PatientDetails from '../components/PatientDetails.vue'
 import EditPatient from '../components/EditPatient.vue'
+import CurrentHct from '../components/CurrentHct.vue'
 
 Vue.use(VueRouter)
 
@@ -229,6 +230,11 @@ const routes = [
     path: '/edit-patient',
     name: 'EditPatient',
     component: EditPatient,
+  },
+  {
+    path: '/current-hct',
+    name: 'CurrentHct',
+    component: CurrentHct,
   },
 ]
 

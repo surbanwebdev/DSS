@@ -10,6 +10,7 @@ export default new Vuex.Store({
     anemic: false,
     currentPatientID: null,
     currentPatientSex: null,
+    currentHct: null,
     euvolemic: false,
     firstName: '',
     height: null,
@@ -69,6 +70,9 @@ export default new Vuex.Store({
     },
     setRenal({ state }, newRenal) {
       state.symRenal = newRenal
+    },
+    setCurrentHct({ state }, newCurrentHct) {
+      state.currentHct = newCurrentHct
     },
   },
   methods: {
