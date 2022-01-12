@@ -7,39 +7,40 @@
           Does the patient has any of the following symptoms?
         </p>
 
-        <div class="form-check">
+        <div class="form-check form-switch px-0">
           <label
             class="form-check-label d-flex justify-content-between py-2 px-0"
-            for="hypertension"
-            @click="!hypertensive"
+            for="hypertensive"
+            @click="hypoCheck"
           >
             Hypertension
             <input
               v-model="hypertensive"
               class="form-check-input"
               type="checkbox"
-              id="hypertension"
+              id="hypertensive"
             />
           </label>
         </div>
         <hr />
-        <div class="form-check">
+        <div class="form-check form-switch px-0">
           <label
             class="form-check-label d-flex justify-content-between py-2 px-0"
-            for="hypotension"
-            @click="!hypotensive"
+            for="hypotensive"
+            @click="hyperCheck"
           >
             Hypotension
             <input
               v-model="hypotensive"
               class="form-check-input"
               type="checkbox"
-              id="hypotension"
+              id="hypotensive"
             />
           </label>
         </div>
+
         <hr />
-        <div class="form-check">
+        <div class="form-check form-switch px-0">
           <label
             class="form-check-label d-flex justify-content-between py-2 px-0"
             for="edemic"
@@ -55,7 +56,7 @@
           </label>
         </div>
         <hr />
-        <div class="form-check">
+        <div class="form-check form-switch px-0">
           <label
             class="form-check-label d-flex justify-content-between py-2 px-0"
             for="renal"
@@ -109,6 +110,24 @@ export default {
     return {
       rbcv: this.$store.state.rbcv,
     };
+  },
+  methods: {
+    hyperCheck: function () {
+      if (this.hypertensive) {
+        this.hypertensive = false;
+        this.hypotensive == true;
+      } else {
+        this.hypotensive == true;
+      }
+    },
+    hypoCheck: function () {
+      if (this.hypotensive) {
+        this.hypotensive = false;
+        this.hypertensive == true;
+      } else {
+        this.hypertensive == true;
+      }
+    },
   },
   computed: {
     hypertensive: {

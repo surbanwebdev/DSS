@@ -38,6 +38,7 @@ import NewPatient from '../components/NewPatient.vue'
 import PatientDetails from '../components/PatientDetails.vue'
 import EditPatient from '../components/EditPatient.vue'
 import CurrentHct from '../components/CurrentHct.vue'
+import ReportSuggestions from '../components/ReportSuggestions.vue'
 
 Vue.use(VueRouter)
 
@@ -235,6 +236,11 @@ const routes = [
     path: '/current-hct',
     name: 'CurrentHct',
     component: CurrentHct,
+  },
+  {
+    path: '/report-suggestions',
+    name: 'ReportSuggestions',
+    component: ReportSuggestions,
   },
 ]
 

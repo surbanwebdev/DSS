@@ -1,13 +1,10 @@
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
-    <div class="container">
-      <p v-if="tbv" class="treatment-group my-2">
-        Patient ID: {{ currentPatientID }}
-      </p>
-      <p v-else class="treatment-group my-2">Treatment Group: Standard Care</p>
+    <div class="container mt-5">
+      <p class="treatment-group my-2">Treatment Group: BVA-Guided Care</p>
       <div class="card p-3">
-        <div class="title-wrap d-flex align-items-center mb-2">
+        <div class="title-wrap d-flex align-items-center mb-4">
           <svg
             width="32"
             height="32"
@@ -20,15 +17,27 @@
               fill="#456BB1"
             />
           </svg>
-          <h5 class="blue-heading m-0">Polycythemia Treatment</h5>
+          <h5 class="blue-heading m-0">Report</h5>
         </div>
-        <p>
-          Assess patient for polycythemia vera and suitability of therapies,
-          including therapeutic phlebotomy.
-        </p>
+        <p
+          v-if="hypertensive || hypotensive || edemic || renalProblems"
+          class="bold-heading"
+        ></p>
+        <div v-if="hypertensive">
+          <p class="mb-3">Lower blood pressure</p>
+        </div>
+        <div v-if="hypotensive">
+          <p class="mb-3">Raise blood pressure</p>
+        </div>
+        <div v-if="edemic">
+          <p class="mb-3">Lower blood pressure</p>
+        </div>
+        <div v-if="renalProblems">
+          <p class="mb-3">Lower blood pressure</p>
+        </div>
         <router-link
           :to="{
-            name: 'ReportSuggestions',
+            name: 'TreatmentComplete',
           }"
         >
           <button type="submit" class="btn btn-primary mt-3">
@@ -43,12 +52,13 @@
 
 <script>
 export default {
-  name: "InitialPolycythemic",
+  name: "ReportSuggestion",
   data: function () {
     return {
-      currentPatientID: this.$store.state.currentPatientID,
-      tbv: this.$store.state.tbv,
-      rbcv: this.$store.state.tbv,
+      hypertensive: this.$store.state.hypertensive,
+      hypotensive: this.$store.state.hypotensive,
+      edemic: this.$store.state.edemic,
+      renalProblems: this.$store.state.renalProblems,
     };
   },
 };
