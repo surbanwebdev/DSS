@@ -1,104 +1,42 @@
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
-    <div class="container mt-5">
-      <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
+    <div class="container">
+      <p v-if="tbv" class="treatment-group my-2">
+        Patient ID: {{ currentPatientID }}
+      </p>
+      <p v-else class="treatment-group my-2">Treatment Group: Standard Care</p>
       <div class="card p-3">
-        <p class="bold-heading mb-1">Initial treatment for hypervolmia</p>
-        <p class="bold-heading indent mb-1">
-          What symptoms of congestion are present?
-        </p>
-        <div class="triple-indent mb-2">
-          <div class="form-check mb-2">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="dyspnea"
+        <div class="title-wrap d-flex align-items-center mb-2">
+          <svg
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M21.3334 1.33325C22.0694 1.33325 22.6667 1.93059 22.6667 2.66659V6.66658H28.0001C28.7361 6.66658 29.3334 7.26392 29.3334 7.99992V26.6666C29.3334 27.4026 28.7361 27.9999 28.0001 27.9999H4.00008C3.26408 27.9999 2.66675 27.4026 2.66675 26.6666V7.99992C2.66675 7.26392 3.26408 6.66658 4.00008 6.66658H9.33342V2.66659C9.33342 1.93059 9.93075 1.33325 10.6667 1.33325H21.3334ZM26.6667 9.33325H5.33341V25.3333H26.6667V9.33325ZM17.3334 11.9999V15.9999H21.3334V18.6666H17.3321L17.3334 22.6666H14.6667L14.6654 18.6666H10.6667V15.9999H14.6667V11.9999H17.3334ZM20.0001 3.99992H12.0001V6.66658H20.0001V3.99992Z"
+              fill="#456BB1"
             />
-            <label class="form-check-label" for="dyspnea"> Dyspnea </label>
-          </div>
-          <div class="form-check mb-2">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="orthopnea"
-            />
-            <label class="form-check-label" for="orthopnea"> Orthopnea </label>
-          </div>
-          <div class="form-check mb-2">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="edema"
-            />
-            <label class="form-check-label" for="edema"> Edema </label>
-          </div>
+          </svg>
+          <h5 class="blue-heading m-0">Anemia Treatment</h5>
         </div>
-        <p class="bold-heading indent mb-1">
-          What signs of congestion are present?
-        </p>
-        <div class="triple-indent">
-          <div class="form-check mb-2">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="rales"
-            />
-            <label class="form-check-label" for="rales"> Rales </label>
-          </div>
-          <div class="form-check mb-2">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="peripheralEdema"
-            />
-            <label class="form-check-label" for="peripheralEdema">
-              Peripheral Edema
-            </label>
-          </div>
-          <div class="form-check mb-2">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="ascites"
-            />
-            <label class="form-check-label" for="ascites"> Ascites </label>
-          </div>
-          <div class="form-check mb-2">
-            <input class="form-check-input" type="checkbox" value="" id="pvc" />
-            <label class="form-check-label" for="pvc">
-              Pulmonary Vascular Congestion on Chest Radiography
-            </label>
-          </div>
-          <div class="form-check mb-2">
-            <input class="form-check-input" type="checkbox" value="" id="jvp" />
-            <label class="form-check-label" for="jvp">
-              Jugular Venous Pressure (JVP)
-            </label>
-          </div>
-          <div class="form-check mb-2">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="orthopnea2"
-            />
-            <label class="form-check-label" for="orthopnea2"> Orthopnea </label>
-          </div>
-        </div>
+
+        <p>Assess patient for candidacy as appropriate:</p>
+        <ul>
+          <li>Blood transfusion</li>
+          <li>Iron transfusion</li>
+          <li>Erythropoietin administration</li>
+        </ul>
+
         <router-link
           :to="{
-            name: 'SuggestedTreatment',
+            name: 'ReportSuggestions',
           }"
         >
           <button type="submit" class="btn btn-primary mt-3">
-            Submit Evaluation
+            Acknowledge Suggestion
           </button>
         </router-link>
       </div>
@@ -108,30 +46,22 @@
 </template>
 
 <script>
-
-
 export default {
   name: "InitialAnemic",
   data: function () {
     return {
       currentPatientID: this.$store.state.currentPatientID,
       tbv: this.$store.state.tbv,
+      rbcv: this.$store.state.tbv,
     };
   },
 };
 </script>
 
 <style scoped>
-body {
-  background-color: #e5e5e5 !important;
-}
-
-img.directions {
-  width: 150px;
-}
-
 .card {
   border: none;
+  border-top: 1rem solid #456bb1;
   background: #fff;
   text-align: left;
 }
@@ -150,15 +80,14 @@ img.directions {
   width: 100%;
 }
 
-.indent {
-  padding-left: 0.25rem;
+.radio-box {
+  width: 100%;
+  padding: 1.5rem 1rem;
+  border: 1px solid #979797;
+  border-radius: 0.25rem;
 }
 
-.triple-indent {
-  padding-left: 0.75rem;
-}
-
-.form-check-input[type="checkbox"] {
-  border-radius: 0;
+svg {
+  margin-right: 0.75rem;
 }
 </style>

@@ -17,14 +17,39 @@
               fill="#456BB1"
             />
           </svg>
-          <h5 class="blue-heading m-0">Consider expedited plan to discharge</h5>
+          <h5 class="blue-heading m-0">Symptom Report</h5>
         </div>
-        <p class="bold-heading mb-3">
-          Consider lowering diuretic dose, or stopping IV diuretics.
-        </p>
+        <div v-if="hypertensive" class="suggestion-box mb-2">
+          <p class="mb-1">You reported that the patient was hypertensive.</p>
+          <p class="alert alert-info">Consider vasodilators</p>
+        </div>
+        <div v-if="hypotensive" class="suggestion-box mb-2">
+          <p class="mb-1">
+            You reported that the patient was hypotensive with suspected shock
+            (cold and dry).
+          </p>
+          <p class="alert alert-info">
+            Consider hemodynamic evaluation and initiation of inotropes
+          </p>
+        </div>
+        <div v-if="edemic" class="suggestion-box mb-2">
+          <p class="mb-1">You reported that edema was present.</p>
+          <p class="alert alert-info">
+            Evaluate for possible alternative cause of edema without
+            hypervolemia: (e.g. liver disease, lymphedema, hypoalbuminemia)
+          </p>
+        </div>
+        <div v-if="renalProblems" class="suggestion-box mb-2">
+          <p class="mb-1">
+            You reported that there were signs of worsening renal function.
+          </p>
+          <p class="alert alert-info">
+            Consider lowering diuretic dose, or stopping IV diuretics
+          </p>
+        </div>
         <router-link
           :to="{
-            name: 'ReportSuggestions',
+            name: 'TreatmentComplete',
           }"
         >
           <button type="submit" class="btn btn-primary mt-3">
@@ -39,9 +64,14 @@
 
 <script>
 export default {
-  name: "DischargePlan",
+  name: "ReportSuggestion",
   data: function () {
-    return {};
+    return {
+      hypertensive: this.$store.state.hypertensive,
+      hypotensive: this.$store.state.hypotensive,
+      edemic: this.$store.state.edemic,
+      renalProblems: this.$store.state.renalProblems,
+    };
   },
 };
 </script>
@@ -77,5 +107,13 @@ export default {
 
 svg {
   margin-right: 0.75rem;
+}
+
+.suggestion-box {
+  border-bottom: 2px solid #ededed;
+}
+
+.suggestion-box:last-of-type {
+  border: none;
 }
 </style>

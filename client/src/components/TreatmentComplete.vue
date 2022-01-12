@@ -14,38 +14,14 @@
       >
         <img class="directions" src="../assets/complete.png" alt="" />
         <h5 class="bold-heading my-3">Treatment Complete</h5>
-        <p>Begin a new course of treatment below if necessary.</p>
+        <p>Please allow 24 hours before next assessment.</p>
         <hr class="mb-4" />
-        <p>Or begin another treatment plan now:</p>
-        <router-link :to="{ name: '' }"></router-link>
-        <div class="button-wrap d-flex my-3">
-          <button
-            v-on:click="(standardCare = true), (bvaCare = false)"
-            class="choice"
-          >
-            Standard Care
+        <p></p>
+        <router-link :to="{ name: 'CurrentHct' }">
+          <button type="submit" class="btn btn-primary" value="Submit">
+            24 hour Bypass
           </button>
-          <button
-            v-on:click="(bvaCare = true), (standardCare = false)"
-            class="choice"
-          >
-            BVA-Guided Care
-          </button>
-        </div>
-        <div class="treatment-btn" v-if="standardCare == true">
-          <router-link :to="{ name: 'Checklist' }">
-            <button type="submit" class="btn btn-primary mt-3">
-              Go to Standard Treatment
-            </button>
-          </router-link>
-        </div>
-        <div class="treatment-btn" v-if="bvaCare == true">
-          <router-link :to="{ name: '' }">
-            <button type="submit" class="btn btn-primary mt-3">
-              Go to BVA Treatment
-            </button>
-          </router-link>
-        </div>
+        </router-link>
       </div>
     </div>
     <Footer />
@@ -53,7 +29,6 @@
 </template>
 
 <script>
-
 export default {
   name: "TreatmentComplete",
   data: function () {

@@ -7,9 +7,7 @@ import Checklist from '../components/Checklist.vue'
 import SymptomSeverity from '../components/SymptomSeverity.vue'
 import DailyTreatmentComplete from '../components/DailyTreatmentComplete.vue'
 import Post24Checklist from '../components/Post24Checklist.vue'
-import SelectStrategy from '../components/SelectStrategy.vue'
 import IVTreatmentEval from '../components/IVTreatmentEval.vue'
-import SelectStrategyTrunc from '../components/SelectStrategyTrunc.vue'
 import DryWeightConfirm from '../components/DryWeightConfirm.vue'
 import StabilityConfirm from '../components/StabilityConfirm.vue'
 import DiureticsWarning from '../components/DiureticsWarning.vue'
@@ -23,8 +21,7 @@ import InitialHypervolemic from '../components/InitialHypervolemic.vue'
 import InitialNonHypervolemic from '../components/InitialNonHypervolemic.vue'
 import InitialAnemic from '../components/InitialAnemic.vue'
 import InitialPolycythemic from '../components/InitialPolycythemic'
-import Hypertensive from '../components/Hypertensive.vue'
-import HypertensivePlan from '../components/HypertensivePlan.vue'
+import NonHypervolemicSymptoms from '../components/NonHypervolemicSymptoms.vue'
 import Hypotensive from '../components/Hypotensive.vue'
 import HypotensivePlan from '../components/HypotensivePlan.vue'
 import Edema from '../components/Edema.vue'
@@ -38,6 +35,10 @@ import BVASymptoms from '../components/BVASymptoms.vue'
 import NewPatient from '../components/NewPatient.vue'
 import PatientDetails from '../components/PatientDetails.vue'
 import EditPatient from '../components/EditPatient.vue'
+import CurrentHct from '../components/CurrentHct.vue'
+import ReportSuggestions from '../components/ReportSuggestions.vue'
+import ProgressToTarget from '../components/ProgressToTarget.vue'
+import ChooseStrategy from '../components/ChooseStrategy.vue'
 
 Vue.use(VueRouter)
 
@@ -60,16 +61,6 @@ const routes = [
     path: '/post-24-checklist',
     name: 'Post24Checklist',
     component: Post24Checklist,
-  },
-  {
-    path: '/select-strategy',
-    name: 'SelectStrategy',
-    component: SelectStrategy,
-  },
-  {
-    path: '/select-strategy-trunc',
-    name: 'SelectStrategyTrunc',
-    component: SelectStrategyTrunc,
   },
   {
     path: '/symptom-severity',
@@ -157,14 +148,9 @@ const routes = [
     component: InitialPolycythemic
   },
   {
-    path: '/hypertensive',
-    name: 'Hypertensive',
-    component: Hypertensive,
-  },
-  {
-    path: '/hypertensive-plan',
-    name: 'HypertensivePlan',
-    component: HypertensivePlan,
+    path: '/non-hypervolemic-symptoms',
+    name: 'NonHypervolemicSymptoms',
+    component: NonHypervolemicSymptoms,
   },
   {
     path: '/hypotensive',
@@ -235,6 +221,26 @@ const routes = [
     path: '/edit-patient',
     name: 'EditPatient',
     component: EditPatient,
+  },
+  {
+    path: '/current-hct',
+    name: 'CurrentHct',
+    component: CurrentHct,
+  },
+  {
+    path: '/report-suggestions',
+    name: 'ReportSuggestions',
+    component: ReportSuggestions,
+  },
+  {
+    path: '/progress-to-target',
+    name: 'ProgressToTarget',
+    component: ProgressToTarget,
+  },
+  {
+    path: '/choose-strategy',
+    name: 'ChooseStrategy',
+    component: ChooseStrategy,
   },
 ]
 

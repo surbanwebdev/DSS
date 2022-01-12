@@ -10,10 +10,13 @@ export default new Vuex.Store({
     anemic: false,
     currentPatientID: null,
     currentPatientSex: null,
+    currentHct: null,
+    edemic: false,
     euvolemic: false,
     firstName: '',
     height: null,
-    hypovolemic: false,
+    hypertensive: false,
+    hypotensive: false,
     lastName: '',
     mildOverload: false,
     nhct: null,
@@ -23,13 +26,15 @@ export default new Vuex.Store({
     polycythemic: false,
     pv: null,
     rbcv: null,
+    renalProblems: false,
     severeOverload: false,
     sex: '',
     tbv: null,
     thct: null,
     weight: null,
     sessionGuid: null,
-    apiURL: "http://localhost:8081"
+    strategyChoice: null,
+    apiURL: "http://localhost:8081",
   },
   // SET ACTIONS TO UPDATE VARIABLES
   actions: {
@@ -53,7 +58,25 @@ export default new Vuex.Store({
     },
     setCurrentPatientSex({ state }, currentPatientSex) {
       state.currentPatientSex = currentPatientSex
-    }
+    },
+    setHypertensive({ state }, newHypertensive) {
+      state.hypertensive = newHypertensive
+    },
+    setHypotensive({ state }, newHypotensive) {
+      state.hypotensive = newHypotensive
+    },
+    setEdemic({ state }, newEdemic) {
+      state.edemic = newEdemic
+    },
+    setRenalProblems({ state }, newRenalProblems) {
+      state.renalProblems = newRenalProblems
+    },
+    setCurrentHct({ state }, newCurrentHct) {
+      state.currentHct = newCurrentHct
+    },
+    setStrategyChoice({ state }, newStrategyChoice) {
+      state.strategyChoice = newStrategyChoice
+    },
   },
   methods: {
 

@@ -1,7 +1,7 @@
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
-    <div class="container mt-5">
+    <div class="container">
       <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
       <div class="card p-3">
         <table class="table table-striped mb-0">
@@ -44,7 +44,7 @@
           <router-link
             v-else
             :to="{
-              name: 'Hypertensive',
+              name: 'NonHypervolemicSymptoms',
             }"
           >
             <button type="submit" class="btn btn-primary mt-3">Confirm</button>
@@ -57,7 +57,6 @@
 </template>
 
 <script>
-
 export default {
   name: "TargetHct",
   methods: {

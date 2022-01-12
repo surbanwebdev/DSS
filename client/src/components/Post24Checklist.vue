@@ -92,7 +92,7 @@
             <label class="form-check-label" for="orthopnea2"> Orthopnea </label>
           </div>
         </div>
-        <router-link :to="{ name: 'SelectStrategy' }">
+        <router-link :to="{ name: 'ProgressToTarget' }">
           <button type="submit" class="btn btn-primary mt-3">
             Submit Evaluation
           </button>
