@@ -17,23 +17,35 @@
               fill="#456BB1"
             />
           </svg>
-          <h5 class="blue-heading m-0">Report</h5>
+          <h5 class="blue-heading m-0">Symptom Report</h5>
         </div>
-        <p
-          v-if="hypertensive || hypotensive || edemic || renalProblems"
-          class="bold-heading"
-        ></p>
         <div v-if="hypertensive">
-          <p class="mb-3">Lower blood pressure</p>
+          <p class="mb-1">You reported that the patient was hypertensive.</p>
+          <p class="alert alert-info">Consider vasodilators</p>
         </div>
         <div v-if="hypotensive">
-          <p class="mb-3">Raise blood pressure</p>
+          <p class="mb-1">
+            You reported that the patient was hypotensive with suspected shock
+            (cold and dry).
+          </p>
+          <p class="alert alert-info">
+            Consider hemodynamic evaluation and initiation of inotropes
+          </p>
         </div>
         <div v-if="edemic">
-          <p class="mb-3">Lower blood pressure</p>
+          <p class="mb-1">You reported that edema was present.</p>
+          <p class="alert alert-info">
+            Evaluate for possible alternative cause of edema without
+            hypervolemia: (e.g. liver disease, lymphedema, hypoalbuminemia)
+          </p>
         </div>
         <div v-if="renalProblems">
-          <p class="mb-3">Lower blood pressure</p>
+          <p class="mb-1">
+            You reported that there were signs of worsening renal function.
+          </p>
+          <p class="alert alert-info">
+            Consider lowering diuretic dose, or stopping IV diuretics
+          </p>
         </div>
         <router-link
           :to="{
