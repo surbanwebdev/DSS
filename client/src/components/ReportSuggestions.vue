@@ -19,11 +19,11 @@
           </svg>
           <h5 class="blue-heading m-0">Symptom Report</h5>
         </div>
-        <div v-if="hypertensive">
+        <div v-if="hypertensive" class="suggestion-box mb-2">
           <p class="mb-1">You reported that the patient was hypertensive.</p>
           <p class="alert alert-info">Consider vasodilators</p>
         </div>
-        <div v-if="hypotensive">
+        <div v-if="hypotensive" class="suggestion-box mb-2">
           <p class="mb-1">
             You reported that the patient was hypotensive with suspected shock
             (cold and dry).
@@ -32,14 +32,14 @@
             Consider hemodynamic evaluation and initiation of inotropes
           </p>
         </div>
-        <div v-if="edemic">
+        <div v-if="edemic" class="suggestion-box mb-2">
           <p class="mb-1">You reported that edema was present.</p>
           <p class="alert alert-info">
             Evaluate for possible alternative cause of edema without
             hypervolemia: (e.g. liver disease, lymphedema, hypoalbuminemia)
           </p>
         </div>
-        <div v-if="renalProblems">
+        <div v-if="renalProblems" class="suggestion-box mb-2">
           <p class="mb-1">
             You reported that there were signs of worsening renal function.
           </p>
@@ -107,5 +107,13 @@ export default {
 
 svg {
   margin-right: 0.75rem;
+}
+
+.suggestion-box {
+  border-bottom: 2px solid #ededed;
+}
+
+.suggestion-box:last-of-type {
+  border: none;
 }
 </style>

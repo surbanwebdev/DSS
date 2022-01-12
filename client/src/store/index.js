@@ -33,6 +33,7 @@ export default new Vuex.Store({
     thct: null,
     weight: null,
     sessionGuid: null,
+    strategyChoice: null,
     apiURL: "http://localhost:8081",
   },
   // SET ACTIONS TO UPDATE VARIABLES
@@ -72,6 +73,9 @@ export default new Vuex.Store({
     },
     setCurrentHct({ state }, newCurrentHct) {
       state.currentHct = newCurrentHct
+    },
+    setStrategyChoice({ state }, newStrategyChoice) {
+      state.strategyChoice = newStrategyChoice
     },
   },
   methods: {

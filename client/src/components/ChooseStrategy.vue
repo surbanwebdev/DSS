@@ -8,7 +8,6 @@
           Based on your assessment of signs and symptoms, choose a strategy:
         </p>
         <div id="radio-box-wrap" class="radio-box-wrap py-3 px-2">
-          <!-- I WOULD LIKE TO GET THESE IN A DYNAMIC LOOP BUT I RUN INTO ISSUE WHEN SELECTING AN OPTION -->
           <label
             class="underline"
             style="width: 100%"
@@ -75,7 +74,6 @@
             <div
               class="
                 radio-box
-                no-border
                 d-flex
                 align-items-center
                 justify-content-between
@@ -97,12 +95,48 @@
               </div>
             </div>
           </label>
+
+          <label
+            style="width: 100%"
+            v-on:click="(optionA = false), (optionB = true)"
+          >
+            <div
+              class="
+                radio-box
+                no-border
+                d-flex
+                align-items-center
+                justify-content-between
+                py-3
+                px-2
+              "
+            >
+              <div class="content-left d-flex align-items-center">
+                Consider ending IV treatment and change to oral diuretics
+              </div>
+              <div class="content-right">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="flexRadioDefault"
+                  />
+                </div>
+              </div>
+            </div>
+          </label>
         </div>
-        <router-link :to="{ name: 'DryWeightConfirm' }">
-          <button type="submit" class="btn btn-primary mt-3">
-            Select Strategy
-          </button>
-        </router-link>
+        <!-- BUTTONS WILL NOT BE VISIBLE UNTIL USER SELECTS AN OPTION -->
+        <div class="treatment-btn" v-if="optionA == true">
+          <router-link :to="{ name: 'TreatmentComplete' }">
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+          </router-link>
+        </div>
+        <div class="treatment-btn" v-if="optionB == true">
+          <router-link :to="{ name: 'IVTreatmentEval' }">
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+          </router-link>
+        </div>
       </div>
     </div>
     <Footer />
@@ -111,28 +145,14 @@
 
 <script>
 export default {
-  name: "SelectStrategyTrunc",
-  // methods: {
-  //   addClassToLast: function () {
-  //     var lastItem = this.strategies.pop()
-  //     console.log(lastItem)
-  //   },
-  // },
-  // beforeMount() {
-  //   this.addClassToLast()
-  // },
+  name: "ChooseStrategy",
   data: function () {
     return {
       optionA: false,
       optionB: false,
-      strategies: [
-        { choice: "Increase diuretic dose by 50%" },
-        { choice: "Maintain same strategy" },
-        { choice: "Continue with reduced IV diuretic dose" },
-        { choice: "Consider ending IV treatment and change to oral diuretics" },
-      ],
     };
   },
+  methods: {},
 };
 </script>
 

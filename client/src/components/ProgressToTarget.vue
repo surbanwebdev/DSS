@@ -4,29 +4,14 @@
       <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
       <div class="card p-3">
         <div class="title-wrap d-flex align-items-center mb-2"></div>
-        <p class="bold-heading mb-3">Current Hematocrit</p>
-        <p class="mb-4">Please enter a recent hematocrit level.</p>
-        <form>
-          <div class="form-group mb-1">
-            <input
-              id="current-hct"
-              @focus="$event.target.select()"
-              v-model.number="currentHct"
-              type="number"
-              class="form-control"
-              placeholder="Current Hct"
-              required
-            />
-            <label class="form-label" for="nhct">Current Hct</label>
-          </div>
-          <p>Current Hct: {{ currentHct }}</p>
-          <p>Target Hct: {{ calculatedTargetHct }}</p>
-          <router-link :to="{ name: 'Post24Checklist' }">
-            <button type="submit" class="btn btn-primary" value="Submit">
-              Submit
-            </button>
-          </router-link>
-        </form>
+        <p class="bold-heading mb-3">Progress to Target {{ thct }}</p>
+        <p>Current Hct: {{ currentHct }}</p>
+        <p>Target Hct: {{ calculatedTargetHct }}</p>
+        <router-link :to="{ name: 'ChooseStrategy' }">
+          <button type="submit" class="btn btn-primary" value="Submit">
+            Submit
+          </button>
+        </router-link>
       </div>
     </div>
   </div>
@@ -37,9 +22,10 @@ export default {
     return {
       currentPatientID: this.$store.state.currentPatientID,
       currentHct: this.$store.state.currentHct,
+      thct: this.$store.state.thct,
     };
   },
-  name: "CurrentHct",
+  name: "ProgressToTarget",
   computed: {
     calculatedTargetHct() {
       var calculated = this.currentHct * 1.1;
