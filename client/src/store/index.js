@@ -11,10 +11,12 @@ export default new Vuex.Store({
     currentPatientID: null,
     currentPatientSex: null,
     currentHct: null,
+    edemic: false,
     euvolemic: false,
     firstName: '',
     height: null,
-    hypovolemic: false,
+    hypertensive: false,
+    hypotensive: false,
     lastName: '',
     mildOverload: false,
     nhct: null,
@@ -24,6 +26,7 @@ export default new Vuex.Store({
     polycythemic: false,
     pv: null,
     rbcv: null,
+    renalProblems: false,
     severeOverload: false,
     sex: '',
     tbv: null,
@@ -31,10 +34,6 @@ export default new Vuex.Store({
     weight: null,
     sessionGuid: null,
     apiURL: "http://localhost:8081",
-    symHypertension: false,
-    symHypotension: false,
-    symEdemic: false,
-    symRenal: false
   },
   // SET ACTIONS TO UPDATE VARIABLES
   actions: {
@@ -59,17 +58,17 @@ export default new Vuex.Store({
     setCurrentPatientSex({ state }, currentPatientSex) {
       state.currentPatientSex = currentPatientSex
     },
-    setHypertension({ state }, newHypertension) {
-      state.symHypertension = newHypertension
+    setHypertensive({ state }, newHypertensive) {
+      state.hypertensive = newHypertensive
     },
-    setHypotension({ state }, newHypotension) {
-      state.symHypotension = newHypotension
+    setHypotensive({ state }, newHypotensive) {
+      state.hypotensive = newHypotensive
     },
     setEdemic({ state }, newEdemic) {
-      state.symEdemic = newEdemic
+      state.edemic = newEdemic
     },
-    setRenal({ state }, newRenal) {
-      state.symRenal = newRenal
+    setRenalProblems({ state }, newRenalProblems) {
+      state.renalProblems = newRenalProblems
     },
     setCurrentHct({ state }, newCurrentHct) {
       state.currentHct = newCurrentHct

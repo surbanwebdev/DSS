@@ -11,9 +11,15 @@
           <label
             class="form-check-label d-flex justify-content-between py-2 px-0"
             for="hypertension"
+            @click="!hypertensive"
           >
             Hypertension
-            <input class="form-check-input" type="checkbox" id="hypertension" />
+            <input
+              v-model="hypertensive"
+              class="form-check-input"
+              type="checkbox"
+              id="hypertension"
+            />
           </label>
         </div>
         <hr />
@@ -21,9 +27,15 @@
           <label
             class="form-check-label d-flex justify-content-between py-2 px-0"
             for="hypotension"
+            @click="!hypotensive"
           >
             Hypotension
-            <input class="form-check-input" type="checkbox" id="hypotension" />
+            <input
+              v-model="hypotensive"
+              class="form-check-input"
+              type="checkbox"
+              id="hypotension"
+            />
           </label>
         </div>
         <hr />
@@ -31,9 +43,15 @@
           <label
             class="form-check-label d-flex justify-content-between py-2 px-0"
             for="edemic"
+            @click="!edemic"
           >
             Edemic
-            <input class="form-check-input" type="checkbox" id="edemic" />
+            <input
+              v-model="edemic"
+              class="form-check-input"
+              type="checkbox"
+              id="edemic"
+            />
           </label>
         </div>
         <hr />
@@ -41,9 +59,15 @@
           <label
             class="form-check-label d-flex justify-content-between py-2 px-0"
             for="renal"
+            @click="!renalProblems"
           >
             Worsening Renal Function
-            <input class="form-check-input" type="checkbox" id="renal" />
+            <input
+              v-model="renalProblems"
+              class="form-check-input"
+              type="checkbox"
+              id="renal"
+            />
           </label>
         </div>
 
@@ -87,12 +111,36 @@ export default {
     };
   },
   computed: {
-    symHypertension: {
+    hypertensive: {
       get: function () {
-        return this.$store.state.symHypertension;
+        return this.$store.state.hypertensive;
       },
-      set: function (newHypertension) {
-        this.$store.dispatch("setHypertension", newHypertension);
+      set: function (hypertensive) {
+        this.$store.dispatch("setHypertensive", hypertensive);
+      },
+    },
+    hypotensive: {
+      get: function () {
+        return this.$store.state.hypotensive;
+      },
+      set: function (hypotensive) {
+        this.$store.dispatch("setHypotensive", hypotensive);
+      },
+    },
+    edemic: {
+      get: function () {
+        return this.$store.state.edemic;
+      },
+      set: function (edemic) {
+        this.$store.dispatch("setEdemic", edemic);
+      },
+    },
+    renalProblems: {
+      get: function () {
+        return this.$store.state.renalProblems;
+      },
+      set: function (renalProblems) {
+        this.$store.dispatch("setRenalProblems", renalProblems);
       },
     },
   },
