@@ -39,6 +39,7 @@ import CurrentHct from '../components/CurrentHct.vue'
 import ReportSuggestions from '../components/ReportSuggestions.vue'
 import ProgressToTarget from '../components/ProgressToTarget.vue'
 import ChooseStrategy from '../components/ChooseStrategy.vue'
+import BVAHistory from '../components/BVAHistory.vue'
 
 Vue.use(VueRouter)
 
@@ -241,6 +242,11 @@ const routes = [
     path: '/choose-strategy',
     name: 'ChooseStrategy',
     component: ChooseStrategy,
+  },
+  {
+    path: '/bva-history',
+    name: 'BVAHistory',
+    component: BVAHistory,
   },
 ]
 
