@@ -258,25 +258,26 @@ export default {
   data: function () {
     return {
       currentPatientID: this.$store.state.currentPatientID,
-      archivedData: []
+      archivedData: [],
     };
   },
   name: "BVAHistory",
   created: function () {
     this.getAllArchivedTreatments();
   },
-  methods:{
-    getAllArchivedTreatments(){
+  methods: {
+    getAllArchivedTreatments() {
       const context = this;
       this.$parent
         .apiCall({
           method: "get",
           endpoint: "patient/getAllArchivedTreatments",
           data: {
-            patientID: context.currentPatientID
+            patientID: this.$store.state.currentPatientID,
           },
         })
         .then((res) => {
+          console.log(res);
           context.archivedData = res.data;
         })
         .catch((err) => {
@@ -284,7 +285,7 @@ export default {
           context.$parent.onFail(err.response.statusText);
         });
     },
-  }
+  },
 };
 </script>
 

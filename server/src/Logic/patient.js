@@ -154,46 +154,46 @@ async function search(req, res) {
     }
 }
 
-async function archiveTreatment(req,res){
+async function archiveTreatment(req, res) {
     try {
         const db = await getDB();
         const body = req.body;
-        const treatment = _.get(body,'treatment');
-        
+        const treatment = _.get(body, 'treatment');
+
         let query = `INSERT INTO ArchivedTreatment (UserID, PatientID, Height, Weight, Age, TestDate, TestType, 
             TBVDeviation, PVDeviation, RBVDeviation, NHCT, PHCT, PatientDischarged, SuggestedTreatment, Notes, Symptoms)
         VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
 
         let params = [
-            _.get(treatment,'UserID'),
-            _.get(treatment,'PatientID'),
-            _.get(treatment,'Height'),
-            _.get(treatment,'Weight'),
-            _.get(treatment,'Age'),
-            _.get(treatment,'TestDate'),
-            _.get(treatment,'TBVDeviation'),
-            _.get(treatment,'PVDeviation'),
-            _.get(treatment,'RBVDeviation'),
-            _.get(treatment,'NHCT'),
-            _.get(treatment,'PHCT'),
-            _.get(treatment,'PatientDischarged'),
-            _.get(treatment,'SuggestedTreatment'),
-            _.get(treatment,'Notes'),
-            _.get(treatment,'Symptoms')
+            _.get(treatment, 'UserID'),
+            _.get(treatment, 'PatientID'),
+            _.get(treatment, 'Height'),
+            _.get(treatment, 'Weight'),
+            _.get(treatment, 'Age'),
+            _.get(treatment, 'TestDate'),
+            _.get(treatment, 'TBVDeviation'),
+            _.get(treatment, 'PVDeviation'),
+            _.get(treatment, 'RBVDeviation'),
+            _.get(treatment, 'NHCT'),
+            _.get(treatment, 'PHCT'),
+            _.get(treatment, 'PatientDischarged'),
+            _.get(treatment, 'SuggestedTreatment'),
+            _.get(treatment, 'Notes'),
+            _.get(treatment, 'Symptoms')
         ];
 
-        let numOfRowsAffected = await db.run(query,params);
+        let numOfRowsAffected = await db.run(query, params);
 
-        if (Number(_.get(treatment,'PatientDischarged')) === 1){
+        if (Number(_.get(treatment, 'PatientDischarged')) === 1) {
             query = `UPDATE Patient SET Discharged = 1 WHERE PatientID = ?`
             params = [
-                _.get(treatment,'PatientID')
+                _.get(treatment, 'PatientID')
             ];
             numOfRowsAffected += await db.run(query);
         }
-        
+
         res.statusMessage = 'OK';
-        res.status(200).send({numOfRowsAffected}).end();
+        res.status(200).send({ numOfRowsAffected }).end();
         return;
     } catch (err) {
         res.statusMessage = 'Internal Server Error';
@@ -201,16 +201,26 @@ async function archiveTreatment(req,res){
     }
 }
 
-async function getArchivedTreatmentsSinceLastDischarge(patientID){
-    const db = await getDB();
-    let query = `SELECT * FROM ArchivedTreatment 
+async function getArchivedTreatmentsSinceLastDischarge(req, res) {
+    try {
+        const db = await getDB();
+        const body = req.body;
+        const patientID = _.get(body, 'patientID');
+        let query = `SELECT * FROM ArchivedTreatment 
         WHERE TestDate > (SELECT TestDate FROM ArchivedTreatment WHERE patientID = ? AND PatientDischarged = 1 LIMIT 1 ORDER BY TestDate DESC)
         AND PatientID = ? ORDER BY TestDate DESC`;
-    let params = [
-        patientID,
-        patientID
-    ];
-    return await db.all(query, params);
+        let params = [
+            patientID,
+            patientID
+        ];
+        let treatments = await db.all(query, params);
+        res.statusMessage = 'OK';
+        res.status(200).send({ treatments }).end();
+    } catch (err) {
+        res.statusMessage = 'Internal Server Error';
+        res.status(500).send(err).end();
+    }
+
 }
 
 async function getAllArchivedTreatments(req, res) {
@@ -240,18 +250,6 @@ module.exports = {
     getAll,
     search,
     archiveTreatment,
-    getArchivedTreatmentsSinceLastDischarge,
-    getAllArchivedTreatments
-}
-
-module.exports = {
-    create,
-    update,
-    remove,
-    get,
-    getAll,
-    search,
-    archiveTreatment, 
     getArchivedTreatmentsSinceLastDischarge,
     getAllArchivedTreatments
 }
