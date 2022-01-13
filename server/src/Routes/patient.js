@@ -32,7 +32,7 @@ router.post('/archiveTreatment', requireValidSession, (async (req, res) => {
     archiveTreatment(req, res);
 }));
 
-router.get('/getAllArchivedTreatment',requireValidSession, (async (req, res) => {
+router.get('/getAllArchivedTreatments',requireValidSession, (async (req, res) => {
     getAllArchivedTreatments(req, res);
 }));
 

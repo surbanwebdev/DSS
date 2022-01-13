@@ -6,7 +6,7 @@
         <p class="bold-heading mb-3">BVA Historical View</p>
         <span class="badge bg-light text-dark">12-01-2021</span>
         <table class="table table-striped mb-3">
-          <tbody>
+          <tbody v-for="dataRow in archivedData" :key="dataRow.ID">
             <tr>
               <td>
                 <div
@@ -178,7 +178,7 @@
                   "
                 >
                   <div class="content-left">TBV Deviation:</div>
-                  <div class="content-right"></div>
+                  <div class="content-right">{{ dataRow.TBV }}</div>
                 </div>
               </td>
             </tr>
@@ -193,7 +193,7 @@
                   "
                 >
                   <div class="content-left">RBCV Deviation:</div>
-                  <div class="content-right"></div>
+                  <div class="content-right">{{ dataRow.RBCV }}</div>
                 </div>
               </td>
             </tr>
@@ -258,9 +258,36 @@ export default {
   data: function () {
     return {
       currentPatientID: this.$store.state.currentPatientID,
+      archivedData: []
     };
   },
   name: "BVAHistory",
+  created: function () {
+    getAllArchivedTreatments();
+  },
+  methods:{
+    getAllArchivedTreatments(){
+      const context = this;
+      if (!context.validate()) {
+        return;
+      }
+      this.$parent
+        .apiCall({
+          method: "post",
+          endpoint: "patient/getAllArchivedTreatments",
+          data: {
+            patientID: context.currentPatientID
+          },
+        })
+        .then((res) => {
+          context.archivedData = res.data;
+        })
+        .catch((err) => {
+          console.error("ERR", err);
+          context.$parent.onFail(err.response.statusText);
+        });
+    },
+  }
 };
 </script>
 
