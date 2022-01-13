@@ -263,17 +263,14 @@ export default {
   },
   name: "BVAHistory",
   created: function () {
-    getAllArchivedTreatments();
+    this.getAllArchivedTreatments();
   },
   methods:{
     getAllArchivedTreatments(){
       const context = this;
-      if (!context.validate()) {
-        return;
-      }
       this.$parent
         .apiCall({
-          method: "post",
+          method: "get",
           endpoint: "patient/getAllArchivedTreatments",
           data: {
             patientID: context.currentPatientID
