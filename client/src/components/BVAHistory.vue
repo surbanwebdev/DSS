@@ -6,7 +6,7 @@
         <p class="bold-heading mb-3">BVA Historical View</p>
         <span class="badge bg-light text-dark">12-01-2021</span>
         <table class="table table-striped mb-3">
-          <tbody v-for="dataRow in archivedData" :key="dataRow.ID">
+          <tbody v-for="dataRow in archivedData" :key="dataRow.TestID">
             <tr>
               <td>
                 <div
@@ -18,7 +18,7 @@
                   "
                 >
                   <div class="content-left">TBV Deviation:</div>
-                  <div class="content-right">2.4%</div>
+                  <div class="content-right">{{ dataRow.TBVDeviation }}</div>
                 </div>
               </td>
             </tr>
@@ -33,7 +33,7 @@
                   "
                 >
                   <div class="content-left">RBCV Deviation:</div>
-                  <div class="content-right">1%</div>
+                  <div class="content-right">{{ dataRow.RBVDeviation }}</div>
                 </div>
               </td>
             </tr>
@@ -48,7 +48,7 @@
                   "
                 >
                   <div class="content-left">PV Deviation:</div>
-                  <div class="content-right">3.1%</div>
+                  <div class="content-right">{{ dataRow.PVDeviation }}</div>
                 </div>
               </td>
             </tr>
@@ -63,7 +63,7 @@
                   "
                 >
                   <div class="content-left">pHct:</div>
-                  <div class="content-right">36</div>
+                  <div class="content-right">{{ dataRow.PHCT }}</div>
                 </div>
               </td>
             </tr>
@@ -78,167 +78,7 @@
                   "
                 >
                   <div class="content-left">nHct</div>
-                  <div class="content-right">41</div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <span class="badge bg-light text-dark">12-20-2021</span>
-        <table class="table table-striped mb-3">
-          <tbody>
-            <tr>
-              <td>
-                <div
-                  class="
-                    d-flex
-                    justify-content-between
-                    align-items-baseline
-                    full-width
-                  "
-                >
-                  <div class="content-left">TBV Deviation:</div>
-                  <div class="content-right"></div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div
-                  class="
-                    d-flex
-                    justify-content-between
-                    align-items-baseline
-                    full-width
-                  "
-                >
-                  <div class="content-left">RBCV Deviation:</div>
-                  <div class="content-right"></div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div
-                  class="
-                    d-flex
-                    justify-content-between
-                    align-items-baseline
-                    full-width
-                  "
-                >
-                  <div class="content-left">PV Deviation:</div>
-                  <div class="content-right"></div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div
-                  class="
-                    d-flex
-                    justify-content-between
-                    align-items-baseline
-                    full-width
-                  "
-                >
-                  <div class="content-left">pHct:</div>
-                  <div class="content-right"></div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div
-                  class="
-                    d-flex
-                    justify-content-between
-                    align-items-baseline
-                    full-width
-                  "
-                >
-                  <div class="content-left">nHct:</div>
-                  <div class="content-right"></div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <span class="badge bg-light text-dark">01-2-2022</span>
-        <table class="table table-striped mb-3">
-          <tbody>
-            <tr>
-              <td>
-                <div
-                  class="
-                    d-flex
-                    justify-content-between
-                    align-items-baseline
-                    full-width
-                  "
-                >
-                  <div class="content-left">TBV Deviation:</div>
-                  <div class="content-right">{{ dataRow.TBV }}</div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div
-                  class="
-                    d-flex
-                    justify-content-between
-                    align-items-baseline
-                    full-width
-                  "
-                >
-                  <div class="content-left">RBCV Deviation:</div>
-                  <div class="content-right">{{ dataRow.RBCV }}</div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div
-                  class="
-                    d-flex
-                    justify-content-between
-                    align-items-baseline
-                    full-width
-                  "
-                >
-                  <div class="content-left">PV Deviation:</div>
-                  <div class="content-right"></div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div
-                  class="
-                    d-flex
-                    justify-content-between
-                    align-items-baseline
-                    full-width
-                  "
-                >
-                  <div class="content-left">pHct:</div>
-                  <div class="content-right"></div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div
-                  class="
-                    d-flex
-                    justify-content-between
-                    align-items-baseline
-                    full-width
-                  "
-                >
-                  <div class="content-left">nHct:</div>
-                  <div class="content-right"></div>
+                  <div class="content-right">{{ dataRow.NHCT }}</div>
                 </div>
               </td>
             </tr>
@@ -277,8 +117,7 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res);
-          context.archivedData = res.data;
+          context.archivedData = res.data.treatments;
         })
         .catch((err) => {
           console.error("ERR", err);

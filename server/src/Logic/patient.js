@@ -96,10 +96,9 @@ async function get(req, res) {
         ];
 
         let patient = await db.get(query, params);
-        let archivedTreatments = await getAllArchivedTreatments(patientID);
 
         res.statusMessage = 'OK';
-        res.status(200).send({ patient, archivedTreatments }).end();
+        res.status(200).send({ patient }).end();
         return;
     } catch (err) {
         res.statusMessage = 'Internal Server Error';
