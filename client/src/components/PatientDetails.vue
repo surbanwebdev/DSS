@@ -146,6 +146,12 @@
           <button class="btn btn-primary">Enter New BVA Details</button>
         </router-link>
 
+        <router-link class="mb-3" :to="{
+          name: 'BVAHistory',
+        }">
+          <button class="btn btn-primary">View BVA History</button>
+        </router-link>
+
         <!-- DELETE PATIENT MODAL LAUNCH -->
         <button class="btn btn-outline-danger mt-3" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
           Delete Patient
@@ -230,8 +236,11 @@
             data: { patientID: context.currentPatientID },
             endpoint,
           })
+          // eslint-disable-next-line no-unused-vars
           .then((res) => {
+            // eslint-disable-next-line no-unused-vars
             let patient = _.get(res, "data.patient", {});
+            // eslint-disable-next-line no-unused-vars
             let archivedTreatments = _.get(res, "data.archivedTreatments", []);
             console.log("PATIENT", patient);
             console.log("AT", archivedTreatments);
@@ -252,7 +261,9 @@
             data: { patientID: context.currentPatientID },
             endpoint,
           })
+          // eslint-disable-next-line no-unused-vars
           .then((res) => {
+            // eslint-disable-next-line no-unused-vars
             let patient = _.get(res, "data.patient", []);
             context.patient = patient;
             context.isPatientDeleted = true;
@@ -277,6 +288,7 @@
             },
             endpoint,
           })
+          // eslint-disable-next-line no-unused-vars
           .then((res) => {
             context.tPatient = {};
             context.editMode = false;
