@@ -213,13 +213,35 @@ async function getArchivedTreatmentsSinceLastDischarge(patientID){
     return await db.all(query, params);
 }
 
-async function getAllArchivedTreatments(patientID){
-    const db = await getDB();
-    let query = `SELECT * FROM ArchivedTreatment WHERE PatientID = ? ORDER BY TestDate DESC`;
-    let params = [
-        patientID
-    ];
-    return await db.all(query, params);
+async function getAllArchivedTreatments(req, res) {
+    try {
+        const db = await getDB();
+        const body = req.body;
+        const patientID = _.get(body, 'patientID');
+        let query = `SELECT * FROM ArchivedTreatment WHERE PatientID = ? ORDER BY TestDate DESC`;
+        let params = [
+            patientID
+        ];
+
+        let treatments = await db.all(query, params);
+        res.statusMessage = 'OK';
+        res.status(200).send({ treatments }).end();
+    } catch (err) {
+        res.statusMessage = 'Internal Server Error';
+        res.status(500).send(err).end();
+    }
+}
+
+module.exports = {
+    create,
+    update,
+    remove,
+    get,
+    getAll,
+    search,
+    archiveTreatment,
+    getArchivedTreatmentsSinceLastDischarge,
+    getAllArchivedTreatments
 }
 
 module.exports = {
