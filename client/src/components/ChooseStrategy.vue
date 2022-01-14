@@ -127,13 +127,13 @@
           </label>
         </div>
         <!-- BUTTONS WILL NOT BE VISIBLE UNTIL USER SELECTS AN OPTION -->
-        <div class="treatment-btn" v-if="optionA == true">
+        <div class="treatment-btn" v-if="optionA">
           <router-link :to="{ name: 'TreatmentComplete' }">
             <button type="submit" class="btn btn-primary mt-3">Submit</button>
           </router-link>
         </div>
-        <div class="treatment-btn" v-if="optionB == true">
-          <router-link :to="{ name: 'IVTreatmentEval' }">
+        <div class="treatment-btn" v-if="optionB">
+          <router-link :to="{ name: 'CongestionResolved' }">
             <button type="submit" class="btn btn-primary mt-3">Submit</button>
           </router-link>
         </div>

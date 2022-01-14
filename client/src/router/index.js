@@ -40,6 +40,7 @@ import ReportSuggestions from '../components/ReportSuggestions.vue'
 import ProgressToTarget from '../components/ProgressToTarget.vue'
 import ChooseStrategy from '../components/ChooseStrategy.vue'
 import BVAHistory from '../components/BVAHistory.vue'
+import CongestionResolved from '../components/CongestionResolved.vue'
 
 Vue.use(VueRouter)
 
@@ -247,6 +248,11 @@ const routes = [
     path: '/bva-history',
     name: 'BVAHistory',
     component: BVAHistory,
+  },
+  {
+    path: '/congestion-resolved',
+    name: 'CongestionResolved',
+    component: CongestionResolved,
   },
 ]
 
