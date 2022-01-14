@@ -39,7 +39,13 @@ import CurrentHct from '../components/CurrentHct.vue'
 import ReportSuggestions from '../components/ReportSuggestions.vue'
 import ProgressToTarget from '../components/ProgressToTarget.vue'
 import ChooseStrategy from '../components/ChooseStrategy.vue'
+import ChooseStrategy2 from '../components/ChooseStrategy2.vue'
 import BVAHistory from '../components/BVAHistory.vue'
+import CongestionResolved from '../components/CongestionResolved.vue'
+import TargetHctReached from '../components/TargetHctReached.vue'
+import SignsOfStability from '../components/SignsOfStability.vue'
+import PreDischargeBVA from '../components/PreDischargeBVA.vue'
+import HoldDiuretics from '../components/HoldDiuretics.vue'
 
 Vue.use(VueRouter)
 
@@ -244,9 +250,39 @@ const routes = [
     component: ChooseStrategy,
   },
   {
+    path: '/choose-strategy-2',
+    name: 'ChooseStrategy2',
+    component: ChooseStrategy2,
+  },
+  {
     path: '/bva-history',
     name: 'BVAHistory',
     component: BVAHistory,
+  },
+  {
+    path: '/congestion-resolved',
+    name: 'CongestionResolved',
+    component: CongestionResolved,
+  },
+  {
+    path: '/target-hct-reached',
+    name: 'TargetHctReached',
+    component: TargetHctReached,
+  },
+  {
+    path: '/signs-of-stability',
+    name: 'SignsOfStability',
+    component: SignsOfStability,
+  },
+  {
+    path: '/pre-discharge-bva',
+    name: 'PreDischargeBVA',
+    component: PreDischargeBVA,
+  },
+  {
+    path: '/hold-diuretics',
+    name: 'HoldDiuretics',
+    component: HoldDiuretics,
   },
 ]
 

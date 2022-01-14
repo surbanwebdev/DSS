@@ -122,7 +122,7 @@ svg {
 }
 
 .radio-box {
-  border-bottom: 1px solid #979797;
+  border-bottom: 1px solid #ededed;
 }
 
 .radio-box.no-border {

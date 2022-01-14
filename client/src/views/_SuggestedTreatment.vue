@@ -47,7 +47,7 @@ export default {
 .radio-box {
   width: 100%;
   padding: 1.5rem 1rem;
-  border: 1px solid #979797;
+  border: 1px solid #ededed;
   border-radius: 0.25rem;
 }
 
