@@ -4,9 +4,17 @@
       <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
       <div class="card p-3">
         <p class="bold-heading mb-3">BVA Historical View</p>
-        <span class="badge bg-light text-dark">12-01-2021</span>
-        <table class="table table-striped mb-3">
-          <tbody v-for="dataRow in archivedData" :key="dataRow.TestID">
+        <table
+          class="table table-striped my-2"
+          v-for="dataRow in archivedData"
+          :key="dataRow.TestID"
+        >
+          <tbody>
+            <div style="width: 100%" class="d-flex justify-content-end">
+              <span class="badge bg-light text-dark">{{
+                dataRow.TestDate
+              }}</span>
+            </div>
             <tr>
               <td>
                 <div
