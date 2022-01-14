@@ -5,7 +5,7 @@
       <div class="card p-3">
         <p class="bold-heading mb-3">BVA Historical View</p>
         <table
-          class="table table-striped my-2"
+          class="table table-striped my-3"
           v-for="dataRow in archivedData"
           :key="dataRow.TestID"
         >
@@ -92,9 +92,9 @@
             </tr>
           </tbody>
         </table>
-        <router-link :to="{ name: '' }">
+        <router-link :to="{ name: 'Patients' }">
           <button type="submit" class="btn btn-primary" value="Submit">
-            Submit
+            Go Back
           </button>
         </router-link>
       </div>
