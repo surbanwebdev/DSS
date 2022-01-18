@@ -119,10 +119,6 @@ nav.nav.navbar.sticky-top.navbar-dark.bg-light {
   padding-right: 1rem;
 }
 
-.container {
-  max-width: 600px !important;
-}
-
 .link {
   color: #0e71eb;
 }

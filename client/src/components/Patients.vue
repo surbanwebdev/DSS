@@ -1,45 +1,52 @@
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <div class="container mt-5">
-      <div class="card p-3">
-        <p class="bold-heading mb-4">Select a Patient:</p>
-        <ul class="list-group">
-          <li class="mb-2 item" v-for="patient in patients" :key="patient.pid">
-            <div class="content-wrap d-flex justify-content-around">
-              <h4>Patient ID: {{ patient.PatientID }}</h4>
-            </div>
-            <router-link
-              class="mb-3"
-              :to="{
-                name: 'PatientDetails',
-              }"
-            >
-              <button
-                type="submit"
-                class="btn btn-primary mt-3"
-                v-on:click="
-                  updateCurrentPatient(patient.PatientID, patient.Sex)
-                "
-              >
-                View Patient
-              </button>
-            </router-link>
-            <hr class="divider" />
-          </li>
-        </ul>
-      </div>
-      <p class="my-4">OR</p>
-      <div class="card p-3">
-        <router-link
-          class="mb-3"
-          :to="{
-            name: 'NewPatient',
-          }"
-        >
-          <button type="submit" class="btn btn-primary mt-3">
-            Add a New Patient
-          </button>
-        </router-link>
+      <router-link
+        class="mb-3 d-flex justify-content-end"
+        :to="{
+          name: 'NewPatient',
+        }"
+      >
+        <input
+          type="submit"
+          class="btn btn-primary"
+          value="Add a New Patient"
+        />
+      </router-link>
+      <p class="bold-heading mb-4 text-start">Select a Patient:</p>
+      <div class="table-wrap p-4">
+        <table>
+          <thead>
+            <tr>
+              <th class="text-start">Patient ID</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="py-2" v-for="patient in patients" :key="patient.pid">
+            <tr>
+              <td class="text-start">
+                {{ patient.PatientID }}
+              </td>
+              <td class="d-flex justify-content-end">
+                <router-link
+                  class="my-2"
+                  :to="{
+                    name: 'PatientDetails',
+                  }"
+                >
+                  <p
+                    class="my-1"
+                    v-on:click="
+                      updateCurrentPatient(patient.PatientID, patient.Sex)
+                    "
+                  >
+                    View Patient
+                  </p>
+                </router-link>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
     <div class="treatment-btn container"></div>
@@ -103,11 +110,6 @@ ul {
   list-style: none;
 }
 
-.list-group {
-  overflow-y: scroll;
-  max-height: 450px;
-}
-
 .content-wrap {
   width: 100%;
 }
@@ -118,5 +120,18 @@ h4 {
 
 .item:last-child > .divider {
   display: none;
+}
+
+table {
+  width: 100%;
+}
+
+.table-wrap {
+  background-color: #fff;
+  border-radius: 0.25rem;
+}
+
+tbody {
+  border-bottom: 2px solid #ededed;
 }
 </style>
