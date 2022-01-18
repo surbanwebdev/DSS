@@ -23,10 +23,10 @@
         </p>
         <ul>
           <li>
-            serum creatinine(sCR) stable at level 1.0 mg/dL above baseline at
+            Serum creatinine(sCR) stable at level 1.0 mg/dL above baseline at
             start of IV diuretic treatment,
           </li>
-          <li>hemodynamics (HD) stable</li>
+          <li>Hemodynamics (HD) stable</li>
           <li>Urine Output (UO) stable?</li>
         </ul>
         <div class="radio-box-wrap">
@@ -158,9 +158,5 @@ export default {
 
 svg {
   margin-right: 0.75rem;
-}
-
-ul {
-  list-style-type: none;
 }
 </style>

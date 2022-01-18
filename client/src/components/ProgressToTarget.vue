@@ -8,7 +8,7 @@
         <p>Current Hct: {{ currentHct }}</p>
         <p>Target Hct: {{ calculatedTargetHct }}</p>
         <router-link :to="{ name: 'ChooseStrategy' }">
-          <button type="submit" class="btn btn-primary" value="Submit">
+          <button type="submit" class="btn btn-primary mt-3" value="Submit">
             Submit
           </button>
         </router-link>
