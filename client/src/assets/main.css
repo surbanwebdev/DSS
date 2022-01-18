@@ -10,9 +10,10 @@
   --copy-color: #696969;
 }
 
-/* #app {
-  height: 100vh;
-} */
+/* FONTAWESOME */
+.fa-info-circle {
+  color: #22376c;
+}
 
 /* GLOBAL FONT STYLES */
 h1.light {

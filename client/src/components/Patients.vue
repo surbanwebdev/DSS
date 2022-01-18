@@ -34,14 +34,14 @@
                     name: 'PatientDetails',
                   }"
                 >
-                  <p
+                  <div
                     class="my-1"
                     v-on:click="
                       updateCurrentPatient(patient.PatientID, patient.Sex)
                     "
                   >
-                    View Patient
-                  </p>
+                    <font-awesome-icon icon="info-circle" />
+                  </div>
                 </router-link>
               </td>
             </tr>
