@@ -87,25 +87,20 @@
             />
             <label id="notes" class="form-label" for="notes">Notes</label>
           </div>
-          <div v-if="validateBvaValues">
+          <div class="d-flex justify-content-center" v-if="validateBvaValues">
             <router-link
               :to="{
                 name: 'BVADataConf',
               }"
             >
-              <button type="submit" class="btn btn-primary" value="Submit">
-                Submit
-              </button>
+              <input class="btn btn-primary mt-3 rounded" value="Submit" />
             </router-link>
           </div>
-          <div v-else>
-            <button
-              type="submit"
-              class="btn btn-primary disabled"
+          <div class="d-flex justify-content-center" v-else>
+            <input
+              class="btn btn-primary disabled mt-3 rounded"
               value="Submit"
-            >
-              Submit
-            </button>
+            />
           </div>
         </form>
       </div>

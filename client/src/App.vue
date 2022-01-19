@@ -24,7 +24,7 @@
           <h4 class="logo-subheading bold-heading mb-4">Decision Support</h4>
           <h3 class="greeting bold-heading">Welcome Back!</h3>
           <p>Sign in below with your username and password.</p>
-          <form>
+          <form id="login-form">
             <div class="form-group mb-4">
               <input
                 type="username"
@@ -507,5 +507,10 @@ button {
 .btn-primary {
   background-color: #23396b !important;
   border: none;
+}
+
+form#login-form {
+  max-width: 350px;
+  margin: 0 auto;
 }
 </style>

@@ -153,3 +153,7 @@ hr {
 div.container-md {
   max-width: 768px !important;
 }
+
+input.btn {
+  text-transform: capitalize;
+}
