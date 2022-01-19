@@ -1,52 +1,52 @@
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <div class="container mt-5">
-      <router-link
-        class="mb-3 d-flex justify-content-end"
-        :to="{
-          name: 'NewPatient',
-        }"
-      >
-        <input
-          type="submit"
-          class="btn btn-primary"
-          value="Add a New Patient"
-        />
-      </router-link>
+      <div class="d-flex justify-content-end">
+        <router-link
+          :to="{
+            name: 'NewPatient',
+          }"
+        >
+          <div class="d-flex align-items-center new-pt-link">
+            <font-awesome-icon icon="plus-square" class="mx-2" />
+            New Patient
+          </div>
+        </router-link>
+      </div>
       <p class="bold-heading mb-4 text-start">Select a Patient:</p>
-      <div class="table-wrap p-4">
-        <table>
-          <thead>
-            <tr>
-              <th class="text-start">Patient ID</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody class="py-2" v-for="patient in patients" :key="patient.pid">
-            <tr>
-              <td class="text-start">
-                {{ patient.PatientID }}
-              </td>
-              <td class="d-flex justify-content-end">
-                <router-link
-                  class="my-2"
-                  :to="{
-                    name: 'PatientDetails',
-                  }"
+
+      <div class="container p-0">
+        <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3">
+          <div v-for="patient in patients" :key="patient.pid">
+            <div class="col">
+              <router-link
+                :to="{
+                  name: 'PatientDetails',
+                }"
+              >
+                <div
+                  v-on:click="
+                    updateCurrentPatient(patient.PatientID, patient.Sex)
+                  "
                 >
                   <div
-                    class="my-1"
-                    v-on:click="
-                      updateCurrentPatient(patient.PatientID, patient.Sex)
+                    class="
+                      p-3
+                      rounded
+                      bg-white
+                      d-flex
+                      justify-content-center
+                      align-items-center
                     "
                   >
-                    <font-awesome-icon icon="info-circle" />
+                    <font-awesome-icon icon="notes-medical" class="mx-2" />
+                    {{ patient.PatientID }}
                   </div>
-                </router-link>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                </div>
+              </router-link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="treatment-btn container"></div>
@@ -133,5 +133,35 @@ table {
 
 tbody {
   border-bottom: 2px solid #ededed;
+}
+
+svg.mx-2.svg-inline--fa.fa-plus-square.fa-w-14 {
+  font-size: 1.375em;
+}
+
+.rounded {
+  transition-duration: 0.1s;
+  border: 2px solid transparent;
+}
+
+.rounded:hover {
+  box-shadow: 3px 2px 12px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 3px 2px 12px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 3px 2px 12px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+.rounded:focus {
+  border: 2px solid #22376c;
+}
+
+.new-pt-link {
+  color: darkgrey;
+  transition-duration: 0.1s;
+}
+
+.new-pt-link:hover {
+  color: #22376c;
+  transition-duration: 0.1s;
 }
 </style>
