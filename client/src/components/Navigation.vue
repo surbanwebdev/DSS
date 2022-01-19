@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="nav navbar sticky-top navbar-dark bg-light">
-      <div class="container">
+      <div class="container-md">
         <div class="nav-left d-flex">
           <img class="logo" src="../assets/logo-white.png" alt="" />
           <h6>Decision Support</h6>

@@ -148,3 +148,8 @@ hr {
 .indent {
   padding-left: 1em;
 }
+
+/* THIS SHOULD BE BOOTSRAP'S JOB */
+div.container-md {
+  max-width: 768px !important;
+}

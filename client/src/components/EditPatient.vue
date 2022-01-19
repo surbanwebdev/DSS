@@ -1,7 +1,7 @@
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
-    <div class="container mt-5">
+    <div class="container-md mt-5">
       <div class="card p-3">
         <div class="title-wrap d-flex align-items-center mb-2"></div>
         <p class="bold-heading mb-3">Add a New Patient</p>
