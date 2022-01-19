@@ -1,17 +1,18 @@
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <div class="container mt-5">
-      <router-link
-        class="mb-3 d-flex justify-content-end"
-        :to="{
-          name: 'NewPatient',
-        }"
-      >
-        <div class="d-flex align-items-center">
-          <font-awesome-icon icon="plus-square" class="mx-2" />
-          New Patient
-        </div>
-      </router-link>
+      <div class="d-flex justify-content-end">
+        <router-link
+          :to="{
+            name: 'NewPatient',
+          }"
+        >
+          <div class="d-flex align-items-center new-pt-link">
+            <font-awesome-icon icon="plus-square" class="mx-2" />
+            New Patient
+          </div>
+        </router-link>
+      </div>
       <p class="bold-heading mb-4 text-start">Select a Patient:</p>
 
       <div class="container p-0">
@@ -132,5 +133,35 @@ table {
 
 tbody {
   border-bottom: 2px solid #ededed;
+}
+
+svg.mx-2.svg-inline--fa.fa-plus-square.fa-w-14 {
+  font-size: 1.375em;
+}
+
+.rounded {
+  transition-duration: 250ms;
+  border: 2px solid transparent;
+}
+
+.rounded:hover {
+  box-shadow: 3px 2px 12px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 3px 2px 12px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 3px 2px 12px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+.rounded:focus {
+  border: 2px solid #22376c;
+}
+
+.new-pt-link {
+  color: darkgrey;
+  transition-duration: 250ms;
+}
+
+.new-pt-link:hover {
+  color: #22376c;
+  transition-duration: 250ms;
 }
 </style>
