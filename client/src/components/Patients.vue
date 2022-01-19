@@ -7,46 +7,45 @@
           name: 'NewPatient',
         }"
       >
-        <input
-          type="submit"
-          class="btn btn-primary"
-          value="Add a New Patient"
-        />
+        <div class="d-flex align-items-center">
+          <font-awesome-icon icon="plus-square" class="mx-2" />
+          New Patient
+        </div>
       </router-link>
       <p class="bold-heading mb-4 text-start">Select a Patient:</p>
-      <div class="table-wrap p-4">
-        <table>
-          <thead>
-            <tr>
-              <th class="text-start">Patient ID</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody class="py-2" v-for="patient in patients" :key="patient.pid">
-            <tr>
-              <td class="text-start">
-                {{ patient.PatientID }}
-              </td>
-              <td class="d-flex justify-content-end">
-                <router-link
-                  class="my-2"
-                  :to="{
-                    name: 'PatientDetails',
-                  }"
+
+      <div class="container p-0">
+        <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+          <div v-for="patient in patients" :key="patient.pid">
+            <div class="col">
+              <router-link
+                :to="{
+                  name: 'PatientDetails',
+                }"
+              >
+                <div
+                  v-on:click="
+                    updateCurrentPatient(patient.PatientID, patient.Sex)
+                  "
                 >
                   <div
-                    class="my-1"
-                    v-on:click="
-                      updateCurrentPatient(patient.PatientID, patient.Sex)
+                    class="
+                      p-3
+                      rounded
+                      bg-white
+                      d-flex
+                      justify-content-around
+                      align-items-center
                     "
                   >
-                    <font-awesome-icon icon="info-circle" />
+                    ID:
+                    {{ patient.PatientID }}
                   </div>
-                </router-link>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                </div>
+              </router-link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="treatment-btn container"></div>

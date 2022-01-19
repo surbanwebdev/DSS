@@ -20,13 +20,14 @@ import {
   faShoppingCart,
   faDollarSign,
   faSyringe,
-  faInfoCircle
+  faInfoCircle,
+  faPlusSquare
 }
   from "@fortawesome/free-solid-svg-icons";
 
 window.$ = window.jQuery = require('jquery');
 
-library.add(faShoppingCart, faDollarSign, faSyringe, faInfoCircle);
+library.add(faShoppingCart, faDollarSign, faSyringe, faInfoCircle, faPlusSquare);
 
 Vue.config.productionTip = false;
 
