@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container mt-2">
-      <p class="treatment-group my-2">Treatment Group: Standard Care</p>
+      <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
       <div class="card p-3">
         <h1>Suggested Treatment 2</h1>
       </div>
@@ -12,14 +12,14 @@
 <script>
 export default {
   components: {},
-  name: 'SuggestedTreatment2',
+  name: "SuggestedTreatment2",
   data: function () {
     return {
       low: false,
       high: false,
-    }
+    };
   },
-}
+};
 </script>
 
 <style scoped>

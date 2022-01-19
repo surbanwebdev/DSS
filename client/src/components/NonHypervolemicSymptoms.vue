@@ -1,7 +1,7 @@
  <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <div class="container">
-      <p class="treatment-group my-2">Treatment Group: BVA-Guided Care</p>
+      <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
       <div class="card p-3">
         <p class="bold-heading mb-3">
           Does the patient has any of the following symptoms?

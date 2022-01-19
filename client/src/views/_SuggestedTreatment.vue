@@ -2,7 +2,7 @@
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
     <div class="container mt-5">
-      <p class="treatment-group my-2">Treatment Group: Standard Care</p>
+      <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
       <div class="card p-3">
         <h1>Suggested Treatment</h1>
       </div>
