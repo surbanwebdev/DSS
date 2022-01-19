@@ -16,7 +16,7 @@
       <p class="bold-heading mb-4 text-start">Select a Patient:</p>
 
       <div class="container p-0">
-        <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+        <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3">
           <div v-for="patient in patients" :key="patient.pid">
             <div class="col">
               <router-link
@@ -35,11 +35,11 @@
                       rounded
                       bg-white
                       d-flex
-                      justify-content-around
+                      justify-content-center
                       align-items-center
                     "
                   >
-                    ID:
+                    <font-awesome-icon icon="notes-medical" class="mx-2" />
                     {{ patient.PatientID }}
                   </div>
                 </div>
@@ -140,7 +140,7 @@ svg.mx-2.svg-inline--fa.fa-plus-square.fa-w-14 {
 }
 
 .rounded {
-  transition-duration: 250ms;
+  transition-duration: 0.1s;
   border: 2px solid transparent;
 }
 
@@ -157,11 +157,11 @@ svg.mx-2.svg-inline--fa.fa-plus-square.fa-w-14 {
 
 .new-pt-link {
   color: darkgrey;
-  transition-duration: 250ms;
+  transition-duration: 0.1s;
 }
 
 .new-pt-link:hover {
   color: #22376c;
-  transition-duration: 250ms;
+  transition-duration: 0.1s;
 }
 </style>
