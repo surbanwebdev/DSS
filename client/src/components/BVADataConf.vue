@@ -1,7 +1,7 @@
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
-    <div class="container">
+    <div class="container-md">
       <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
       <form>
         <div class="card p-3">

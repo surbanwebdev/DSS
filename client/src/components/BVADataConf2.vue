@@ -1,7 +1,7 @@
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
-    <div class="container mt-5">
+    <div class="container-md mt-5">
       <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
       <form>
         <div class="card p-3">
@@ -12,7 +12,7 @@
         </div>
       </form>
     </div>
-    <div class="treatment-btn container">
+    <div class="treatment-btn container-md">
       <router-link :to="{ name: 'Post24Checklist' }">
         <button type="submit" class="btn btn-primary mt-3">
           Submit Evaluation

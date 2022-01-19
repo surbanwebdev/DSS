@@ -1,6 +1,6 @@
  <template>
   <div class="full-height d-flex flex-column justify-content-between">
-    <div class="container">
+    <div class="container-md">
       <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
       <div class="card p-3">
         <p class="bold-heading mb-3">

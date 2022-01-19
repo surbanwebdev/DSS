@@ -5,7 +5,7 @@
         <div class="jumbotron mb-4">
           <div class="bg-img py-5">
             <div class="gradient-overlay"></div>
-            <div class="container">
+            <div class="container-md">
               <div class="text-wrap text-left">
                 <h1 class="light">Reliable, Accurate Fluid Management Data</h1>
                 <p>
@@ -16,7 +16,7 @@
             </div>
           </div>
         </div>
-        <div class="container">
+        <div class="container-md">
           <img class="logo" alt="logo" src="./assets/logo.png" />
           <h4 class="logo-subheading bold-heading mb-4">Decision Support</h4>
           <h3 class="greeting bold-heading">Welcome Back!</h3>
@@ -73,10 +73,10 @@ export default {
       sessionTimer: undefined,
       lastInteraction: undefined,
       intervalCounter: 0,
-      settings: {}
+      settings: {},
     };
   },
-  beforeUnmount: function(){
+  beforeUnmount: function () {
     clearInterval(this.sessionTimer);
   },
   mounted: async function () {
@@ -84,28 +84,26 @@ export default {
     await context.loadSettings();
     context.setLastInteraction();
 
-
     let cSessionGuid = this.getSessionCookie("sessionGUID");
     if ((!cSessionGuid || cSessionGuid === "") && context.loggedIn) {
       context.logout();
       return;
     }
 
-    let url = _.trim(window.location.href,'/');
-    if (_.endsWith(url,':8080')){
+    let url = _.trim(window.location.href, "/");
+    if (_.endsWith(url, ":8080")) {
       //we were redirected to login the non-conventional way...
       context.logout();
       return;
     }
 
-    var events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
-    events.forEach(function(name) {
+    var events = ["mousedown", "mousemove", "keypress", "scroll", "touchstart"];
+    events.forEach(function (name) {
       document.addEventListener(name, context.setLastInteraction, true);
     });
 
     context.loggedIn = true;
     context.checkSession();
-    
   },
   computed: {
     apiURL: {
@@ -117,8 +115,8 @@ export default {
   watch: {
     $route(to, from) {
       const context = this;
-      let url = _.trim(window.location.href,'/');
-      if (_.endsWith(url,':8080')){
+      let url = _.trim(window.location.href, "/");
+      if (_.endsWith(url, ":8080")) {
         //we were redirected to login the non-conventional way...
         context.logout();
         return;
@@ -150,7 +148,7 @@ export default {
         endpoint = _.trim(endpoint, "/");
       }
       let url = context.apiURL + "/" + endpoint;
-  
+
       try {
         let response = await axios({
           method,
@@ -162,7 +160,10 @@ export default {
 
         if (response.status >= 200 && response.status <= 299) {
           //Anything in 200 is good
-          context.setSessionCookie(sessionGuid, context.settings.SessionTimeout); //reset the cookie timeout
+          context.setSessionCookie(
+            sessionGuid,
+            context.settings.SessionTimeout
+          ); //reset the cookie timeout
           return response;
         }
 
@@ -182,8 +183,11 @@ export default {
           context.deleteSessionCookie();
         } else {
           //any other error except 401 means the server still thinks the sesion is good.
-          if (endpoint != 'session/ping'){
-            context.setSessionCookie(sessionGuid, context.settings.SessionTimeout); //reset the cookie timeout
+          if (endpoint != "session/ping") {
+            context.setSessionCookie(
+              sessionGuid,
+              context.settings.SessionTimeout
+            ); //reset the cookie timeout
           }
         }
         throw err;
@@ -204,8 +208,7 @@ export default {
       const d = new Date();
       d.setTime(d.getTime() + exMinutes * 60 * 1000);
       let expires = "expires=" + d.toUTCString();
-      document.cookie =
-        "sessionGUID=" + cvalue + ";" + expires + ";path=/";
+      document.cookie = "sessionGUID=" + cvalue + ";" + expires + ";path=/";
     },
     getSessionCookie: function () {
       let name = "sessionGUID" + "=";
@@ -222,47 +225,48 @@ export default {
       }
       return "";
     },
-    deleteSessionCookie: function(){
+    deleteSessionCookie: function () {
       this.setSessionCookie("Session Time Out", -100);
       this.loggedIn = false;
       clearInterval(this.sessionTimer);
     },
-    setLastInteraction(){
+    setLastInteraction() {
       this.lastInteraction = new Date();
     },
-    checkSession: function(){
+    checkSession: function () {
       const context = this;
-      if (!context.loggedIn){
-        console.log('Not logged in at session check')
+      if (!context.loggedIn) {
+        console.log("Not logged in at session check");
         return;
       }
       clearInterval(context.sessionTimer);
       context.intervalCounter = 0;
-      context.sessionTimer = setInterval(()=>{
+      context.sessionTimer = setInterval(() => {
         let delta = Math.abs(new Date() - context.lastInteraction); //millisecs
-        if (delta > context.settings.SessionTimeout * 60 * 1000){
+        if (delta > context.settings.SessionTimeout * 60 * 1000) {
           //if no keyboard, mouse, touchscreen interaction in the specified timeout, kill the session
-          context.onFail('No activity in specified timeout. Logging out.');
+          context.onFail("No activity in specified timeout. Logging out.");
           context.logout();
           return;
         }
 
-        if (delta > (context.settings.SessionTimeout * 0.9) * 60 * 1000){
-          delta = (context.settings.SessionTimeout * 60 * 1000) - delta; //reusing variable
+        if (delta > context.settings.SessionTimeout * 0.9 * 60 * 1000) {
+          delta = context.settings.SessionTimeout * 60 * 1000 - delta; //reusing variable
           delta = Math.round(delta / 1000);
-          context.onWarning("Session ends in "+delta+" seconds unless interaction occurs");
+          context.onWarning(
+            "Session ends in " + delta + " seconds unless interaction occurs"
+          );
         }
 
-        if (context.intervalCounter === 60){
+        if (context.intervalCounter === 60) {
           //if we've hit 60 1-second intervals, ping the server and let them know we're still good on the UI.
-          context.ping();//let the API know the user is still doing something on the UI
+          context.ping(); //let the API know the user is still doing something on the UI
           context.intervalCounter = 0;
         }
         context.intervalCounter++;
       }, 1000);
-
     },
-    ping: function(){
+    ping: function () {
       //the point of this function is to make the server check it's session and update if not expired
       const context = this;
       const sessionGuid = context.getSessionCookie();
@@ -271,7 +275,7 @@ export default {
         return;
       }
 
-      if (!this.loggedIn){
+      if (!this.loggedIn) {
         return;
       }
 
@@ -283,10 +287,10 @@ export default {
           data: {},
         })
         .then(() => {
-          console.log(new Date()+' Ping... OK');
+          console.log(new Date() + " Ping... OK");
         })
         .catch((err) => {
-          console.log(new Date()+'Ping... FAIL');
+          console.log(new Date() + "Ping... FAIL");
           console.error(err);
           const statusCode = err.response.status;
         });
@@ -299,10 +303,10 @@ export default {
       };
 
       let ogURL = window.location.href;
-      let ogRoute = _.last(_.split(ogURL, '/'));
-      if (ogRoute === '' || ogRoute === '/'){
-        context.route = 'patients'
-      }else{
+      let ogRoute = _.last(_.split(ogURL, "/"));
+      if (ogRoute === "" || ogRoute === "/") {
+        context.route = "patients";
+      } else {
         context.route = ogRoute;
       }
 
@@ -311,7 +315,10 @@ export default {
         .post(url, payload)
         .then((response) => {
           const sessionGuid = response.data.sessionGuid;
-          context.setSessionCookie(sessionGuid, context.settings.SessionTimeout);
+          context.setSessionCookie(
+            sessionGuid,
+            context.settings.SessionTimeout
+          );
           context.setLastInteraction();
           context.loggedIn = true;
           context.checkSession();
@@ -322,13 +329,13 @@ export default {
           const statusCode = err.response.status;
           if (statusCode === 401) {
             context.onFail("The credentials you entered we invalid.");
-            console.log('login fail logout')
+            console.log("login fail logout");
             context.logout();
           }
         });
     },
     logout: function () {
-      console.log('Logging out...')
+      console.log("Logging out...");
       const context = this;
       let url = "session/logout";
       context
@@ -340,12 +347,13 @@ export default {
         .catch((err) => {
           console.error(err);
           const statusCode = err.response.status;
-        }).finally(()=>{
+        })
+        .finally(() => {
           this.deleteSessionCookie();
         });
-    },//here is the end of the chain
-    loadSettings: function(){
-      return new Promise((resolve,reject)=>{
+    }, //here is the end of the chain
+    loadSettings: function () {
+      return new Promise((resolve, reject) => {
         const context = this;
         let url = context.apiURL + "/settings/GetAllSettings";
         axios
@@ -353,7 +361,7 @@ export default {
           .then((response) => {
             let tSettings = {};
             let settings = response.data.settings;
-            for(var i = 0; i < settings.length; i++){
+            for (var i = 0; i < settings.length; i++) {
               let tSetting = settings[i];
               _.set(tSettings, tSetting.Setting, tSetting.Value);
             }
@@ -365,8 +373,8 @@ export default {
             reject();
           });
       });
-    }//end of chain
-  }
+    }, //end of chain
+  },
 };
 </script>
 

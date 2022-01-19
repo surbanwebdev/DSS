@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container mt-2">
+    <div class="container-md mt-2">
       <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
       <div class="card p-3">
         <h1>Suggested Treatment 2</h1>

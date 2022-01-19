@@ -1,7 +1,7 @@
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
-    <div class="container">
+    <div class="container-md">
       <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
       <div class="card p-3">
         <table class="table table-striped mb-0">
@@ -32,7 +32,7 @@
             </tr>
           </tbody>
         </table>
-        <div class="treatment-btn container">
+        <div class="treatment-btn container-md">
           <router-link
             v-if="tbv > 10 && pv > 10"
             :to="{

@@ -8,7 +8,7 @@
         <div class="jumbotron mb-4">
           <div class="bg-img py-5">
             <div class="gradient-overlay"></div>
-            <div class="container">
+            <div class="container-md">
               <div class="text-wrap text-left">
                 <h1 class="light">Reliable, Accurate Fluid Management Data</h1>
                 <p>
@@ -19,7 +19,7 @@
             </div>
           </div>
         </div>
-        <div class="container">
+        <div class="container-md">
           <img class="logo" alt="logo" src="./assets/logo.png" />
           <h4 class="logo-subheading bold-heading mb-4">Decision Support</h4>
           <h3 class="greeting bold-heading">Welcome Back!</h3>
@@ -123,8 +123,10 @@ export default {
     },
   },
   watch: {
+    // eslint-disable-next-line no-unused-vars
     $route(to, from) {
       const context = this;
+      // eslint-disable-next-line no-unused-vars
       let url = _.trim(window.location.href, "/");
       if (_.get(to, "Name") === "Home") {
         if (context.getSessionCookie("sessionGUID") != "") {
@@ -185,6 +187,7 @@ export default {
         throw response;
       } catch (err) {
         const statusCode = err.response.status;
+        // eslint-disable-next-line no-unused-vars
         const statusText = err.response.statusText;
         if (statusCode === 403) {
           /*
@@ -306,6 +309,7 @@ export default {
         .catch((err) => {
           console.log(new Date() + "Ping... FAIL");
           console.error(err);
+          // eslint-disable-next-line no-unused-vars
           const statusCode = err.response.status;
         });
     },
@@ -361,6 +365,7 @@ export default {
         })
         .catch((err) => {
           console.error(err);
+          // eslint-disable-next-line no-unused-vars
           const statusCode = err.response.status;
         })
         .finally(() => {

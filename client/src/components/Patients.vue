@@ -1,6 +1,6 @@
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
-    <div class="container mt-5">
+    <div class="container-md my-5">
       <div class="d-flex justify-content-end">
         <router-link
           :to="{
@@ -16,7 +16,7 @@
       <p class="bold-heading mb-4 text-start">Select a Patient:</p>
 
       <div class="container p-0">
-        <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3">
+        <div class="row row-cols-2 row-cols-lg-3 g-2 g-lg-3">
           <div v-for="patient in patients" :key="patient.pid">
             <div class="col">
               <router-link
