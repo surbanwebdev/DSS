@@ -6,23 +6,27 @@ import './assets/main.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'animate.css/animate.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import {library} from '@fortawesome/fontawesome-svg-core';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import VueCompositionAPI from '@vue/composition-api'
 import Vuelidate from 'vuelidate';
 import VueMq from 'vue-mq'
 import store from './store';
 import Toasted from 'vue-toasted';
- 
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
 import {
   faShoppingCart,
   faDollarSign,
-  faSyringe
+  faSyringe,
+  faInfoCircle
 }
-from "@fortawesome/free-solid-svg-icons";
+  from "@fortawesome/free-solid-svg-icons";
 
 window.$ = window.jQuery = require('jquery');
 
-library.add(faShoppingCart, faDollarSign, faSyringe);   
+library.add(faShoppingCart, faDollarSign, faSyringe, faInfoCircle);
 
 Vue.config.productionTip = false;
 

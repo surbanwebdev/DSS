@@ -5,7 +5,7 @@
       <p v-if="tbv" class="treatment-group my-2">
         Patient ID: {{ currentPatientID }}
       </p>
-      <p v-else class="treatment-group my-2">Treatment Group: Standard Care</p>
+      <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
       <div class="card p-3">
         <div class="title-wrap d-flex align-items-center mb-2">
           <svg

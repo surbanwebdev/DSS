@@ -7,21 +7,28 @@
           <h6>Decision Support</h6>
         </div>
         <div class="nav-right">
-          <button
-            class="navbar-toggler px-0"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarCollapse"
-            aria-controls="navbarCollapse"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
+          <div
+            id="burger"
+            :class="{ active: isBurgerActive }"
+            @click.prevent="toggle"
           >
-            <div class="navbar-toggler-icon">
-              <span class="line"></span>
-              <span class="line"></span>
-              <span class="line"></span>
-            </div>
-          </button>
+            <slot>
+              <button
+                type="button"
+                class="burger-button"
+                title="Menu"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="burger-bar burger-bar--1"></span>
+                <span class="burger-bar burger-bar--2"></span>
+                <span class="burger-bar burger-bar--3"></span>
+              </button>
+            </slot>
+          </div>
         </div>
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto mt-3">
@@ -89,12 +96,16 @@ export default {
     return {
       action: "",
       previousPage: "",
+      isBurgerActive: false,
     };
   },
   mounted: function () {
     this.previousPage = "";
   },
   methods: {
+    toggle() {
+      this.isBurgerActive = !this.isBurgerActive;
+    },
     logout: function () {
       this.$parent.logout();
     },
@@ -171,5 +182,89 @@ h6 {
 ul {
   width: 100%;
   list-style-type: none;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* remove blue outline */
+button:focus {
+  outline: 0;
+}
+
+/* HAMBURGER */
+.burger-button {
+  position: relative;
+  height: 36px;
+  width: 36px;
+  display: block;
+  z-index: 999;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  pointer-events: all;
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.burger-bar {
+  background-color: #fff;
+  border-radius: 0.25rem;
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  left: 6px;
+  height: 0.075em;
+  width: auto;
+  margin-top: -1px;
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1),
+    opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1),
+    background-color 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.burger-bar--1 {
+  -webkit-transform: translateY(-8px);
+  transform: translateY(-8px);
+}
+
+.burger-bar--2 {
+  transform-origin: 100% 50%;
+  transform: scaleX(0.8);
+}
+
+.burger-button:hover .burger-bar--2 {
+  transform: scaleX(1);
+}
+
+.no-touchevents .burger-bar--2:hover {
+  transform: scaleX(1);
+}
+
+.burger-bar--3 {
+  transform: translateY(8px);
+}
+
+#burger.active .burger-button {
+  transform: rotate(-180deg);
+}
+
+#burger.active .burger-bar {
+  background-color: #fff;
+}
+
+#burger.active .burger-bar--1 {
+  transform: rotate(45deg);
+}
+
+#burger.active .burger-bar--2 {
+  opacity: 0;
+}
+
+#burger.active .burger-bar--3 {
+  transform: rotate(-45deg);
 }
 </style>
