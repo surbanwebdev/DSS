@@ -46,6 +46,7 @@ import TargetHctReached from '../components/TargetHctReached.vue'
 import SignsOfStability from '../components/SignsOfStability.vue'
 import PreDischargeBVA from '../components/PreDischargeBVA.vue'
 import HoldDiuretics from '../components/HoldDiuretics.vue'
+import DecisionItems from '../components/DecisionItems.vue'
 
 Vue.use(VueRouter)
 
@@ -283,6 +284,11 @@ const routes = [
     path: '/hold-diuretics',
     name: 'HoldDiuretics',
     component: HoldDiuretics,
+  },
+  {
+    path: '/decision-items',
+    name: 'DecisionItems',
+    component: DecisionItems,
   },
 ]
 

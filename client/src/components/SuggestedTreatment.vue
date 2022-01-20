@@ -43,7 +43,11 @@
             name: 'InitialAnemia',
           }"
         >
-          <button type="submit" class="btn btn-primary mt-3">
+          <button
+            @click="populateDecisionItems"
+            type="submit"
+            class="btn btn-primary mt-3"
+          >
             Acknowledge Suggestion
           </button>
         </router-link>
@@ -54,7 +58,11 @@
             name: 'InitialPolycythemic',
           }"
         >
-          <button type="submit" class="btn btn-primary mt-3">
+          <button
+            @click="populateDecisionItems"
+            type="submit"
+            class="btn btn-primary mt-3"
+          >
             Acknowledge Suggestion
           </button>
         </router-link>
@@ -65,7 +73,11 @@
             name: 'DischargePlan',
           }"
         >
-          <button type="submit" class="btn btn-primary mt-3">
+          <button
+            @click="populateDecisionItems"
+            type="submit"
+            class="btn btn-primary mt-3"
+          >
             Acknowledge Suggestion
           </button>
         </router-link>
@@ -84,6 +96,16 @@ export default {
       tbv: this.$store.state.tbv,
       rbcv: this.$store.state.tbv,
     };
+  },
+  methods: {
+    populateDecisionItems: function () {
+      const context = this;
+      if (context.tbv > 31) {
+        context.$store.state.decisionItems.push("Severe overload aknowledged");
+      } else {
+        context.$store.state.decisionItems.push("Mild overload aknowledged");
+      }
+    },
   },
 };
 </script>
