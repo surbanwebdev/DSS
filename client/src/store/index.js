@@ -11,7 +11,7 @@ export default new Vuex.Store({
     currentPatientID: null,
     currentPatientSex: null,
     currentHct: null,
-    decisionItems: ['apple', 'banana', 'orange'],
+    decisionItems: [],
     edemic: false,
     euvolemic: false,
     firstName: '',

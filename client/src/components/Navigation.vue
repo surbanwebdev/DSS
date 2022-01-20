@@ -41,6 +41,15 @@
             <li class="nav-item">
               <p v-on:click="confirmLogout">Logout</p>
             </li>
+            <li class="nav-item">
+              <router-link
+                :to="{
+                  name: 'DecisionItems',
+                }"
+              >
+                <p style="color: #fff">Dump</p>
+              </router-link>
+            </li>
           </ul>
         </div>
       </div>

@@ -20,7 +20,11 @@
           <h5 class="blue-heading m-0">Decision Items</h5>
         </div>
         <p class="bold-heading mb-3">These are your decisions.</p>
-        <p>{{ decisionItems }}</p>
+        <ul class="decision-list">
+          <li v-for="item in decisionItems" :key="item">
+            {{ item }}
+          </li>
+        </ul>
         <router-link
           :to="{
             name: 'ReportSuggestions',
@@ -78,5 +82,9 @@ export default {
 
 svg {
   margin-right: 0.75rem;
+}
+
+ul {
+  list-style-type: none;
 }
 </style>

@@ -1,3 +1,4 @@
+/* eslint-env jquery */
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
@@ -13,25 +14,29 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="Dyspnea"
               id="dyspnea"
             />
-            <label class="form-check-label" for="dyspnea"> Dyspnea </label>
+            <label id="lbltxt1" class="form-check-label" for="dyspnea">
+              Dyspnea
+            </label>
           </div>
           <div class="form-check mb-2">
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="Orthopnea"
               id="orthopnea"
             />
-            <label class="form-check-label" for="orthopnea"> Orthopnea </label>
+            <label id="lbltxt2" class="form-check-label" for="orthopnea">
+              Orthopnea
+            </label>
           </div>
           <div class="form-check mb-2">
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="Edema"
               id="edema"
             />
             <label class="form-check-label" for="edema"> Edema </label>
@@ -45,7 +50,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="Rales"
               id="rales"
             />
             <label class="form-check-label" for="rales"> Rales </label>
@@ -54,7 +59,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="Peripheral edema"
               id="peripheralEdema"
             />
             <label class="form-check-label" for="peripheralEdema">
@@ -65,19 +70,29 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="Ascites"
               id="ascites"
             />
             <label class="form-check-label" for="ascites"> Ascites </label>
           </div>
           <div class="form-check mb-2">
-            <input class="form-check-input" type="checkbox" value="" id="pvc" />
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="Pulmonary Vascular Congestion on Chest Radiography"
+              id="pvc"
+            />
             <label class="form-check-label" for="pvc">
               Pulmonary Vascular Congestion on Chest Radiography
             </label>
           </div>
           <div class="form-check mb-2">
-            <input class="form-check-input" type="checkbox" value="" id="jvp" />
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="Jugular Venous Pressure (JVP)"
+              id="jvp"
+            />
             <label class="form-check-label" for="jvp">
               Jugular Venous Pressure (JVP)
             </label>
@@ -86,7 +101,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="Orthopnea"
               id="orthopnea2"
             />
             <label class="form-check-label" for="orthopnea2"> Orthopnea </label>
@@ -97,7 +112,11 @@
             name: 'SuggestedTreatment',
           }"
         >
-          <button type="submit" class="btn btn-primary mt-3">
+          <button
+            @click="populateDecisionItems"
+            type="submit"
+            class="btn btn-primary mt-3"
+          >
             Submit Evaluation
           </button>
         </router-link>
@@ -116,8 +135,20 @@ export default {
       tbv: this.$store.state.tbv,
     };
   },
+  methods: {
+    // TAKES ALL CHECKED INPUTS AND PUSHES TO GLOBAL ARRAY
+    populateDecisionItems: function () {
+      const context = this;
+      $(".form-check-input").each(function (i, obj) {
+        if ($(obj).is(":checked")) {
+          context.$store.state.decisionItems.push(obj.value);
+        }
+      });
+    },
+  },
 };
 </script>
+
 
 <style scoped>
 body {
