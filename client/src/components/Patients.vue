@@ -49,7 +49,18 @@
         </div>
       </div>
     </div>
-    <div class="treatment-btn container"></div>
+    <div class="treatment-btn container">
+      <router-link
+        :to="{
+          name: 'DecisionItems',
+        }"
+      >
+        <div class="d-flex align-items-center new-pt-link">
+          <font-awesome-icon icon="plus-square" class="mx-2" />
+          Decision Items Component
+        </div>
+      </router-link>
+    </div>
     <Footer />
   </div>
 </template>
