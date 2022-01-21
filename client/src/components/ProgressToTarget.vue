@@ -8,7 +8,12 @@
         <p>Current Hct: {{ currentHct }}</p>
         <p>Target Hct: {{ calculatedTargetHct }}</p>
         <router-link :to="{ name: 'ChooseStrategy' }">
-          <button type="submit" class="btn btn-primary mt-3" value="Submit">
+          <button
+            @click="populateDecisionItems"
+            type="submit"
+            class="btn btn-primary mt-3"
+            value="Submit"
+          >
             Submit
           </button>
         </router-link>
@@ -44,6 +49,12 @@ export default {
     calculateDistanceToTarget: function () {
       var calculated = this.thct - this.nhct;
       this.distanceToTarget = calculated.toFixed(2);
+    },
+    populateDecisionItems: function () {
+      const context = this;
+      context.$store.state.decisionItems.push(
+        "Progress to target Hct acknowledged"
+      );
     },
   },
 };

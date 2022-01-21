@@ -1,3 +1,4 @@
+/* eslint-env jquery */
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
@@ -31,6 +32,7 @@
                   <input
                     class="form-check-input"
                     type="radio"
+                    value="Strategy selected: Increase diuretic dose by 50%"
                     name="flexRadioDefault"
                   />
                 </div>
@@ -60,6 +62,7 @@
                   <input
                     class="form-check-input"
                     type="radio"
+                    value="Strategy selected: Maintain same strategy"
                     name="flexRadioDefault"
                   />
                 </div>
@@ -89,6 +92,7 @@
                   <input
                     class="form-check-input"
                     type="radio"
+                    value="Strategy selected: Continue with reduced IV diuretic dose"
                     name="flexRadioDefault"
                   />
                 </div>
@@ -119,6 +123,7 @@
                   <input
                     class="form-check-input"
                     type="radio"
+                    value="Strategy selected: Consider ending IV treatment and change to oral diuretics"
                     name="flexRadioDefault"
                   />
                 </div>
@@ -129,12 +134,24 @@
         <!-- BUTTONS WILL NOT BE VISIBLE UNTIL USER SELECTS AN OPTION -->
         <div class="treatment-btn" v-if="optionA">
           <router-link :to="{ name: 'TreatmentComplete' }">
-            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+            <button
+              @click="populateDecisionItems"
+              type="submit"
+              class="btn btn-primary mt-3"
+            >
+              Submit
+            </button>
           </router-link>
         </div>
         <div class="treatment-btn" v-if="optionB">
           <router-link :to="{ name: 'CongestionResolved' }">
-            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+            <button
+              @click="populateDecisionItems"
+              type="submit"
+              class="btn btn-primary mt-3"
+            >
+              Submit
+            </button>
           </router-link>
         </div>
       </div>
@@ -152,7 +169,16 @@ export default {
       optionB: false,
     };
   },
-  methods: {},
+  methods: {
+    populateDecisionItems: function () {
+      const context = this;
+      $(".form-check-input").each(function (i, obj) {
+        if ($(obj).is(":checked")) {
+          context.$store.state.decisionItems.push(obj.value);
+        }
+      });
+    },
+  },
 };
 </script>
 
