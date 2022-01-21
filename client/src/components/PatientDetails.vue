@@ -1,6 +1,17 @@
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <div class="container-md mt-5">
+      <div
+        class="container-header d-flex justify-content-start align-items-center"
+      >
+        <div
+          @click="goBack"
+          class="d-flex justify-content-start align-items-center"
+        >
+          <font-awesome-icon icon="arrow-circle-left" class="mx-2" />
+          <p class="treatment-group my-2">Back</p>
+        </div>
+      </div>
       <div class="card p-3">
         <div class="card-header d-flex justify-content-between px-0">
           <p class="bold-heading mb-4">Patient Details:</p>

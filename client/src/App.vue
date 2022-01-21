@@ -141,6 +141,9 @@ export default {
     },
   },
   methods: {
+    goBack: function () {
+      window.history.go(-1);
+    },
     apiCall: async function (cfg) {
       const context = this;
       const sessionGuid = context.getSessionCookie("sessionGUID");

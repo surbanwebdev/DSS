@@ -24,13 +24,14 @@ import {
   faPlusSquare,
   faNotesMedical,
   faEdit,
-  faCog
+  faCog,
+  faArrowCircleLeft
 }
   from "@fortawesome/free-solid-svg-icons";
 
 window.$ = window.jQuery = require('jquery');
 
-library.add(faShoppingCart, faDollarSign, faSyringe, faInfoCircle, faPlusSquare, faNotesMedical, faEdit, faCog);
+library.add(faShoppingCart, faDollarSign, faSyringe, faInfoCircle, faPlusSquare, faNotesMedical, faEdit, faCog, faArrowCircleLeft);
 
 Vue.config.productionTip = false;
 
@@ -51,6 +52,14 @@ Vue.use(VueMq, {
 
 Vue.use(Toasted, {
   duration: 3000
+})
+
+Vue.mixin({
+  methods: {
+    goBack: function () {
+      window.history.go(-1);
+    },
+  },
 })
 
 new Vue({
