@@ -28,10 +28,14 @@
         </p>
         <router-link
           :to="{
-            name: 'ReportSuggestions',
+            name: 'TreatmentComplete',
           }"
         >
-          <button type="submit" class="btn btn-primary mt-3">
+          <button
+            @click="populateDecisionItems"
+            type="submit"
+            class="btn btn-primary mt-3"
+          >
             Acknowledge Suggestion
           </button>
         </router-link>
@@ -50,6 +54,14 @@ export default {
       tbv: this.$store.state.tbv,
       rbcv: this.$store.state.tbv,
     };
+  },
+  methods: {
+    populateDecisionItems: function () {
+      const context = this;
+      context.$store.state.decisionItems.push(
+        "Suggested treatment for polycythemia: Assess patient for polycythemia vera and suitability of therapies, including therapeutic phlebotomy"
+      );
+    },
   },
 };
 </script>
