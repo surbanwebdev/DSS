@@ -1,3 +1,4 @@
+/* eslint-env jquery */
  <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <div class="container-md mt-5">
@@ -53,6 +54,7 @@
                   <input
                     class="form-check-input"
                     type="radio"
+                    value="You selected congestion has been resolved"
                     name="flexRadioDefault"
                     id="Low"
                   />
@@ -82,6 +84,7 @@
                   <input
                     class="form-check-input"
                     type="radio"
+                    value="You selected congestion has not been resolved"
                     name="flexRadioDefault"
                     id="High"
                   />
@@ -96,7 +99,11 @@
               name: 'TargetHctReached',
             }"
           >
-            <button type="submit" class="btn btn-primary mt-3">
+            <button
+              @click="populateDecisionItems"
+              type="submit"
+              class="btn btn-primary mt-3"
+            >
               Submit Assessment
             </button>
           </router-link>
@@ -107,7 +114,11 @@
               name: 'CurrentHct',
             }"
           >
-            <button type="submit" class="btn btn-primary mt-3">
+            <button
+              @click="populateDecisionItems"
+              type="submit"
+              class="btn btn-primary mt-3"
+            >
               Submit Assessment
             </button>
           </router-link>
@@ -124,6 +135,16 @@ export default {
     return {
       optionA: undefined,
     };
+  },
+  methods: {
+    populateDecisionItems: function () {
+      const context = this;
+      $(".form-check-input").each(function (i, obj) {
+        if ($(obj).is(":checked")) {
+          context.$store.state.decisionItems.push(obj.value);
+        }
+      });
+    },
   },
 };
 </script>
