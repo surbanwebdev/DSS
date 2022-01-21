@@ -2,7 +2,23 @@
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
     <div class="container-md mt-5">
-      <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
+      <div
+        class="
+          container-header
+          d-flex
+          justify-content-between
+          align-items-center
+        "
+      >
+        <div
+          @click="goBack"
+          class="d-flex justify-content-start align-items-center"
+        >
+          <font-awesome-icon icon="arrow-circle-left" class="mx-2" />
+          <p class="treatment-group my-2">Back</p>
+        </div>
+        <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
+      </div>
       <div class="card p-3">
         <div class="title-wrap d-flex align-items-center mb-4">
           <svg
@@ -27,7 +43,11 @@
             name: 'ReportSuggestions',
           }"
         >
-          <button type="submit" class="btn btn-primary mt-3">
+          <button
+            @click="populateDecisionItems"
+            type="submit"
+            class="btn btn-primary mt-3"
+          >
             Acknowledge Suggestion
           </button>
         </router-link>
@@ -42,6 +62,14 @@ export default {
   name: "DischargePlan",
   data: function () {
     return {};
+  },
+  methods: {
+    populateDecisionItems: function () {
+      const context = this;
+      context.$store.state.decisionItems.push(
+        "Expedited path to discharge acknowledged"
+      );
+    },
   },
 };
 </script>

@@ -1,8 +1,25 @@
+/* eslint-env jquery */
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
     <div class="container-md mt-5">
-      <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
+      <div
+        class="
+          container-header
+          d-flex
+          justify-content-between
+          align-items-center
+        "
+      >
+        <div
+          @click="goBack"
+          class="d-flex justify-content-start align-items-center"
+        >
+          <font-awesome-icon icon="arrow-circle-left" class="mx-2" />
+          <p class="treatment-group my-2">Back</p>
+        </div>
+        <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
+      </div>
       <div class="card p-3">
         <p class="bold-heading mb-1">24 Reevaluation</p>
         <p class="bold-heading indent mb-1">
@@ -13,7 +30,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="You selected dyspnea"
               id="dyspnea"
             />
             <label class="form-check-label" for="dyspnea"> Dyspnea </label>
@@ -22,7 +39,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="You selected orthopnea"
               id="orthopnea"
             />
             <label class="form-check-label" for="orthopnea"> Orthopnea </label>
@@ -31,7 +48,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="You selected edema"
               id="edema"
             />
             <label class="form-check-label" for="edema"> Edema </label>
@@ -45,7 +62,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="You selected rales"
               id="rales"
             />
             <label class="form-check-label" for="rales"> Rales </label>
@@ -54,7 +71,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="You selected peripheral edema"
               id="peripheralEdema"
             />
             <label class="form-check-label" for="peripheralEdema">
@@ -65,19 +82,29 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="You selected ascites"
               id="ascites"
             />
             <label class="form-check-label" for="ascites"> Ascites </label>
           </div>
           <div class="form-check mb-2">
-            <input class="form-check-input" type="checkbox" value="" id="pvc" />
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="You selected pulmonary vascular congestion on chest radiography"
+              id="pvc"
+            />
             <label class="form-check-label" for="pvc">
               Pulmonary Vascular Congestion on Chest Radiography
             </label>
           </div>
           <div class="form-check mb-2">
-            <input class="form-check-input" type="checkbox" value="" id="jvp" />
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="You selected jugular venous pressure (JVP)"
+              id="jvp"
+            />
             <label class="form-check-label" for="jvp">
               Jugular Venous Pressure (JVP)
             </label>
@@ -86,14 +113,18 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="You selected orthopnea indicating congestion"
               id="orthopnea2"
             />
             <label class="form-check-label" for="orthopnea2"> Orthopnea </label>
           </div>
         </div>
         <router-link :to="{ name: 'ProgressToTarget' }">
-          <button type="submit" class="btn btn-primary mt-3">
+          <button
+            @click="populateDecisionItems"
+            type="submit"
+            class="btn btn-primary mt-3"
+          >
             Submit Evaluation
           </button>
         </router-link>
@@ -106,6 +137,17 @@
 <script>
 export default {
   name: "Post24Checklist",
+  methods: {
+    // TAKES ALL CHECKED INPUTS AND PUSHES TO GLOBAL ARRAY
+    populateDecisionItems: function () {
+      const context = this;
+      $(".form-check-input").each(function (i, obj) {
+        if ($(obj).is(":checked")) {
+          context.$store.state.decisionItems.push(obj.value);
+        }
+      });
+    },
+  },
 };
 </script>
 

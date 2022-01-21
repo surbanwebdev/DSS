@@ -2,10 +2,23 @@
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
     <div class="container-md">
-      <p v-if="tbv" class="treatment-group my-2">
-        Patient ID: {{ currentPatientID }}
-      </p>
-      <p v-else class="treatment-group my-2">Treatment Group: Standard Care</p>
+      <div
+        class="
+          container-header
+          d-flex
+          justify-content-between
+          align-items-center
+        "
+      >
+        <div
+          @click="goBack"
+          class="d-flex justify-content-start align-items-center"
+        >
+          <font-awesome-icon icon="arrow-circle-left" class="mx-2" />
+          <p class="treatment-group my-2">Back</p>
+        </div>
+        <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
+      </div>
       <div class="card p-3">
         <div class="title-wrap d-flex align-items-center mb-2">
           <svg
@@ -28,10 +41,14 @@
         </p>
         <router-link
           :to="{
-            name: 'ReportSuggestions',
+            name: 'TreatmentComplete',
           }"
         >
-          <button type="submit" class="btn btn-primary mt-3">
+          <button
+            @click="populateDecisionItems"
+            type="submit"
+            class="btn btn-primary mt-3"
+          >
             Acknowledge Suggestion
           </button>
         </router-link>
@@ -50,6 +67,14 @@ export default {
       tbv: this.$store.state.tbv,
       rbcv: this.$store.state.tbv,
     };
+  },
+  methods: {
+    populateDecisionItems: function () {
+      const context = this;
+      context.$store.state.decisionItems.push(
+        "Suggested treatment for polycythemia: Assess patient for polycythemia vera and suitability of therapies, including therapeutic phlebotomy"
+      );
+    },
   },
 };
 </script>

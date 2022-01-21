@@ -3,7 +3,23 @@
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
     <div class="container-md">
-      <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
+      <div
+        class="
+          container-header
+          d-flex
+          justify-content-between
+          align-items-center
+        "
+      >
+        <div
+          @click="goBack"
+          class="d-flex justify-content-start align-items-center"
+        >
+          <font-awesome-icon icon="arrow-circle-left" class="mx-2" />
+          <p class="treatment-group my-2">Back</p>
+        </div>
+        <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
+      </div>
       <div class="card p-3">
         <p class="bold-heading mb-1">Initial treatment for hypervolmia</p>
         <p class="bold-heading indent mb-1">
@@ -14,7 +30,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value="Dyspnea"
+              value="You selected dyspnea"
               id="dyspnea"
             />
             <label id="lbltxt1" class="form-check-label" for="dyspnea">
@@ -25,7 +41,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value="Orthopnea"
+              value="You selected orthopnea"
               id="orthopnea"
             />
             <label id="lbltxt2" class="form-check-label" for="orthopnea">
@@ -36,7 +52,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value="Edema"
+              value=" You selected edema"
               id="edema"
             />
             <label class="form-check-label" for="edema"> Edema </label>
@@ -50,7 +66,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value="Rales"
+              value="You selected rales"
               id="rales"
             />
             <label class="form-check-label" for="rales"> Rales </label>
@@ -59,7 +75,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value="Peripheral edema"
+              value="You selected peripheral edema"
               id="peripheralEdema"
             />
             <label class="form-check-label" for="peripheralEdema">
@@ -70,7 +86,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value="Ascites"
+              value="You selected ascites"
               id="ascites"
             />
             <label class="form-check-label" for="ascites"> Ascites </label>
@@ -79,7 +95,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value="Pulmonary Vascular Congestion on Chest Radiography"
+              value="You selected pulmonary vascular congestion on chest radiography"
               id="pvc"
             />
             <label class="form-check-label" for="pvc">
@@ -90,7 +106,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value="Jugular Venous Pressure (JVP)"
+              value="You selected jugular venous pressure (JVP)"
               id="jvp"
             />
             <label class="form-check-label" for="jvp">
@@ -101,7 +117,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value="Orthopnea"
+              value="You selected orthopnea indicating congestion"
               id="orthopnea2"
             />
             <label class="form-check-label" for="orthopnea2"> Orthopnea </label>

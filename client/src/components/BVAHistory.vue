@@ -1,7 +1,23 @@
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <div class="container-md">
-      <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
+      <div
+        class="
+          container-header
+          d-flex
+          justify-content-between
+          align-items-center
+        "
+      >
+        <div
+          @click="goBack"
+          class="d-flex justify-content-start align-items-center"
+        >
+          <font-awesome-icon icon="arrow-circle-left" class="mx-2" />
+          <p class="treatment-group my-2">Back</p>
+        </div>
+        <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
+      </div>
       <div class="card p-3">
         <p class="bold-heading mb-3">BVA Historical View</p>
         <table

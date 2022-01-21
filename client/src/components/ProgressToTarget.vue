@@ -1,14 +1,35 @@
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <div class="container-md mt-5">
-      <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
+      <div
+        class="
+          container-header
+          d-flex
+          justify-content-between
+          align-items-center
+        "
+      >
+        <div
+          @click="goBack"
+          class="d-flex justify-content-start align-items-center"
+        >
+          <font-awesome-icon icon="arrow-circle-left" class="mx-2" />
+          <p class="treatment-group my-2">Back</p>
+        </div>
+        <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
+      </div>
       <div class="card p-3">
         <div class="title-wrap d-flex align-items-center mb-2"></div>
         <p class="bold-heading mb-3">Progress to Target {{ thct }}</p>
         <p>Current Hct: {{ currentHct }}</p>
         <p>Target Hct: {{ calculatedTargetHct }}</p>
         <router-link :to="{ name: 'ChooseStrategy' }">
-          <button type="submit" class="btn btn-primary mt-3" value="Submit">
+          <button
+            @click="populateDecisionItems"
+            type="submit"
+            class="btn btn-primary mt-3"
+            value="Submit"
+          >
             Submit
           </button>
         </router-link>
@@ -44,6 +65,12 @@ export default {
     calculateDistanceToTarget: function () {
       var calculated = this.thct - this.nhct;
       this.distanceToTarget = calculated.toFixed(2);
+    },
+    populateDecisionItems: function () {
+      const context = this;
+      context.$store.state.decisionItems.push(
+        "Progress to target Hct acknowledged"
+      );
     },
   },
 };

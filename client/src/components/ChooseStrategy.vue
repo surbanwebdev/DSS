@@ -1,8 +1,25 @@
+/* eslint-env jquery */
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
     <div class="container-md mt-5">
-      <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
+      <div
+        class="
+          container-header
+          d-flex
+          justify-content-between
+          align-items-center
+        "
+      >
+        <div
+          @click="goBack"
+          class="d-flex justify-content-start align-items-center"
+        >
+          <font-awesome-icon icon="arrow-circle-left" class="mx-2" />
+          <p class="treatment-group my-2">Back</p>
+        </div>
+        <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
+      </div>
       <div class="card p-3">
         <p class="bold-heading mb-1">
           Based on your assessment of signs and symptoms, choose a strategy:
@@ -31,6 +48,7 @@
                   <input
                     class="form-check-input"
                     type="radio"
+                    value="Strategy selected: Increase diuretic dose by 50%"
                     name="flexRadioDefault"
                   />
                 </div>
@@ -60,6 +78,7 @@
                   <input
                     class="form-check-input"
                     type="radio"
+                    value="Strategy selected: Maintain same strategy"
                     name="flexRadioDefault"
                   />
                 </div>
@@ -89,6 +108,7 @@
                   <input
                     class="form-check-input"
                     type="radio"
+                    value="Strategy selected: Continue with reduced IV diuretic dose"
                     name="flexRadioDefault"
                   />
                 </div>
@@ -119,6 +139,7 @@
                   <input
                     class="form-check-input"
                     type="radio"
+                    value="Strategy selected: Consider ending IV treatment and change to oral diuretics"
                     name="flexRadioDefault"
                   />
                 </div>
@@ -129,12 +150,24 @@
         <!-- BUTTONS WILL NOT BE VISIBLE UNTIL USER SELECTS AN OPTION -->
         <div class="treatment-btn" v-if="optionA">
           <router-link :to="{ name: 'TreatmentComplete' }">
-            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+            <button
+              @click="populateDecisionItems"
+              type="submit"
+              class="btn btn-primary mt-3"
+            >
+              Submit
+            </button>
           </router-link>
         </div>
         <div class="treatment-btn" v-if="optionB">
           <router-link :to="{ name: 'CongestionResolved' }">
-            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+            <button
+              @click="populateDecisionItems"
+              type="submit"
+              class="btn btn-primary mt-3"
+            >
+              Submit
+            </button>
           </router-link>
         </div>
       </div>
@@ -152,7 +185,16 @@ export default {
       optionB: false,
     };
   },
-  methods: {},
+  methods: {
+    populateDecisionItems: function () {
+      const context = this;
+      $(".form-check-input").each(function (i, obj) {
+        if ($(obj).is(":checked")) {
+          context.$store.state.decisionItems.push(obj.value);
+        }
+      });
+    },
+  },
 };
 </script>
 

@@ -1,7 +1,24 @@
+/* eslint-env jquery */
  <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <div class="container-md mt-5">
-      <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
+      <div
+        class="
+          container-header
+          d-flex
+          justify-content-between
+          align-items-center
+        "
+      >
+        <div
+          @click="goBack"
+          class="d-flex justify-content-start align-items-center"
+        >
+          <font-awesome-icon icon="arrow-circle-left" class="mx-2" />
+          <p class="treatment-group my-2">Back</p>
+        </div>
+        <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
+      </div>
       <div class="card p-3">
         <div class="title-wrap d-flex align-items-center mb-4">
           <svg
@@ -53,6 +70,7 @@
                   <input
                     class="form-check-input"
                     type="radio"
+                    value="You selected congestion has been resolved"
                     name="flexRadioDefault"
                     id="Low"
                   />
@@ -82,6 +100,7 @@
                   <input
                     class="form-check-input"
                     type="radio"
+                    value="You selected congestion has not been resolved"
                     name="flexRadioDefault"
                     id="High"
                   />
@@ -96,7 +115,11 @@
               name: 'TargetHctReached',
             }"
           >
-            <button type="submit" class="btn btn-primary mt-3">
+            <button
+              @click="populateDecisionItems"
+              type="submit"
+              class="btn btn-primary mt-3"
+            >
               Submit Assessment
             </button>
           </router-link>
@@ -107,7 +130,11 @@
               name: 'CurrentHct',
             }"
           >
-            <button type="submit" class="btn btn-primary mt-3">
+            <button
+              @click="populateDecisionItems"
+              type="submit"
+              class="btn btn-primary mt-3"
+            >
               Submit Assessment
             </button>
           </router-link>
@@ -124,6 +151,16 @@ export default {
     return {
       optionA: undefined,
     };
+  },
+  methods: {
+    populateDecisionItems: function () {
+      const context = this;
+      $(".form-check-input").each(function (i, obj) {
+        if ($(obj).is(":checked")) {
+          context.$store.state.decisionItems.push(obj.value);
+        }
+      });
+    },
   },
 };
 </script>

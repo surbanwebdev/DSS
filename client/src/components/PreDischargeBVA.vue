@@ -1,8 +1,25 @@
+/* eslint-env jquery */
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
     <div class="container-md mt-5">
-      <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
+      <div
+        class="
+          container-header
+          d-flex
+          justify-content-between
+          align-items-center
+        "
+      >
+        <div
+          @click="goBack"
+          class="d-flex justify-content-start align-items-center"
+        >
+          <font-awesome-icon icon="arrow-circle-left" class="mx-2" />
+          <p class="treatment-group my-2">Back</p>
+        </div>
+        <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
+      </div>
       <div class="card p-3">
         <div class="title-wrap d-flex align-items-center mb-4">
           <svg
@@ -37,7 +54,11 @@
             name: 'TreatmentComplete',
           }"
         >
-          <button type="submit" class="btn btn-primary mt-3">
+          <button
+            @click="populateDecisionItems"
+            type="submit"
+            class="btn btn-primary mt-3"
+          >
             Acknowledge Suggestion
           </button>
         </router-link>
@@ -54,6 +75,22 @@ export default {
     return {
       rbcv: this.$store.state.rbcv,
     };
+  },
+  methods: {
+    populateDecisionItems: function () {
+      const context = this;
+      if (this.rbcv < -10 || this.rbcv > 10) {
+        context.$store.state.decisionItems.push(
+          "Pre-Discharge BVA-guided acknowledged with the following intrstuctions: 'Consider repeat BVA to validate effectiveness of RBCV-altering treatments and readiness for discharge'"
+        );
+      }
+      context.$store.state.decisionItems.push(
+        "Pre-Discharge BVA-guided acknowledged with the following intrstuctions: 'Initiate oral loop diuretics with goal to keep net even (new dose of loop diuretics may be less than baseline dose in some patients'"
+      );
+      context.$store.state.decisionItems.push(
+        "Pre-Discharge BVA-guided acknowledged with the following intrstuctions: 'Follow Guideline Directed Medical Therapy'"
+      );
+    },
   },
 };
 </script>
