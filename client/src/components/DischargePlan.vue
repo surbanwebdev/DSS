@@ -27,7 +27,11 @@
             name: 'ReportSuggestions',
           }"
         >
-          <button type="submit" class="btn btn-primary mt-3">
+          <button
+            @click="populateDecisionItems"
+            type="submit"
+            class="btn btn-primary mt-3"
+          >
             Acknowledge Suggestion
           </button>
         </router-link>
@@ -42,6 +46,14 @@ export default {
   name: "DischargePlan",
   data: function () {
     return {};
+  },
+  methods: {
+    populateDecisionItems: function () {
+      const context = this;
+      context.$store.state.decisionItems.push(
+        "Expedited path to discharge acknowledged"
+      );
+    },
   },
 };
 </script>
