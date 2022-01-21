@@ -1,3 +1,4 @@
+/* eslint-env jquery */
  <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <div class="container-md mt-5">
@@ -45,6 +46,7 @@
                   <input
                     class="form-check-input"
                     type="radio"
+                    value="You selected target Hct reached"
                     name="flexRadioDefault"
                     id="Low"
                   />
@@ -74,6 +76,7 @@
                   <input
                     class="form-check-input"
                     type="radio"
+                    value="You selected target Hct not reached"
                     name="flexRadioDefault"
                     id="High"
                   />
@@ -88,7 +91,11 @@
               name: 'SignsOfStability',
             }"
           >
-            <button type="submit" class="btn btn-primary mt-3">
+            <button
+              @click="populateDecisionItems"
+              type="submit"
+              class="btn btn-primary mt-3"
+            >
               Submit Assessment
             </button>
           </router-link>
@@ -99,7 +106,11 @@
               name: 'ChooseStrategy2',
             }"
           >
-            <button type="submit" class="btn btn-primary mt-3">
+            <button
+              @click="populateDecisionItems"
+              type="submit"
+              class="btn btn-primary mt-3"
+            >
               Submit Assessment
             </button>
           </router-link>
@@ -116,6 +127,16 @@ export default {
     return {
       optionA: undefined,
     };
+  },
+  methods: {
+    populateDecisionItems: function () {
+      const context = this;
+      $(".form-check-input").each(function (i, obj) {
+        if ($(obj).is(":checked")) {
+          context.$store.state.decisionItems.push(obj.value);
+        }
+      });
+    },
   },
 };
 </script>
