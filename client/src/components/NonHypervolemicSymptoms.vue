@@ -1,3 +1,4 @@
+/* eslint-env jquery */
  <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <div class="container-md">
@@ -18,6 +19,7 @@
               v-model="hypertensive"
               class="form-check-input"
               type="checkbox"
+              value="You selected hypertensive"
               id="hypertensive"
             />
           </label>
@@ -34,6 +36,7 @@
               v-model="hypotensive"
               class="form-check-input"
               type="checkbox"
+              value="You selected hypotensive"
               id="hypotensive"
             />
           </label>
@@ -51,6 +54,7 @@
               v-model="edemic"
               class="form-check-input"
               type="checkbox"
+              value="You selected edemic"
               id="edemic"
             />
           </label>
@@ -67,6 +71,7 @@
               v-model="renalProblems"
               class="form-check-input"
               type="checkbox"
+              value="You selected signs of worsening renal function"
               id="renal"
             />
           </label>
@@ -95,7 +100,13 @@
               name: 'DischargePlan',
             }"
           >
-            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+            <button
+              @click="populateDecisionItems"
+              type="submit"
+              class="btn btn-primary mt-3"
+            >
+              Submit
+            </button>
           </router-link>
         </div>
       </div>
@@ -127,6 +138,15 @@ export default {
       } else {
         this.hypertensive == true;
       }
+    },
+    // TAKES ALL CHECKED INPUTS AND PUSHES TO GLOBAL ARRAY
+    populateDecisionItems: function () {
+      const context = this;
+      $(".form-check-input").each(function (i, obj) {
+        if ($(obj).is(":checked")) {
+          context.$store.state.decisionItems.push(obj.value);
+        }
+      });
     },
   },
   computed: {
