@@ -14,7 +14,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value="Dyspnea"
+              value="You selected dyspnea"
               id="dyspnea"
             />
             <label id="lbltxt1" class="form-check-label" for="dyspnea">
@@ -25,7 +25,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value="Orthopnea"
+              value="You selected orthopnea"
               id="orthopnea"
             />
             <label id="lbltxt2" class="form-check-label" for="orthopnea">
@@ -36,7 +36,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value="Edema"
+              value=" You selected edema"
               id="edema"
             />
             <label class="form-check-label" for="edema"> Edema </label>
@@ -50,7 +50,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value="Rales"
+              value="You selected rales"
               id="rales"
             />
             <label class="form-check-label" for="rales"> Rales </label>
@@ -59,7 +59,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value="Peripheral edema"
+              value="You selected peripheral edema"
               id="peripheralEdema"
             />
             <label class="form-check-label" for="peripheralEdema">
@@ -70,7 +70,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value="Ascites"
+              value="You selected ascites"
               id="ascites"
             />
             <label class="form-check-label" for="ascites"> Ascites </label>
@@ -79,7 +79,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value="Pulmonary Vascular Congestion on Chest Radiography"
+              value="You selected pulmonary vascular congestion on chest radiography"
               id="pvc"
             />
             <label class="form-check-label" for="pvc">
@@ -90,7 +90,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value="Jugular Venous Pressure (JVP)"
+              value="You selected jugular venous pressure (JVP)"
               id="jvp"
             />
             <label class="form-check-label" for="jvp">
@@ -101,7 +101,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value="Orthopnea"
+              value="You selected orthopnea indicating congestion"
               id="orthopnea2"
             />
             <label class="form-check-label" for="orthopnea2"> Orthopnea </label>

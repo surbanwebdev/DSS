@@ -1,3 +1,4 @@
+/* eslint-env jquery */
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
     <Navigation />
@@ -13,7 +14,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="You selected dyspnea"
               id="dyspnea"
             />
             <label class="form-check-label" for="dyspnea"> Dyspnea </label>
@@ -22,7 +23,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="You selected orthopnea"
               id="orthopnea"
             />
             <label class="form-check-label" for="orthopnea"> Orthopnea </label>
@@ -31,7 +32,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="You selected edema"
               id="edema"
             />
             <label class="form-check-label" for="edema"> Edema </label>
@@ -45,7 +46,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="You selected rales"
               id="rales"
             />
             <label class="form-check-label" for="rales"> Rales </label>
@@ -54,7 +55,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="You selected peripheral edema"
               id="peripheralEdema"
             />
             <label class="form-check-label" for="peripheralEdema">
@@ -65,19 +66,29 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="You selected ascites"
               id="ascites"
             />
             <label class="form-check-label" for="ascites"> Ascites </label>
           </div>
           <div class="form-check mb-2">
-            <input class="form-check-input" type="checkbox" value="" id="pvc" />
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="You selected pulmonary vascular congestion on chest radiography"
+              id="pvc"
+            />
             <label class="form-check-label" for="pvc">
               Pulmonary Vascular Congestion on Chest Radiography
             </label>
           </div>
           <div class="form-check mb-2">
-            <input class="form-check-input" type="checkbox" value="" id="jvp" />
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="You selected jugular venous pressure (JVP)"
+              id="jvp"
+            />
             <label class="form-check-label" for="jvp">
               Jugular Venous Pressure (JVP)
             </label>
@@ -86,14 +97,18 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="You selected orthopnea indicating congestion"
               id="orthopnea2"
             />
             <label class="form-check-label" for="orthopnea2"> Orthopnea </label>
           </div>
         </div>
         <router-link :to="{ name: 'ProgressToTarget' }">
-          <button type="submit" class="btn btn-primary mt-3">
+          <button
+            @click="populateDecisionItems"
+            type="submit"
+            class="btn btn-primary mt-3"
+          >
             Submit Evaluation
           </button>
         </router-link>
@@ -106,6 +121,17 @@
 <script>
 export default {
   name: "Post24Checklist",
+  methods: {
+    // TAKES ALL CHECKED INPUTS AND PUSHES TO GLOBAL ARRAY
+    populateDecisionItems: function () {
+      const context = this;
+      $(".form-check-input").each(function (i, obj) {
+        if ($(obj).is(":checked")) {
+          context.$store.state.decisionItems.push(obj.value);
+        }
+      });
+    },
+  },
 };
 </script>
 
