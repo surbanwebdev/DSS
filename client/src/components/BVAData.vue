@@ -259,7 +259,7 @@ input {
 
 label#notes {
   position: absolute;
-  top: 46px;
+  top: 38px;
 }
 
 textarea#notes {

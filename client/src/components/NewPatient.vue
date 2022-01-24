@@ -121,16 +121,17 @@
             />
             <label class="form-label" for="nhct">NHCT</label>
           </div>
-          <div class="form-group">
-            <input
+          <div id="textarea-fg" class="form-group mb-3">
+            <textarea
               id="notes"
               @focus="$event.target.select()"
-              v-model.number="notes"
+              v-model="notes"
+              type="text"
               class="form-control"
               placeholder="Notes"
               required
             />
-            <label class="form-label" for="notes">Notes</label>
+            <label id="notes" class="form-label" for="notes">Notes</label>
           </div>
           <div>
             <input
@@ -321,5 +322,19 @@ select {
   list-style-type: none;
   color: red;
   padding: 0;
+}
+
+#textarea-fg {
+  position: relative;
+}
+
+label#notes {
+  position: absolute;
+  top: 38px;
+}
+
+textarea#notes {
+  border: none;
+  background-color: #ededed;
 }
 </style>
