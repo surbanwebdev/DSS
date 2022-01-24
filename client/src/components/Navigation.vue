@@ -1,3 +1,4 @@
+/* eslint-env jquery */
 <template>
   <div>
     <nav class="nav navbar sticky-top navbar-dark bg-light">
@@ -7,11 +8,7 @@
           <h6>Decision Support</h6>
         </div>
         <div class="nav-right">
-          <div
-            id="burger"
-            :class="{ active: isBurgerActive }"
-            @click.prevent="toggle"
-          >
+          <div id="burger" :class="{ active: isBurgerActive }">
             <slot>
               <button
                 type="button"
@@ -33,10 +30,13 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto mt-3">
             <li class="nav-item">
-              <p v-on:click="goHome">Home</p>
-            </li>
-            <li class="nav-item">
-              <p v-on:click="goBack">Back</p>
+              <p
+                v-on:click="goHome"
+                data-bs-toggle="collapse"
+                data-bs-target=".navbar-collapse.show"
+              >
+                Home
+              </p>
             </li>
             <li class="nav-item">
               <p v-on:click="confirmLogout">Logout</p>
@@ -47,7 +47,13 @@
                   name: 'DecisionItems',
                 }"
               >
-                <p style="color: #fff">Dump</p>
+                <p
+                  style="color: #fff"
+                  data-bs-toggle="collapse"
+                  data-bs-target=".navbar-collapse.show"
+                >
+                  Dump
+                </p>
               </router-link>
             </li>
           </ul>

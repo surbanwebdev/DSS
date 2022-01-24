@@ -108,11 +108,6 @@
             </tr>
           </tbody>
         </table>
-        <router-link :to="{ name: 'Patients' }">
-          <button type="submit" class="btn btn-primary" value="Submit">
-            Go Back
-          </button>
-        </router-link>
       </div>
     </div>
   </div>
