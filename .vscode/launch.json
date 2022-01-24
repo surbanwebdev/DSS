@@ -1,0 +1,30 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Server",
+            "program": "${workspaceRoot}/server/src/app.js",
+            "cwd": "${workspaceRoot}/server"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Client",
+            "runtimeExecutable": "node",
+            "runtimeArgs": [
+                "${workspaceRoot}/client/node_modules/@vue/cli-service/bin/vue-cli-service.js", 
+                "serve",
+                "${workspaceRoot}/client/src/main.js"
+            ],
+            "cwd": "${workspaceRoot}/client"
+        },
+    ],
+    "compounds": [
+        {
+            "name": "Server/Client",
+            "configurations": ["Server", "Client"]
+        }
+    ]
+}

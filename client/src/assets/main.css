@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Lato:wght@300;400&display=swap');
+
+:root {
+  font-size: 1.375rem;
+  --daxor-blue: #22376c;
+  --daxor-red: #c33a1e;
+  --dark: #000000;
+  --main-font: 'Lato', sans-serif;
+  --copy-font: 'Cabin', sans-serif;
+  --copy-color: #696969;
+}
+
+/* FONTAWESOME */
+.fa-info-circle {
+  color: #22376c;
+}
+
+/* GLOBAL FONT STYLES */
+h1.light {
+  font-weight: 300;
+  line-height: 1.875rem;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--main-font);
+  color: var(--daxor-blue);
+}
+
+h4,
+h5,
+h6 {
+  font-family: var(--main-font);
+}
+
+p {
+  font-family: var(--copy-font);
+  line-height: 1.3125rem;
+}
+
+a {
+  text-decoration: none !important;
+  color: #22376c !important;
+}
+
+.subtitle {
+  line-height: 1.75;
+  letter-spacing: 0.0325rem;
+  color: var(--copy-color);
+  font-weight: 300;
+}
+
+/* GLOBAL BOX STYLES */
+.box-shadow {
+  -webkit-box-shadow: 12px 12px 0px 1px rgba(34, 55, 108, 0.5);
+  box-shadow: 12px 12px 0px 1px rgba(34, 55, 108, 0.5);
+  max-width: 600px;
+  border: 3px solid var(--daxor-blue);
+  padding: 2rem;
+}
+
+.diamond.box-shadow {
+  -webkit-box-shadow: 12px -12px 0px 1px rgba(34, 55, 108, 0.5);
+  box-shadow: 12px -12px 0px 1px rgba(34, 55, 108, 0.5);
+}
+
+/* GLOBAL INPUT STYLES */
+input[type='text'], select {
+  border: 3px solid var(--daxor-blue);
+  padding: 0.5rem 1rem;
+  font-family: var(--main-font);
+  color: var(--daxor-blue);
+}
+
+input[type='text']:focus-visible {
+  border-color: inherit;
+  border-radius: 0;
+}
+
+input[type='button'] {
+  min-width: 150px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 3px;
+  display: inline-block;
+  padding: 1rem 2rem;
+  font-family: var(--main-font);
+}
+
+input[type='button'].btn-dark {
+  background-color: var(--daxor-blue);
+}
+
+input[type='button'].btn-dark.red {
+  background-color: var(--daxor-red);
+}
+
+/* LAYOUT */
+nav.nav.navbar.sticky-top.navbar-dark.bg-light {
+  position: fixed;
+  width: 100%;
+}
+
+.full-height {
+  padding: 6em 0 2em;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.blue-heading {
+  font-family: 'Cabin', sans-serif;
+  font-weight: 600;
+  color: #456bb1;
+  font-size: 1.125rem;
+}
+
+.content-left {
+  padding-right: 1rem;
+}
+
+.link {
+  color: #0e71eb;
+}
+
+hr {
+  width: 100%;
+  height: 2px !important;
+}
+
+.btn {
+  padding: 0.875rem 0.75rem !important;
+}
+
+.button.choice:active {
+  background-color: var(red);
+}
+
+/* INCREASES GLOBAL FONT SIZE ON TABLETS */
+@media screen and (min-width: 900px) {
+  :root {
+    font-size: 1.25rem;
+  }
+}
+
+.indent {
+  padding-left: 1em;
+}
+
+/* THIS SHOULD BE BOOTSRAP'S JOB */
+div.container-md {
+  max-width: 768px !important;
+}
+
+input.btn {
+  text-transform: capitalize;
+}
