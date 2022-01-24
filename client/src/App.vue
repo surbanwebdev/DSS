@@ -81,6 +81,7 @@ export default {
       lastInteraction: undefined,
       intervalCounter: 0,
       settings: {},
+      apiURL: '/api'
     };
   },
   beforeUnmount: function () {
@@ -115,19 +116,11 @@ export default {
 
     context.checkSession();
   },
-  computed: {
-    apiURL: {
-      get: function () {
-        return this.$store.state.apiURL;
-      },
-    },
-  },
   watch: {
     // eslint-disable-next-line no-unused-vars
-    $route(to, from) {
+    $route(to) {
       const context = this;
       // eslint-disable-next-line no-unused-vars
-      let url = _.trim(window.location.href, "/");
       if (_.get(to, "Name") === "Home") {
         if (context.getSessionCookie("sessionGUID") != "") {
           router.push("Patients");
@@ -191,7 +184,7 @@ export default {
       } catch (err) {
         const statusCode = err.response.status;
         // eslint-disable-next-line no-unused-vars
-        const statusText = err.response.statusText;
+        //const statusText = err.response.statusText;
         if (statusCode === 403) {
           /*
             403 at any point means our session timed out on the API
@@ -313,7 +306,7 @@ export default {
           console.log(new Date() + "Ping... FAIL");
           console.error(err);
           // eslint-disable-next-line no-unused-vars
-          const statusCode = err.response.status;
+          //const statusCode = err.response.status;
         });
     },
     login: function () {
@@ -369,7 +362,7 @@ export default {
         .catch((err) => {
           console.error(err);
           // eslint-disable-next-line no-unused-vars
-          const statusCode = err.response.status;
+          //const statusCode = err.response.status;
         })
         .finally(() => {
           this.deleteSessionCookie();

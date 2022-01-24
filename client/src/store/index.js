@@ -34,8 +34,7 @@ export default new Vuex.Store({
     thct: null,
     weight: null,
     sessionGuid: null,
-    strategyChoice: null,
-    apiURL: "http://localhost:8081",
+    strategyChoice: null
   },
   // SET ACTIONS TO UPDATE VARIABLES
   actions: {

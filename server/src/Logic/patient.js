@@ -52,9 +52,10 @@ async function update(req, res) {
         ];
 
         let numOfRowsAffected = await db.run(query, params);
+        let archivedTreatments = await getAllArchivedTreatments(req,res);
 
         res.statusMessage = 'OK';
-        res.status(200).send({ numOfRowsAffected }).end();
+        res.status(200).send({ numOfRowsAffected, archivedTreatments }).end();
         return;
     } catch (err) {
         res.statusMessage = 'Internal Server Error';
