@@ -1,6 +1,7 @@
 const sqlite3 = require('sqlite3');
 const sqlite = require('sqlite');
 const fs = require('fs');
+const assert = require("assert");
 
 const dbPath = './DecisionSupport.db';
 const dbParams = {
@@ -8,16 +9,28 @@ const dbParams = {
     driver: sqlite3.Database
 }
 
-async function getDB() {
+var _db = undefined;
+
+async function initDB(){
+    if (_db){
+        return true;
+    }
+
     if (!fs.existsSync(dbPath)) {
         await setupDB();
     }
-    return await sqlite.open(dbParams);
+
+    _db = await sqlite.open(dbParams);
+    return true;
+}
+
+async function getDB() {
+    assert.ok(_db, "Db has not been initialized. Please called init first.");
+    return _db;
 }
 
 async function setupDB() {
     try {
-
         const db = await sqlite.open(dbParams);
         const archivedTreatment = `
                 CREATE TABLE "ArchivedTreatment" (
@@ -85,5 +98,6 @@ async function setupDB() {
 }
 
 module.exports = {
+    initDB,
     getDB
 }
