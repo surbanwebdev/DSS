@@ -1,6 +1,6 @@
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
-    <div class="container-md my-5">
+    <div class="container-md">
       <div class="d-flex justify-content-end">
         <router-link
           :to="{

@@ -1,7 +1,6 @@
 <template>
   <div class="full-height d-flex flex-column justify-content-between">
-    <Navigation />
-    <div class="container-md mt-5">
+    <div class="container-md">
       <div
         class="
           container-header
@@ -35,7 +34,6 @@
         </button>
       </router-link>
     </div>
-    <Footer />
   </div>
 </template>
 
