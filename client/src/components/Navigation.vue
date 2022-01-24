@@ -52,7 +52,7 @@
                   data-bs-toggle="collapse"
                   data-bs-target=".navbar-collapse.show"
                 >
-                  Dump
+                  Data log
                 </p>
               </router-link>
             </li>

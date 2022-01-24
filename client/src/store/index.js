@@ -11,6 +11,7 @@ export default new Vuex.Store({
     currentPatientID: null,
     currentPatientSex: null,
     currentHct: null,
+    dayOfTreatment: 0,
     decisionItems: [],
     edemic: false,
     euvolemic: false,
@@ -76,6 +77,9 @@ export default new Vuex.Store({
     },
     setStrategyChoice({ state }, newStrategyChoice) {
       state.strategyChoice = newStrategyChoice
+    },
+    setDayOfTreatment({ state }, newDayOfTreatment) {
+      state.dayOfTreatment = newDayOfTreatment
     },
   },
   methods: {

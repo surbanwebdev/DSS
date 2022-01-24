@@ -65,6 +65,39 @@
           <div class="col-md-12 d-flex">
             <table class="table table-striped mb-0">
               <tbody>
+                <!-- WILL DISPLAY NEXT TABLE ROW AFTER DATE DB TIE-IN -->
+                <!-- <tr>
+                  <td>
+                    <div
+                      v-if="!editMode"
+                      class="
+                        d-flex
+                        justify-content-between
+                        align-items-baseline
+                        full-width
+                      "
+                    >
+                      <div class="content-left">Test Date:</div>
+                      <div class="content-right">{{ patient.TestDate }}</div>
+                    </div>
+                    <div
+                      v-if="editMode"
+                      class="
+                        d-flex
+                        justify-content-between
+                        align-items-baseline
+                        full-width
+                      "
+                    >
+                      TestDate:
+                      <input
+                        class="text-center"
+                        type="text"
+                        v-model="patient.TestDate"
+                      />
+                    </div>
+                  </td>
+                </tr> -->
                 <tr>
                   <td>
                     <div
@@ -412,6 +445,7 @@ export default {
             Sex: context.patient.Sex,
             Weight: context.patient.Weight,
             Height: context.patient.Height,
+            TestDate: context.patient.TestDate,
             Age: context.patient.Age,
           },
           endpoint,
@@ -460,7 +494,7 @@ ul {
 }
 
 select {
-  width: 295px;
+  width: 270px;
   background-color: #fff;
 }
 

@@ -16,7 +16,10 @@
           <font-awesome-icon icon="arrow-circle-left" class="mx-2" />
           <p class="treatment-group my-2">Back</p>
         </div>
-        <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
+        <p class="treatment-group my-2">
+          Patient ID: {{ currentPatientID }} - Day
+          {{ this.$store.state.dayOfTreatment }}
+        </p>
       </div>
       <form>
         <div class="card p-3">

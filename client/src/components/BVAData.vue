@@ -16,7 +16,10 @@
           <font-awesome-icon icon="arrow-circle-left" class="mx-2" />
           <p class="treatment-group my-2">Back</p>
         </div>
-        <p class="treatment-group my-2">Patient ID: {{ currentPatientID }}</p>
+        <p class="treatment-group my-2">
+          Patient ID: {{ currentPatientID }} - Day
+          {{ this.$store.state.dayOfTreatment }}
+        </p>
       </div>
       <div class="card p-3">
         <div class="title-wrap d-flex align-items-center mb-2"></div>
@@ -30,6 +33,18 @@
         </p>
         <form>
           <div class="form-group">
+            <!-- ADD V-MODEL TO THIS LATER -->
+            <input
+              id="date"
+              @focus="$event.target.select()"
+              type="date"
+              class="form-control"
+              placeholder="Date of Test"
+              required
+            />
+            <label class="form-label" for="tbv">Date of Test</label>
+          </div>
+          <div class="form-group">
             <input
               id="tbv"
               @focus="$event.target.select()"
@@ -37,7 +52,6 @@
               type="number"
               class="form-control"
               placeholder="TBV Deviation %"
-              autofocus="true"
               required
             />
             <label class="form-label" for="tbv">TBV Deviation %</label>

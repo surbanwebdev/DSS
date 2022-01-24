@@ -18,7 +18,12 @@
         <hr class="mb-4" />
         <p></p>
         <router-link :to="{ name: 'CurrentHct' }">
-          <button type="submit" class="btn btn-primary" value="Submit">
+          <button
+            @click="updateDayOfTreatment(dayOfTreatment)"
+            type="submit"
+            class="btn btn-primary"
+            value="Submit"
+          >
             24 hour Bypass
           </button>
         </router-link>
@@ -35,7 +40,14 @@ export default {
     return {
       standardCare: false,
       bvaCare: false,
+      dayOfTreatment: this.$store.state.dayOfTreatment,
     };
+  },
+  methods: {
+    updateDayOfTreatment: function (day) {
+      var newDayOfTreatment = day + 1;
+      this.$store.dispatch("setDayOfTreatment", newDayOfTreatment);
+    },
   },
 };
 </script>

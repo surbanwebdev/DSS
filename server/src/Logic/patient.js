@@ -52,7 +52,7 @@ async function update(req, res) {
         ];
 
         let numOfRowsAffected = await db.run(query, params);
-        let archivedTreatments = await getAllArchivedTreatments(req,res);
+        let archivedTreatments = await getAllArchivedTreatments(req, res);
 
         res.statusMessage = 'OK';
         res.status(200).send({ numOfRowsAffected, archivedTreatments }).end();
