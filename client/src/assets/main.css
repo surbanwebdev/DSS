@@ -157,3 +157,6 @@ div.container-md {
 input.btn {
   text-transform: capitalize;
 }
+button {
+  display: inline-block;
+}
