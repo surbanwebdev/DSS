@@ -48,6 +48,12 @@
           </div>
         </div>
       </div>
+      <div class="small">
+        <line-chart
+          :chart-data="datacollection"
+        ></line-chart>
+        <button @click="fillData()">Randomize</button>
+      </div>
     </div>
     <div class="treatment-btn container"></div>
     <Footer />
@@ -56,15 +62,19 @@
 
 <script>
 import _ from "lodash";
+import LineChart from './LineChart.js'
 
 export default {
   name: "Patients",
+  components: {
+    LineChart
+  },
   data: function () {
     return {
       patients: [],
+      datacollection: {}
     };
   },
-
   methods: {
     calculateTargethct: function () {
       var calculated = this.nhct * 1.1;
@@ -91,15 +101,40 @@ export default {
           context.$parent.onFail(err.message);
         });
     },
+    fillData () {
+      this.datacollection = {
+        labels: [this.getRandomInt(), this.getRandomInt()],
+        datasets: [
+          {
+            label: 'Data One',
+            backgroundColor: '#f87979',
+            data: [this.getRandomInt(), this.getRandomInt()]
+          }, {
+            label: 'Data One',
+            backgroundColor: '#f87979',
+            data: [this.getRandomInt(), this.getRandomInt()]
+          }
+        ]
+      }
+    },
+    getRandomInt () {
+      return Math.floor(Math.random() * (50 - 5 + 1)) + 5
+    }
   },
   created() {
     this.calculateTargethct();
     this.loadPatients();
+    this.fillData();
   },
 };
 </script>
 
 <style scoped>
+.small {
+  max-width: 600px;
+  margin:  150px auto;
+}
+
 .card {
   border: none;
   background: #fff;
