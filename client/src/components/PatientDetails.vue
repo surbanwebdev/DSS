@@ -267,34 +267,33 @@
             v-if="editMode"
             class="
               d-flex
-              justify-content-between
+              justify-content-around
               align-items-baseline
               button-wrap
               py-3
             "
           >
-            <input
-              class="btn btn-secondary"
-              v-on:click="toggleEditMode()"
-              value="Cancel"
-            />
+            <button class="btn btn-secondary" v-on:click="toggleEditMode()">
+              Cancel
+            </button>
 
-            <input
-              class="btn btn-primary mt-3"
-              v-on:click="updatePatient()"
-              value="Save"
-            />
+            <button class="btn btn-primary mt-3" v-on:click="updatePatient()">
+              Save
+            </button>
           </div>
           <div class="d-flex justify-content-center">
             <router-link
+              v-if="!editMode"
               :to="{
                 name: 'BVAData',
               }"
             >
-              <input
+              <button
                 class="btn btn-primary mt-4"
                 value="Enter New BVA Details"
-              />
+              >
+                Enter New BVA Details
+              </button>
             </router-link>
           </div>
 
