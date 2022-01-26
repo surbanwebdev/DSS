@@ -25,7 +25,10 @@
             >
               <font-awesome-icon icon="cog" class="mx-2 cog" />
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="dropdownMenu2"
+            >
               <li>
                 <div
                   v-if="!editMode"
