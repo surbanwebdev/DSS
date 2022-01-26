@@ -282,4 +282,8 @@ button:focus {
 #burger.active .burger-bar--3 {
   transform: rotate(-45deg);
 }
+
+.nav-item {
+  cursor: pointer;
+}
 </style>
