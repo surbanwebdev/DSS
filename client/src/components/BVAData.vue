@@ -122,14 +122,13 @@
                 name: 'BVADataConf',
               }"
             >
-              <input class="btn btn-primary mt-3 rounded" value="Submit" />
+              <button class="btn btn-primary mt-3 rounded">Submit</button>
             </router-link>
           </div>
           <div class="d-flex justify-content-center" v-else>
-            <input
-              class="btn btn-primary disabled mt-3 rounded"
-              value="Submit"
-            />
+            <button class="btn btn-primary disabled mt-3 rounded">
+              Submit
+            </button>
           </div>
         </form>
       </div>

@@ -2,7 +2,7 @@
 <template>
   <div>
     <nav class="nav navbar sticky-top navbar-dark bg-light">
-      <div class="container-md">
+      <div class="container-lg">
         <div class="nav-left d-flex">
           <img class="logo" src="../assets/logo-white.png" alt="" />
           <h6>Decision Support</h6>
@@ -281,5 +281,9 @@ button:focus {
 
 #burger.active .burger-bar--3 {
   transform: rotate(-45deg);
+}
+
+.nav-item {
+  cursor: pointer;
 }
 </style>
